@@ -1,3 +1,84 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    // React rules
+    "react/jsx-uses-react": "error", // Detect missing React import in JSX files
+    "react/jsx-uses-vars": "error", // Detect unused variables in JSX
+    "react/prop-types": "off", // Disable prop-types if using TypeScript
+    "react/no-danger": "error", // Prevent usage of dangerouslySetInnerHTML
+    "react/no-array-index-key": "error", // Enforce providing a unique key for array elements
+
+    // React Hooks rules
+    "react-hooks/rules-of-hooks": "error", // Enforce rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Check dependencies of Hooks for useEffect and useCallback
+
+    // General JavaScript rules
+    "no-unused-vars": "error", // Detect unused variables
+    "no-console": "warn", // Detect console.log and similar console methods
+    "no-use-before-define": "error", // Prevent using variables before they are defined
+    "prefer-const": "error", // Encourage using const for variables that are not reassigned
+    "camelcase": "error", // Enforce camelcase naming convention
+    "no-duplicate-imports": "error", // Prevent importing the same module multiple times
+    "no-var": "error", // Disallow using var to declare variables
+    "prefer-template": "error", // Encourage using template literals instead of concatenation
+    "prefer-destructuring": ["error", {"array": true, "object": true}], // Encourage using destructuring assignment
+    "no-loop-func": "error", // Prevent creating functions inside loops
+    "no-multi-spaces": "error", // Disallow multiple consecutive spaces
+    "no-useless-concat": "error", // Disallow unnecessary string concatenation
+    "no-alert": "error", // Prevent usage of alert, confirm, and prompt
+    "no-process-env": "error", // Prevent usage of process.env
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }], // Detect unused expressions
+    "no-restricted-imports": ["error", {
+      "patterns": ["../path/to/restricted/module"] // Restrict imports based on specific patterns
+    }],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.name='setInterval']", // Restrict usage of setInterval function
+        "message": "Please unregister timers in clean-up effects." // Provide a custom error message
+      }
+    ],
+
+    // JSX Accessibility rules
+    "jsx-a11y/label-has-associated-control": "error", // Enforce label elements to have associated control elements
+    "jsx-a11y/no-autofocus": "error", // Prevent usage of autofocus attribute
+    "jsx-a11y/no-noninteractive-element-interactions": "error", // Disallow non-interactive elements with event handlers
+    "jsx-a11y/no-noninteractive-tabindex": "error", // Disallow tabIndex on non-interactive elements
+    "jsx-a11y/click-events-have-key-events": "error", // Enforce click events to have key events
+    "jsx-a11y/anchor-is-valid": "off", // Disable for Next.js Link component (valid anchor element)
+
+    // Import/export rules
+    "import/no-unused-modules": "error", // Detect unused imported modules
+    "import/no-duplicates": "error", // Prevent importing the same module multiple times
+    "import/prefer-default-export": "off", // Allow non-default exports
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.test.js", "*.spec.js"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        // Jest rules for test files
+        "jest/expect-expect": "error", // Ensure that each test has at least one expect assertion
+        "jest/no-disabled-tests": "warn", // Detect disabled tests (pending)
+        "jest/no-focused-tests": "error", // Detect focused tests (fit, fdescribe)
+        "jest/no-identical-title": "error", // Detect tests with identical titles
+        "jest/prefer-strict-equal": "error" // Encourage using strict equality in assertions
+      }
+    }
+  ]
 }
