@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "next",
-    "next/core-web-vitals"
-  ],
+  "extends": ["next", "next/core-web-vitals"],
   "rules": {
     // React rules
     "react/jsx-uses-react": "error", // Detect missing React import in JSX files
@@ -24,16 +21,16 @@
     "no-duplicate-imports": "error", // Prevent importing the same module multiple times
     "no-var": "error", // Disallow using var to declare variables
     "prefer-template": "error", // Encourage using template literals instead of concatenation
-    "prefer-destructuring": ["error", {"array": true, "object": true}], // Encourage using destructuring assignment
+    "prefer-destructuring": ["error", { "array": true, "object": true }], // Encourage using destructuring assignment
     "no-loop-func": "error", // Prevent creating functions inside loops
     "no-multi-spaces": "error", // Disallow multiple consecutive spaces
     "no-useless-concat": "error", // Disallow unnecessary string concatenation
     "no-alert": "error", // Prevent usage of alert, confirm, and prompt
     "no-process-env": "error", // Prevent usage of process.env
-    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }], // Detect unused expressions
-    "no-restricted-imports": ["error", {
-      "patterns": ["../path/to/restricted/module"] // Restrict imports based on specific patterns
-    }],
+    "no-unused-expressions": [
+      "error",
+      { "allowShortCircuit": true, "allowTernary": true }
+    ], // Detect unused expressions
     "no-restricted-syntax": [
       "error",
       {
@@ -52,8 +49,6 @@
 
     // Import/export rules
     "import/no-unused-modules": "error", // Detect unused imported modules
-    "import/no-duplicates": "error", // Prevent importing the same module multiple times
-    "import/prefer-default-export": "off", // Allow non-default exports
     "import/extensions": [
       "error",
       "ignorePackages",
