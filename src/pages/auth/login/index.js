@@ -9,7 +9,7 @@ import BlankLayout from '@/components/Layouts/BlankLayout';
 const Index = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('Login Boxed'));
+        dispatch(setPageTitle('Login'));
     });
     const router = useRouter();
 
