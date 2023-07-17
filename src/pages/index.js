@@ -16,7 +16,7 @@ const Index = () => {
     const submitForm = (e) => {
         e.preventDefault();
         router.push('/dashboard');
-    };
+    };  
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
