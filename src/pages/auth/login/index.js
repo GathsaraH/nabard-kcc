@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../../store';
+import { IRootState } from '../../../../store';
 import { useEffect } from 'react';
-import { setPageTitle } from '../../store/themeConfigSlice';
+import { setPageTitle } from '../../../../store/themeConfigSlice';
 import { useRouter } from 'next/router';
-import BlankLayout from 'src/layouts/BlankLayout';
+import BlankLayout from '@/components/Layouts/BlankLayout';
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Index = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        router.push('/dashboard');
+        router.push('/');
     };
 
     return (
