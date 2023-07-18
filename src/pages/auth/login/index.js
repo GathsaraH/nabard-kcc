@@ -4,7 +4,7 @@ import { IRootState } from '../../../../store';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../../../store/themeConfigSlice';
 import { useRouter } from 'next/router';
-import BlankLayout from '@/components/Layouts/BlankLayout';
+import BlankLayout from 'src/layouts/BlankLayout';
 
 const Index = () => {
     const dispatch = useDispatch();
