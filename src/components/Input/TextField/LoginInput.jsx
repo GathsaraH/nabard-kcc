@@ -12,7 +12,7 @@ import LoadingSvg from 'src/assets/svg/LoadingSvg';
  * @param {function} onClick - The callback function triggered when the arrow icon is clicked (optional).
  * @param {boolean} loading - Whether to show the loading SVG.
  */
-const LoginInput = ({ label, id, placeholder, value, onChange, showPassword, onClick, type, loading }) => {
+const LoginInput = ({ label, id, placeholder, value, onChange, showPassword, onClick, type, loading, error}) => {
   const hasValue = value !== '';
 
   return (
@@ -24,13 +24,13 @@ const LoginInput = ({ label, id, placeholder, value, onChange, showPassword, onC
         id={id}
         value={value}
         type={type === 'password' ? 'password' : type === 'email' ? 'email' : 'text'}
-        className="form-input pr-8 text-lg"
+        className={`form-input pr-8 text-lg ${error ? 'border-red-500' : ''}`}
         placeholder={placeholder}
         onChange={onChange}
       />
       {/* Right arrow icon or loading SVG */}
       {!showPassword && (
-        <div className={`absolute inset-y-0 right-0 flex items-center pr-3 pt-10 ${!hasValue ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+        <div className={`absolute inset-y-0 right-0 flex items-center pr-3 ${error ? 'pt-4' : 'pt-10' }  ${!hasValue ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
           {loading ? (
             // Render the loading SVG
             <LoadingSvg />
@@ -51,6 +51,10 @@ const LoginInput = ({ label, id, placeholder, value, onChange, showPassword, onC
             </svg>
           )}
         </div>
+      )}
+       {/* Error message */}
+       {error && (
+        <p className="text-red-500 text-sm mt-1">{error}</p>
       )}
     </div>
   );

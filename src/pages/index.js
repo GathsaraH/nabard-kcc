@@ -7,7 +7,7 @@ import LoginInput from 'src/components/Input/TextField/LoginInput';
 import ModalContainer from 'src/components/Modal/ModalContainer';
 
 const Index = () => {
-    const [authData, setAuthData] = useState({ email: 'admin2@test.com', password: '' });
+    const [authData, setAuthData] = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setloading] = useState(false);
     const [errors, setErrors] = useState({});
@@ -22,24 +22,18 @@ const Index = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle('Login'));
+        dispatch(setPageTitle('Login')); // Set the page title to 'Login' when the component mounts
     }, [dispatch]);
 
     const router = useRouter();
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
-        setAuthData({
-            ...authData,
+        setAuthData((prevData) => ({
+            ...prevData,
             [id]: value,
-        });
-        if (id === 'email') {
-            setAuthData((prevErrors) => ({
-                ...prevErrors,
-                password: '',
-            }));
-            setShowPassword(false);
-        }
+        }));
+
         // Clear the corresponding error when the input value changes
         setErrors((prevErrors) => ({
             ...prevErrors,
@@ -47,28 +41,76 @@ const Index = () => {
         }));
 
         setPasswordNotGenerated(false);
+
+        // Input validation rules
+        if (id === 'email' && value.trim() === '') {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [id]: 'Email is required.',
+            }));
+        } else if (id === 'password' && value.trim() === '') {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [id]: 'Password is required.',
+            }));
+        }
     };
 
-    const submitForm = () => {
-        // Form submission logic here
-        router.push('/dashboard');
+    const submitForm = (e) => {
+
+        // Form validation
+        let formIsValid = true;
+        const validationErrors = {};
+
+        if (authData.email.trim() === '') {
+            validationErrors.email = 'Email is required.';
+            formIsValid = false;
+        }
+
+        if (authData.password.trim() === '') {
+            validationErrors.password = 'Password is required.';
+            formIsValid = false;
+        }
+
+        setErrors(validationErrors);
+
+        if (formIsValid) {
+            // Form submission logic here
+            router.push('/dashboard');
+        }
     };
+
 
     const checkIfAccountIsCreated = (text) => {
         setloading(true);
-        if (authData.email === 'admin@test.com') {
-            if (showPassword) {
-                //   router.push('/dashboard');
-            } else {
-                setShowPassword(true);
-            }
-        } else {
-            setPasswordNotGenerated(true);
-            // router.push('/dashboard');
+        let formIsValid = true;
+        const validationErrors = {};
+    
+        if (authData.email.trim() === '') {
+            validationErrors.email = 'Email is required.';
+            formIsValid = false;
         }
+    
+        setErrors(validationErrors);
+    
+        if (Object.keys(validationErrors).length === 0) {
+            // No validation errors, proceed with the code
+    
+            if (authData.email === 'admin@test.com') {
+                if (showPassword) {
+                    // router.push('/dashboard');
+                } else {
+                    setShowPassword(true);
+                }
+            } else {
+                setPasswordNotGenerated(true);
+                // router.push('/dashboard');
+            }
+        }
+    
         setloading(false);
     };
-
+    
     const handlePreferredOtpMethodChange = (e) => {
         setPreferredOtpMethod(e.target.value);
     };
@@ -80,7 +122,6 @@ const Index = () => {
     return (
         <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
             <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
-                {console.log(preferredOtpMethod)}
                 <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
                 <hr className="h-5" />
                 <p className="mb-7 text-lg">Please enter your email</p>
@@ -95,6 +136,7 @@ const Index = () => {
                             showPassword={showPassword}
                             onClick={checkIfAccountIsCreated}
                             loading={loading}
+                            error={errors.email}
                         />
                     </div>
                     {showPassword && (
@@ -108,6 +150,7 @@ const Index = () => {
                                 onChange={handleInputChange}
                                 onClick={submitForm}
                                 loading={loading}
+                                error={errors.password}
                             />
                         </div>
                     )}
@@ -116,9 +159,9 @@ const Index = () => {
                     <p className="mt-5 text-gray-500 text-lg">
                         The password has not been generated,{" "}
                         <span href=""
-                        //  onClick={() => handleModal(true)} 
-                         onClick={() => navigateToGeneratePasswordPage()} 
-                         className="text-blue-500">
+                            //  onClick={() => handleModal(true)} 
+                            onClick={() => navigateToGeneratePasswordPage()}
+                            className="text-blue-500">
                             click here
                         </span>{" "}
                         to create it
@@ -162,11 +205,11 @@ const Index = () => {
                 </div>
                 <div className="note text-gray-700 bg-gray-200 rounded-md p-4">
                     <h2 className="text-xl font-semibold">Steps to generate password</h2>
-                   <div className='p-3'>
-                   <p>1. Choose mode.</p>
-                   <p>2. Proceed to get OTP with your chosen methods.</p>
-                   <p>3. Generate password.</p>
-                   </div>
+                    <div className='p-3'>
+                        <p>1. Choose mode.</p>
+                        <p>2. Proceed to get OTP with your chosen methods.</p>
+                        <p>3. Generate password.</p>
+                    </div>
                 </div>
 
             </ModalContainer>

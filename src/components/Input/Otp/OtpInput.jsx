@@ -50,14 +50,7 @@ const OtpComponent = () => {
     }
   };
 
-  /**
-   * Returns the OTP as a string.
-   *
-   * @returns {string} - The OTP as a string.
-   */
-  const getOtpAsString = () => {
-    return otp.join('');
-  };
+
 
   return (
     <div className="flex justify-center">
