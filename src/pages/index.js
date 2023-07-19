@@ -91,7 +91,7 @@ const Index = () => {
 
         if (formIsValid) {
             // Form submission logic here
-            // router.push('/dashboard');
+            router.push('/dashboard');
         }
     };
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 /**
  * OtpComponent is a component for entering One Time Password (OTP).
  */
-const OtpComponent = () => {
+const OtpComponent = ({ onChange, error, setError }) => {
   const [otp, setOtp] = useState(['', '', '', '']);
 
   /**
@@ -16,6 +16,14 @@ const OtpComponent = () => {
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
     setOtp(updatedOtp);
+    onChange(updatedOtp.join(''));
+
+    // Check if any input is empty and set an error if so
+    if (updatedOtp.some(digit => !digit)) {
+      setError({ otp: "Please enter OTP" });
+    } else {
+      setError({}); // Clear the error if all inputs have values
+    }
 
     // Move focus to the next input box
     if (value && index < otp.length - 1) {
@@ -41,6 +49,7 @@ const OtpComponent = () => {
       updatedOtp[index] = '';
       updatedOtp[index - 1] = '';
       setOtp(updatedOtp);
+      onChange(updatedOtp.join(''));
 
       const previousInput = document.getElementById(`otp-${index - 1}`);
       previousInput.focus();
@@ -50,8 +59,6 @@ const OtpComponent = () => {
     }
   };
 
-
-
   return (
     <div className="flex justify-center">
       {otp.map((digit, index) => (
@@ -60,7 +67,7 @@ const OtpComponent = () => {
           id={`otp-${index}`}
           type="text"
           maxLength={1}
-          className="w-12 h-12 text-3xl text-center border border-gray-300 rounded-md mx-1"
+          className={`w-12 h-12 text-3xl text-center border ${error && !digit ? 'border-red-400' : 'border-gray-400'} rounded-md mx-1`}
           value={digit}
           onChange={(event) => handleOtpChange(index, event.target.value)}
           onKeyDown={(event) => handleOtpKeyPress(index, event)}
