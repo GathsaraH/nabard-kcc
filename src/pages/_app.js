@@ -6,7 +6,7 @@ import { ni18nConfig } from 'ni18n.config.ts';
 
 // Perfect Scrollbar
 import 'react-perfect-scrollbar/dist/css/styles.css';
-
+import 'tippy.js/dist/tippy.css';
 import '../styles/tailwind.css';
 import DefaultLayout from 'src/layouts/DefaultLayout';
 
