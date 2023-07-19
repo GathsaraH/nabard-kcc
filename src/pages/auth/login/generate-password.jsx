@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { setPageTitle } from '../../../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
@@ -11,11 +11,13 @@ import InfoSvg from 'src/assets/svg/InfoSvg';
 import OtpComponent from 'src/components/Input/Otp/OtpInput';
 import TimerComponent from 'src/components/Timer/TimerComponent';
 import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent';
-import PasswordOnSvg from 'src/assets/svg/PasswordOnSvg';
 import PasswordInput from 'src/components/Input/TextField/PasswordInput';
 import TickSvg from 'src/assets/svg/tickSvg';
 
-
+/**
+ * GeneratePassword is a page for generating passwords using a multi-step process.
+ * It allows users to select a verification method, enter an OTP, and generate a new password.
+ */
 const GeneratePassword = () => {
     const [preferredOtpMethod, setPreferredOtpMethod] = useState('');
     const [activeTab, setActiveTab] = useState(1);
@@ -26,25 +28,40 @@ const GeneratePassword = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Recover Id Box'));
-    });
+    }, []);
     const router = useRouter();
 
-    const handleNewPasswordChange = (e) => {
+
+     /**
+     * Handles the change event for the password input fields.
+     * Updates the new password and confirms password values,
+     * and checks if the entered password meets the guidelines.
+     * 
+     * @param {Object} e - The event object.
+     * @param {boolean} isConfirmPassword - Flag indicating if it's the confirm password field.
+     */
+    const handlePasswordChange = (e, isConfirmPassword = false) => {
         const password = e.target.value;
-        setNewPassword(password);
-        setAreGuidelinesMatched(
-            password.match(/[A-Z]/) &&
-            password.match(/[a-z]/) &&
-            password.match(/[0-9]/) &&
-            password.match(/[!@#$%^&*]/) &&
-            password.length >= 8
-        );
+        if (isConfirmPassword) {
+            setConfirmPassword(password);
+        } else {
+            setNewPassword(password);
+            setAreGuidelinesMatched(
+                password.match(/[A-Z]/) &&
+                password.match(/[a-z]/) &&
+                password.match(/[0-9]/) &&
+                password.match(/[!@#$%^&*]/) &&
+                password.length >= 8
+            );
+        }
     };
 
-    const handleConfirmPasswordChange = (e) => {
-        setConfirmPassword(e.target.value);
-    };
-
+      /**
+     * Handles the form submission.
+     * Validates if the new password and confirm password match.
+     * 
+     * @param {Object} e - The event object.
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -57,10 +74,20 @@ const GeneratePassword = () => {
         }
     };
 
+     /**
+     * Handles the change event for the preferred OTP method.
+     * 
+     * @param {Object} e - The event object.
+     */
     const handlePreferredOtpMethodChange = (e) => {
         setPreferredOtpMethod(e.target.value);
     };
 
+
+      /**
+     * PasswordGuidelinesNote is a component that displays the guidelines for passwords.
+     * It shows the password requirements and indicates whether each requirement is met.
+     */
     const PasswordGuidelinesNote = () => {
 
         const guidelineItems = [
@@ -91,6 +118,13 @@ const GeneratePassword = () => {
             },
         ];
 
+         /**
+         * GuidelineItem is a component that displays a single password guideline item.
+         * It shows an icon indicating whether the guideline is met and the text of the guideline.
+         *
+         * @param {Object} icon - The icon component to display.
+         * @param {string} text - The text of the guideline.
+         */
         const GuidelineItem = ({ icon, text }) => (
             <li className="flex items-center">
                 {icon}
@@ -110,6 +144,10 @@ const GeneratePassword = () => {
         );
     };
 
+ /**
+     * FirstStep is a component that represents the first step of the password generation process.
+     * It allows the user to select their preferred verification method.
+     */
     function FirstStep() {
         return (
             <div className="flex-1 p-5">
@@ -149,6 +187,11 @@ const GeneratePassword = () => {
         );
     }
 
+
+     /**
+     * SecondStep is a component that represents the second step of the password generation process.
+     * It prompts the user to enter the OTP received through their preferred method.
+     */
     function SecondStep() {
         return (
             <div className="flex flex-col items-center p-5 text-center">
@@ -167,6 +210,10 @@ const GeneratePassword = () => {
         );
     }
 
+    /**
+     * ThirdStep is a component that represents the third step of the password generation process.
+     * It allows the user to generate a new password and confirm it.
+     */
     function ThirdStep() {
         return (
             <div className="flex flex-col p-5 items-center text-center">
@@ -176,17 +223,17 @@ const GeneratePassword = () => {
                         value={newPassword}
                         passwordShow={false}
                         placeholder="New Password"
-                        onChange={handleNewPasswordChange}
+                        onChange={(e) => handlePasswordChange(e)}
                     />
                     <br />
-                    {newPassword && areGuidelinesMatched ? <></> : <PasswordGuidelinesNote /> }
+                    {newPassword && areGuidelinesMatched ? <></> : <PasswordGuidelinesNote />}
                     <br />
                     {
                         areGuidelinesMatched && <PasswordInput
                             value={confirmPassword}
                             passwordShow={false}
                             placeholder="Confirm Password"
-                            onChange={handleConfirmPasswordChange}
+                            onChange={(e) => handlePasswordChange(e, true)}
                         />
                     }
 
@@ -195,10 +242,18 @@ const GeneratePassword = () => {
         );
     }
 
+    /**
+     * Handles the click event for the Back button.
+     * Changes the active step to the previous step.
+     */
     const handleBackButton = () => {
         setActiveTab(activeTab === 3 ? 2 : 1);
     };
 
+    /**
+     * Handles the click event for the Forward button.
+     * Changes the active step to the next step.
+     */
     const handleForwardButton = () => {
         setActiveTab(activeTab === 1 ? 2 : 3);
     };
@@ -235,21 +290,19 @@ const GeneratePassword = () => {
                     <div className="relative z-[1]">
                         <div
                             className={`${activeTab === 1
-                                    ? 'w-[15%]'
-                                    : activeTab === 2
-                                        ? 'w-[48%]'
-                                        : activeTab === 3
-                                            ? 'w-[81%]'
-                                            : ''
+                                ? 'w-[15%]'
+                                : activeTab === 2
+                                    ? 'w-[48%]'
+                                    : activeTab === 3
+                                        ? 'w-[81%]'
+                                        : ''
                                 } bg-primary w-[15%] h-1 absolute ltr:left-0 rtl:right-0 top-[30px] m-auto -z-[1] transition-[width]`}
                         ></div>
                         <ul className="mb-5 grid grid-cols-3">
                             <li className="mx-auto">
                                 <button
                                     type="button"
-                                    className={`${activeTab === 1
-                                            ? '!border-primary !bg-primary text-white'
-                                            : ''
+                                    className={`${activeTab === 1 ? '!border-primary !bg-primary text-white' : ''
                                         } border-[3px] border-[#f3f2ee] bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
                                     onClick={() => setActiveTab(1)}
                                 >
@@ -266,8 +319,8 @@ const GeneratePassword = () => {
                                 <button
                                     type="button"
                                     className={`${activeTab === 2
-                                            ? '!border-primary !bg-primary text-white'
-                                            : ''
+                                        ? '!border-primary !bg-primary text-white'
+                                        : ''
                                         } border-[3px] border-[#f3f2ee] bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
                                     onClick={() => setActiveTab(2)}
                                 >
@@ -284,8 +337,8 @@ const GeneratePassword = () => {
                                 <button
                                     type="button"
                                     className={`${activeTab === 3
-                                            ? '!border-primary !bg-primary text-white'
-                                            : ''
+                                        ? '!border-primary !bg-primary text-white'
+                                        : ''
                                         } border-[3px] border-[#f3f2ee] bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
                                     onClick={() => setActiveTab(3)}
                                 >
@@ -334,6 +387,13 @@ const GeneratePassword = () => {
     );
 };
 
+
+/**
+ * Specifies the layout for the GeneratePassword page.
+ *
+ * @param {React.Component} page - The page component.
+ * @returns {React.Component} - The page component wrapped in the BlankLayout.
+ */
 GeneratePassword.getLayout = (page) => {
     return <BlankLayout>{page}</BlankLayout>;
 };

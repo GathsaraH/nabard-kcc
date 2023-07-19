@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 
+/**
+ * OtpComponent is a component for entering One Time Password (OTP).
+ */
 const OtpComponent = () => {
   const [otp, setOtp] = useState(['', '', '', '']);
 
+  /**
+   * Handles the change event for an OTP digit input.
+   *
+   * @param {number} index - The index of the changed digit in the OTP array.
+   * @param {string} value - The new value of the changed digit.
+   */
   const handleOtpChange = (index, value) => {
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
@@ -16,6 +25,12 @@ const OtpComponent = () => {
     }
   };
 
+  /**
+   * Handles the key press event for an OTP digit input.
+   *
+   * @param {number} index - The index of the pressed digit in the OTP array.
+   * @param {object} event - The key press event object.
+   */
   const handleOtpKeyPress = (index, event) => {
     if (
       (event.key === 'Backspace' || event.key === 'Delete') &&
@@ -26,7 +41,7 @@ const OtpComponent = () => {
       updatedOtp[index] = '';
       updatedOtp[index - 1] = '';
       setOtp(updatedOtp);
-      
+
       const previousInput = document.getElementById(`otp-${index - 1}`);
       previousInput.focus();
       previousInput.select();
@@ -35,13 +50,17 @@ const OtpComponent = () => {
     }
   };
 
+  /**
+   * Returns the OTP as a string.
+   *
+   * @returns {string} - The OTP as a string.
+   */
   const getOtpAsString = () => {
     return otp.join('');
   };
 
   return (
     <div className="flex justify-center">
-      {console.log(otp)}
       {otp.map((digit, index) => (
         <input
           key={index}
@@ -54,7 +73,6 @@ const OtpComponent = () => {
           onKeyDown={(event) => handleOtpKeyPress(index, event)}
         />
       ))}
-      {/* <p>OTP: {getOtpAsString()}</p> */}
     </div>
   );
 };
