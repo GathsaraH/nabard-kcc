@@ -38,7 +38,7 @@ const LoginInput = ({ label, id, placeholder, value, onChange, showPassword, onC
           ) : (
             // Render the right arrow icon
             <svg
-              onClick={() => onClick && onClick(value)}
+              onClick={() => value && onClick && onClick(value)}
               className={`w-8 h-13 text-gray-600 ${!hasValue ? 'text-gray-400' : 'text-gray-900 hover:text-gray-700'}`}
               viewBox="0 0 20 20"
               fill="currentColor"

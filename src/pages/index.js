@@ -42,6 +42,21 @@ const Index = () => {
 
         setPasswordNotGenerated(false);
 
+        if (id === 'email') {
+            setShowPassword(false)
+            if (!isValidEmail(value)) {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [id]: 'Invalid email format.',
+                }));
+            } else {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [id]: '',
+                }));
+            }
+        }
+
         // Input validation rules
         if (id === 'email' && value.trim() === '') {
             setErrors((prevErrors) => ({
@@ -76,7 +91,7 @@ const Index = () => {
 
         if (formIsValid) {
             // Form submission logic here
-            router.push('/dashboard');
+            // router.push('/dashboard');
         }
     };
 
@@ -119,13 +134,21 @@ const Index = () => {
         router.push('/auth/login/generate-password')
 
     }
+
+      // Helper function to check if email is valid using regex
+      const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    
     return (
         <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
             <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
                 <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
                 <hr className="h-5" />
                 <p className="mb-7 text-lg">Please enter your email</p>
-                <form className="space-y-5" onSubmit={() => e.preventDefault()}>
+                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                     <div>
                         <LoginInput
                             value={authData.email}
