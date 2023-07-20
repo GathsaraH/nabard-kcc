@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
-import LoginInput from 'src/components/Input/TextField/LoginInput';
 import ModalContainer from 'src/components/Modal/ModalContainer';
+import DefaultInput from 'src/components/Input/TextField/DefaultInput';
 
 const Index = () => {
     const [authData, setAuthData] = useState({ email: '', password: '' });
@@ -95,7 +95,7 @@ const Index = () => {
 
         if (formIsValid) {
             // Form submission logic here
-            // router.push('/dashboard');
+            router.push('/dashboard');
         }
     };
 
@@ -148,7 +148,7 @@ const Index = () => {
                 <p className="mb-7 text-lg">Please enter your email</p>
                 <form data-testid = "login-form" className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                     <div>
-                        <LoginInput
+                        <DefaultInput
                             value={authData.email}
                             label="Email"
                             id="email"
@@ -162,7 +162,7 @@ const Index = () => {
                     </div>
                     {showPassword && (
                         <div>
-                            <LoginInput
+                            <DefaultInput
                                 value={authData.password}
                                 label="Password"
                                 data-testid = "Password"

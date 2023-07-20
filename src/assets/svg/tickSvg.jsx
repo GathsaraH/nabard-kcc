@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TickSvg = () => {
+const TickSvg = ({width, height}) => {
     return (
         <svg className='mr-2' version="1.0"  xmlns="http://www.w3.org/2000/svg"
-            width="20" height="20" viewBox="0 0 512.000000 512.000000"
+            width={width} height={height} viewBox="0 0 512.000000 512.000000"
             preserveAspectRatio="xMidYMid meet">
 
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
