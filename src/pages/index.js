@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -117,7 +118,7 @@ const Index = () => {
     
             if (authData.email === 'admin@test.com') {
                 if (showPassword) {
-                    // router.push('/dashboard');
+                    router.push('/dashboard');
                 } else {
                     setShowPassword(true);
                 }
@@ -180,7 +181,7 @@ const Index = () => {
                 {passwordNotGenerated && (
                     <p className="mt-5 text-gray-500 text-lg">
                         The password has not been generated,{" "}
-                        <span onClick={() => navigateToGeneratePasswordPage()} className="text-blue-500">
+                        <span style={{cursor:'pointer'}} onClick={() => navigateToGeneratePasswordPage()} className="text-blue-500">
                             click here
                         </span>{" "}
                         to create it
