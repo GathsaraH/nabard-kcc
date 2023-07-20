@@ -8,7 +8,6 @@ import { ni18nConfig } from 'ni18n.config.ts';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'tippy.js/dist/tippy.css';
 import '../styles/tailwind.css';
-import { NextPage } from 'next';
 import DefaultLayout from 'src/layouts/DefaultLayout';
 
 export const NextPageWithLayout = (Component) => {
