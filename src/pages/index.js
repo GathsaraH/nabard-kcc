@@ -41,7 +41,11 @@ const Index = () => {
         }));
 
         setPasswordNotGenerated(false);
-
+           // Helper function to check if email is valid using regex
+      const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
         if (id === 'email') {
             setShowPassword(false)
             if (!isValidEmail(value)) {
@@ -135,20 +139,14 @@ const Index = () => {
 
     }
 
-      // Helper function to check if email is valid using regex
-      const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
-    
+   
     return (
         <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
             <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
                 <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
                 <hr className="h-5" />
                 <p className="mb-7 text-lg">Please enter your email</p>
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <form data-testid = "login-form" className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                     <div>
                         <LoginInput
                             value={authData.email}
@@ -167,6 +165,7 @@ const Index = () => {
                             <LoginInput
                                 value={authData.password}
                                 label="Password"
+                                data-testid = "Password"
                                 id="password"
                                 type="password"
                                 placeholder="Enter Password"
@@ -181,10 +180,7 @@ const Index = () => {
                 {passwordNotGenerated && (
                     <p className="mt-5 text-gray-500 text-lg">
                         The password has not been generated,{" "}
-                        <span href=""
-                            //  onClick={() => handleModal(true)} 
-                            onClick={() => navigateToGeneratePasswordPage()}
-                            className="text-blue-500">
+                        <span onClick={() => navigateToGeneratePasswordPage()} className="text-blue-500">
                             click here
                         </span>{" "}
                         to create it

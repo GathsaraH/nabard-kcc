@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { setPageTitle } from '../../../../store/themeConfigSlice';
@@ -29,9 +28,6 @@ const GeneratePassword = () => {
     useEffect(() => {
         dispatch(setPageTitle('Recover Id Box'));
     }, []);
-    const router = useRouter();
-
-
      /**
      * Handles the change event for the password input fields.
      * Updates the new password and confirms password values,
@@ -62,17 +58,6 @@ const GeneratePassword = () => {
      * 
      * @param {Object} e - The event object.
      */
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (newPassword === confirmPassword) {
-            // Passwords match, proceed with submission
-            // ...
-        } else {
-            // Passwords do not match, show an error or take appropriate action
-            // ...
-        }
-    };
 
      /**
      * Handles the change event for the preferred OTP method.
