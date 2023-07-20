@@ -132,16 +132,16 @@ const Sidebar = () => {
                                 <AnimateHeight duration={300} height={currentMenu === 'List and Creation' ? 'auto' : 0}>
                                     <ul className="sub-menu text-gray-500">
                                         <li>
-                                            <Link href="/components/tabs">{t('Central Government')}</Link>
+                                            <Link href="/Organizations/Central-government">{t('Central Government')}</Link>
                                         </li>
                                         <li>
-                                            <Link href="/components/accordions">{t('State Government')}</Link>
+                                            <Link href="/Organizations/State-government">{t('State Government')}</Link>
                                         </li>
                                         <li>
-                                            <Link href="/components/accordions">{t('Agencies')}</Link>
+                                            <Link href="/Organizations/Agencies">{t('Agencies')}</Link>
                                         </li>
                                         <li>
-                                            <Link href="/components/accordions">{t('NABARD')}</Link>
+                                            <Link href="/Organizations/NABARD">{t('NABARD')}</Link>
                                         </li>
                                     </ul>
                                 </AnimateHeight>
@@ -318,7 +318,13 @@ const Sidebar = () => {
                                 <svg className="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                 </svg>
-                                <span>{t('Admin Roles and Permissions')}</span>
+                                <Link href="/admin/roles-and-permissions">{t('Roles and permissions')}</Link>
+                            </h2>
+                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                                <svg className="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <Link href="/admin">{t('Administrative tools')}</Link>
                             </h2>
                         </ul>
                     </PerfectScrollbar>
