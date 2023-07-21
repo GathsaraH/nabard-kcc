@@ -1,21 +1,35 @@
-image: node:latest
+# .gitlab-ci.yml
+
+image: node:14
+
+variables:
+  NODE_ENV: "production"
+
+cache:
+  paths:
+    - node_modules/
 
 stages:
   - build
   - deploy
 
-before_script:
-  - echo "Installing dependencies..."
-  - npm install
-
 build:
   stage: build
   script:
-    - echo "Building project..."
+    - npm ci
     - npm run build
+    - npm run start
+  artifacts:
+    paths:
+      - .next/ # Change this to your Next.js build output directory
+  only:
+    - main # Change this to the branch you want to trigger the build
 
 deploy:
   stage: deploy
   script:
-    - echo "Deploying project..."
-    - ssh parikshit@115.166.142.18 "cd /home/parikshit/nabnext/nabnext && npm install && npm run start"
+    - apt-get update -qy
+    - apt-get install -y sshpass # Install sshpass for password-based SSH authentication (consider using SSH keys for better security)
+    - sshpass -p "lpa24div@1Best" scp -o StrictHostKeyChecking=no .next/* parikshit@115.166.142.18:/home/parikshit/nabnext/nabnext # Change this to your server details and desired deployment directory
+  only:
+    - dev_branch # Change this to the branch you want to trigger the deployment
