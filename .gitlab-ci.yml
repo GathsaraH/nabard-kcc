@@ -1,4 +1,9 @@
-image: node:latest
+# .gitlab-ci.yml
+
+image: node:14
+
+variables:
+  NODE_ENV: "production"
 
 cache:
   paths:
@@ -6,14 +11,23 @@ cache:
 
 stages:
   - build
+  - deploy
 
 build:
   stage: build
   script:
-    - npm install # or "yarn install" if using Yarn
-    - npm run build # or "yarn build" if using Yarn
+    - npm install
+    - npm run build
+    - npm run start
   artifacts:
     paths:
-      - .next/ # The directory where Next.js builds the application
+      - .next/ # Change this to your Next.js build output directory
   only:
-    - stage
+    - dev_akash # Change this to the branch you want to trigger the build
+
+deploy:
+  stage: deploy
+  script:
+    - sshpass -p "lpa24div@1Best" scp -o StrictHostKeyChecking=no .next/* parikshit@115.166.142.18:/var/www/nextjs_app/ # Change this to your server details and desired deployment directory
+  only:
+    - dev_akash # Change this to the branch you want to trigger the deployment
