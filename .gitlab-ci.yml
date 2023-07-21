@@ -4,7 +4,7 @@ stages:
 deploy:
   stage: deploy
   only:
-    - dev_akash  # This will trigger the deployment only when pushing to the 'dev_akash' branch
+    - dev_akash  # This will trigger the deployment only when pushing to the 'dev_akash' branch.
   script:
     - echo "Deploying to the server"
     - sshpass -p $SSH_PASS ssh $SSH_USER@$SSH_HOST 'cd /home/parikshit/nabnext/nabnext && git fetch && git checkout dev_akash && git pull && npm install && npm run build'
