@@ -1,10 +1,19 @@
-stages:
-  - deploy
+image: node:latest
 
-deploy:
-  stage: deploy
-  only:
-    - dev_akash  # This will trigger the deployment only when pushing to the 'dev_akash' branch.
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+
+build:
+  stage: build
   script:
-    - echo "Deploying to the server"
-    - sshpass -p $SSH_PASS ssh $SSH_USER@$SSH_HOST 'cd /home/parikshit/nabnext/nabnext && git fetch && git checkout dev_akash && git pull && npm install && npm run build'
+    - npm install # or "yarn install" if using Yarn
+    - npm run build # or "yarn build" if using Yarn
+  artifacts:
+    paths:
+      - .next/ # The directory where Next.js builds the application
+  only:
+    - stage
