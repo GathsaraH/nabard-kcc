@@ -4,7 +4,9 @@ import sortBy from 'lodash/sortBy';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from 'store/themeConfigSlice';
 import Tippy from '@tippyjs/react';
-
+import { GrEdit } from 'react-icons/gr';
+import { MdDelete } from 'react-icons/md';
+import { useRouter } from 'next/router';
 
 // Sample data for the DataTable
 const rowData = [
@@ -29,6 +31,7 @@ const rowData = [
 // Define the DefaultTable component
 const DefaultTable = () => {
     // Initialize Redux dispatch
+    const router = useRouter()
     const dispatch = useDispatch();
     // Update page title when the component mounts
     useEffect(() => {
@@ -70,6 +73,10 @@ const DefaultTable = () => {
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
         setPage(1);
     }, [sortStatus]);
+
+    const navToPage = (id) => {
+        router.push(`/admin/roles-and-permissions/edit/${id}`)
+    }
 
 
     return (
@@ -124,16 +131,12 @@ const DefaultTable = () => {
                                 {
                                     accessor: 'Actions',
                                     title: 'Actions',
-                                    render: () => (
+                                    render: ({id}) => (
                                         <>
                                             <Tippy content="Edit">
-                                                <button type="button">
+                                                <button onClick={() => navToPage(id)} type="button">
                                                     {/* <svg>...</svg> */}
-                                                </button>
-                                            </Tippy>
-                                            <Tippy content="Delete">
-                                                <button type="button">
-                                                    {/* <svg>...</svg> */}
+                                                    <GrEdit size={20} />
                                                 </button>
                                             </Tippy>
                                         </>
