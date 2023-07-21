@@ -2,123 +2,67 @@ import { DataTable } from 'mantine-datatable';
 import { useEffect, useState } from 'react';
 import sortBy from 'lodash/sortBy';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 const rowData = [
     {
         id: 1,
-        firstName: 'Caroline',
-        lastName: 'Jensen',
-        email: 'carolinejensen@zidant.com',
-        dob: '2004-05-28',
-        address: {
-            street: '529 Scholes Street',
-            city: 'Temperanceville',
-            zipcode: 5235,
-            geo: {
-                lat: 23.806115,
-                lng: 164.677197,
-            },
-        },
-        phone: '+1 (821) 447-3782',
-        isActive: true,
-        age: 39,
-        company: 'POLARAX',
+        LoanNo: '65656565',
+        ApplicationNo: 'BABBB122',
+        Bank: 'BOB',
+        BranchIFSC : 'BARB0OPROA',
+        AccountOpen : '10/01/2000'
     },
     {
         id: 2,
-        firstName: 'Celeste',
-        lastName: 'Grant',
-        email: 'celestegrant@polarax.com',
-        dob: '1989-11-19',
-        address: {
-            street: '639 Kimball Street',
-            city: 'Bascom',
-            zipcode: 8907,
-            geo: {
-                lat: 65.954483,
-                lng: 98.906478,
-            },
-        },
-        phone: '+1 (838) 515-3408',
-        isActive: false,
-        age: 32,
-        company: 'MANGLO',
+        LoanNo: '65656566',
+        ApplicationNo: 'BABBB123',
+        Bank: 'BOB',
+        BranchIFSC : 'BARB0OPROA',
+        AccountOpen : '10/01/2001'
     },
     {
         id: 3,
-        firstName: 'Tillman',
-        lastName: 'Forbes',
-        email: 'tillmanforbes@manglo.com',
-        dob: '2016-09-05',
-        address: {
-            street: '240 Vandalia Avenue',
-            city: 'Thynedale',
-            zipcode: 8994,
-            geo: {
-                lat: -34.949388,
-                lng: -82.958111,
-            },
-        },
-        phone: '+1 (969) 496-2892',
-        isActive: false,
-        age: 26,
-        company: 'APPLIDECK',
+        LoanNo: '65656567',
+        ApplicationNo: 'BABBB155',
+        Bank: 'BOB',
+        BranchIFSC : 'BARB0OPROA',
+        AccountOpen : '10/01/2005'
     },
     {
         id: 4,
-        firstName: 'Daisy',
-        lastName: 'Whitley',
-        email: 'daisywhitley@applideck.com',
-        dob: '1987-03-23',
-        address: {
-            street: '350 Pleasant Place',
-            city: 'Idledale',
-            zipcode: 9369,
-            geo: {
-                lat: -54.458809,
-                lng: -127.476556,
-            },
-        },
-        phone: '+1 (861) 564-2877',
-        isActive: true,
-        age: 21,
-        company: 'VOLAX',
+        LoanNo: '65656568',
+        ApplicationNo: 'BABBB170',
+        Bank: 'BOB',
+        BranchIFSC : 'BARB0OPROA',
+        AccountOpen : '10/01/2010'
     },
-    {
-        id: 5,
-        firstName: 'Weber',
-        lastName: 'Bowman',
-        email: 'weberbowman@volax.com',
-        dob: '1983-02-24',
-        address: {
-            street: '154 Conway Street',
-            city: 'Broadlands',
-            zipcode: 8131,
-            geo: {
-                lat: 54.501351,
-                lng: -167.47138,
-            },
-        },
-        phone: '+1 (962) 466-3483',
-        isActive: false,
-        age: 26,
-        company: 'ORBAXTER',
-    }
 ];
 
-const Index = () => {
+const BankAccountTable = ({userId}) => {
+const router = useRouter()
     const isRtl = useSelector((state) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [initialRecords, setInitialRecords] = useState(sortBy(rowData, 'id'));
     const [recordsData, setRecordsData] = useState(initialRecords);
-
+    const [clickedItemId, setClickedItemId] = useState(null);
     const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState({
         columnAccessor: 'id',
         direction: 'asc',
     });
+     
+       // Function to handle click events
+  const handleRowClicked = (row) => {
+    // Assuming the row data contains an "id" property
+    if (row && row.id) {
+      setClickedItemId(row.id);
+    router.push(`/Beneficiary/${userId}/${row.id}`);
 
+    //
+};
+    }
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
@@ -134,10 +78,11 @@ const Index = () => {
             return rowData.filter((item) => {
                 return (
                     item.id.toString().includes(search.toLowerCase()) ||
-                    item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.phone.toLowerCase().includes(search.toLowerCase())
+                    item.LoanNo.toLowerCase().includes(search.toLowerCase()) ||
+                    item.ApplicationNo.toLowerCase().includes(search.toLowerCase()) ||
+                    item.Bank.toLowerCase().includes(search.toLowerCase()) ||
+                    item.BranchIFSC.toLowerCase().includes(search.toLowerCase()) ||
+                    item.AccountOpen.toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
@@ -148,11 +93,15 @@ const Index = () => {
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
         setPage(1);
     }, [sortStatus]);
+
+ 
     return (
+
         <div>
+            {console.log(userId)}
             <div className="panel mt-6">
                 <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
-                    <h5 className="text-lg font-semibold dark:text-white-light">Tables</h5>
+                    <h5 className="text-lg font-semibold dark:text-white-light">Bank Account Details</h5>
                     <div className="ltr:ml-auto rtl:mr-auto">
                         <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
                     </div>
@@ -164,12 +113,14 @@ const Index = () => {
                         records={recordsData}
                         columns={[
                             { accessor: 'id', title: 'ID', sortable: true },
-                            { accessor: 'firstName', title: 'First Name', sortable: true },
-                            { accessor: 'lastName', title: 'Last Name', sortable: true },
-                            { accessor: 'email', sortable: true },
-                            { accessor: 'phone', title: 'Phone No.', sortable: true },
+                            { accessor: 'LoanNo', title: 'Loan A/C No.', sortable: true },
+                            { accessor: 'ApplicationNo', title: 'Application ID', sortable: true },
+                            { accessor: 'Bank', title : 'Bank' , sortable: true },
+                            { accessor: 'BranchIFSC', title : 'Branch IFSC ' , sortable: true },
+                            { accessor: 'AccountOpen', title : 'A/c Op. Date' , sortable: true },
                         ]}
                         totalRecords={initialRecords.length}
+                        onRowClick={handleRowClicked}
                         recordsPerPage={pageSize}
                         page={page}
                         onPageChange={(p) => setPage(p)}
@@ -180,10 +131,11 @@ const Index = () => {
                         minHeight={200}
                         paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
                     />
+                      {clickedItemId && <p>Clicked Item ID: {clickedItemId}</p>}
                 </div>
             </div>
         </div>
     );
 };
 
-export default Index;
+export default BankAccountTable;

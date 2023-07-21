@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Dropdown from 'src/layouts/Dropdown';
 import { setPageTitle } from 'store/themeConfigSlice';
-
+import Index from '../datatables';
+import ChartSvg from 'src/assets/svg/ChartSvg';
+import TableSvg from 'src/assets/svg/TableSvg';
 const ReactApexChart = dynamic(() => import('react-apexcharts'), {
     ssr: false,
 });
@@ -19,11 +21,17 @@ const Analytics = () => {
     const isDark = useSelector((state) => state.themeConfig.theme === 'dark' || state.themeConfig.isDarkMode);
     const isRtl = useSelector((state) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
     const [isMounted, setIsMounted] = useState(false);
+    const [isToggled, setIsToggled] = useState(false);
     useEffect(() => {
         setIsMounted(true);
     });
 
+    const handleToggle = () => {
+        setIsToggled(!isToggled);
+        setIsMounted(isToggled ? false : true);
+      };
     // totalVisitOptions
+
     const totalVisit = {
         series: [{ data: [21, 9, 36, 12, 44, 25, 59, 41, 66, 25] }],
         options: {
@@ -205,7 +213,6 @@ const Analytics = () => {
             },
         },
     };
-
     return (
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
@@ -400,34 +407,11 @@ const Analytics = () => {
                         <div className="mb-5 flex items-start justify-between border-b border-white-light p-5  dark:border-[#1b2e4b] dark:text-white-light">
                             <h5 className="text-lg font-semibold ">Unique Visitors</h5>
                             <div className="dropdown">
-                                <Dropdown
-                                    offset={[0, 5]}
-                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                    btnClassName="hover:text-primary"
-                                    button={
-                                        <svg className="h-5 w-5 text-black/70 hover:!text-primary dark:text-white/70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle opacity="0.5" cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle cx="19" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                        </svg>
-                                    }
-                                >
-                                    <ul>
-                                        <li>
-                                            <button type="button">View</button>
-                                        </li>
-                                        <li>
-                                            <button type="button">Update</button>
-                                        </li>
-                                        <li>
-                                            <button type="button">Delete</button>
-                                        </li>
-                                    </ul>
-                                </Dropdown>
+                                <p onClick={handleToggle}>{isToggled ? <ChartSvg/> : <TableSvg/>}</p>
                             </div>
                         </div>
 
-                        {isMounted && <ReactApexChart options={uniqueVisitorSeries.options} series={uniqueVisitorSeries.series} type="bar" height={360} width={'100%'} />}
+                        {!isToggled ? <ReactApexChart options={uniqueVisitorSeries.options} series={uniqueVisitorSeries.series} type="bar" height={360} width={'100%'} /> : <Index/> }
                     </div>
 
                     <div className="panel h-full">

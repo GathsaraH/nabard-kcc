@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { setPageTitle } from '../../../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
 import OtpSvg from 'src/assets/svg/OtpSvg';
@@ -28,7 +28,7 @@ const GeneratePassword = () => {
     const [inputErrors, setInputErrors] = useState({})
     const [otp, setOtp] = useState("")
     const [passwordChangedModal, setpasswordChangedModal] = useState(false)
-
+    const router = useRouter();
 
     const handleModal = (item) => {
         setpasswordChangedModal(item)
@@ -38,17 +38,14 @@ const GeneratePassword = () => {
     useEffect(() => {
         dispatch(setPageTitle('Recover Id Box'));
     }, []);
-    const router = useRouter();
-
-
-    /**
-    * Handles the change event for the password input fields.
-    * Updates the new password and confirms password values,
-    * and checks if the entered password meets the guidelines.
-    * 
-    * @param {Object} e - The event object.
-    * @param {boolean} isConfirmPassword - Flag indicating if it's the confirm password field.
-    */
+     /**
+     * Handles the change event for the password input fields.
+     * Updates the new password and confirms password values,
+     * and checks if the entered password meets the guidelines.
+     * 
+     * @param {Object} e - The event object.
+     * @param {boolean} isConfirmPassword - Flag indicating if it's the confirm password field.
+     */
     const handlePasswordChange = (e, isConfirmPassword = false) => {
         const password = e.target.value;
         if (isConfirmPassword) {
@@ -359,7 +356,7 @@ const GeneratePassword = () => {
                     <div className="relative z-[1]">
                         <div
                             className={`${activeTab === 1
-                                ? 'w-[15%]'
+                                ? 'w-[0%]'
                                 : activeTab === 2
                                     ? 'w-[48%]'
                                     : activeTab === 3
