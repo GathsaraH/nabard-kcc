@@ -1,16 +1,10 @@
 stages:
   - deploy
 
-deploy_to_server:
+deploy:
   stage: deploy
   only:
-    - dev_akash
-  before_script:
-    - ssh parikshit@115.166.142.18
-    - echo "lpa24div@1Best" | sshpass -p password ssh parikshit@115.166.142.18
+    - dev_akash  # This will trigger the deployment only when pushing to the 'dev_akash' branch.
   script:
-    - cd /home/parikshit/nabnext/nabnext
-    - sudo git pull
-    - sudo npm install
-    - sudo npm build
-    - npm run start 
+    - echo "Deploying to the server"
+    - sshpass -p $SSH_PASS ssh $SSH_USER@$SSH_HOST 'cd /home/parikshit/nabnext/nabnext && git fetch && git checkout dev_akash && git pull && npm install && npm run build'
