@@ -1,10 +1,17 @@
 stages:
   - deploy
 
+cache:
+  paths:
+    - node_modules/
+
 deploy:
+  image: docker:dind
   stage: deploy
-  only:
-    - dev_akash  # This will trigger the deployment only when pushing to the 'dev_akash' branch.
   script:
-    - echo "Deploying to the server"
-    - sshpass -p $SSH_PASS ssh $SSH_USER@$SSH_HOST 'cd /home/parikshit/nabnext/nabnext && git fetch && git checkout dev_akash && git pull && npm install && npm run build'
+    - docker build -t nabnext .
+    - docker run -d -p 3000:3000 --rm --name next-blog nabnext
+  tags:
+    - docker
+  only:
+    - dev_akash   # Change this line to the desired branch name, e.g., dev_akash
