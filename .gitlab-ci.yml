@@ -5,5 +5,12 @@ deploy_to_server:
   stage: deploy
   only:
     - dev_akash
+  before_script:
+    - ssh parikshit@115.166.142.18
+    - echo "lpa24div@1Best" | sshpass -p password ssh parikshit@115.166.142.18
   script:
-    - ssh parikshit@115.166.142.18 "cd /home/parikshit/nabnext/nabnext && sudo git pull && sudo npm install && sudo npm build && npm run start"
+    - cd /home/parikshit/nabnext/nabnext
+    - sudo git pull
+    - sudo npm install
+    - sudo npm build
+    - npm run start 
