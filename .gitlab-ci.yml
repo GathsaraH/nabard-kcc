@@ -1,17 +1,9 @@
 stages:
   - deploy
 
-cache:
-  paths:
-    - node_modules/
-
-deploy:
-  image: docker:dind
+deploy_to_server:
   stage: deploy
-  script:
-    - docker build -t nabnext .
-    - docker run -d -p 3000:3000 --rm --name next-blog nabnext
-  tags:
-    - docker
   only:
-    - dev_akash   # Change this line to the desired branch name, e.g., dev_akash
+    - dev_akash
+  script:
+    - ssh parikshit@115.166.142.18 "cd /home/parikshit/nabnext/nabnext && sudo git pull && sudo npm install && sudo npm build && npm run start"
