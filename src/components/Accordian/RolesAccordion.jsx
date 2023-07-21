@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import DefaultCheckbox from '../Input/CheckBox/DefaultCheckBox';
+import { AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineDown } from 'react-icons/ai';
+import DefaultButtonComponent from '../Button/DefaultButtonComponent';
 
 const RolesAccordion = ({ items }) => {
     const [activeIndexes, setActiveIndexes] = useState([]);
@@ -86,10 +89,8 @@ const RolesAccordion = ({ items }) => {
 
                 return (
                     <div className="border border-gray-300 rounded p-2" key={id}>
-                        <button
-                            type="button"
+                        <div
                             className="w-full flex items-center justify-between focus:outline-none"
-                            onClick={() => toggleAccordion(id)}
                         >
                             <label htmlFor={item.id} className="flex cursor-pointer items-center">
                                 <input
@@ -98,45 +99,19 @@ const RolesAccordion = ({ items }) => {
                                     checked={isMainCheckboxChecked}
                                     onChange={() => handleMainCheckboxChange(item.id)}
                                 />
-                                <span className={"text-lg font-semibold"}>{item.title}</span>
+                                <span className={"text-lg font-semibold"}>{item.title}</span> 
                             </label>
-                            <span className="transform transition-transform">
+                            <span onClick={() => toggleAccordion(id)} className="transform transition-transform">
                                 {activeIndexes?.includes(id) ? (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M19 9l-7 7-7-7"
-                                        />
-                                    </svg>
+                                    <AiOutlineRight fontSize={22} />
                                 ) : (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M9 5l7 7-7 7"
-                                        />
-                                    </svg>
+                                    <AiOutlineDown fontSize={22} />
                                 )}
                             </span>
-                        </button>
+                        </div>
                         {activeIndexes.includes(id) && <hr />}
                         {activeIndexes.includes(id) && (
-                            <div className="mt-2">
+                            <div className="mt-2 ml-4">
                                 {item.content.map((innerItem, innerId) => {
                                     return (
                                         <div key={innerId}>

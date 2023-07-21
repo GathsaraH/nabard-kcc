@@ -7,6 +7,7 @@ import { ImLocation } from "react-icons/im"
 import { MdOutlineCall } from "react-icons/md"
 import RolesAccordion from 'src/components/Accordian/RolesAccordion';
 import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent'
+import { AiOutlinePlus } from 'react-icons/ai';
 
 
 const items = [
@@ -15,32 +16,35 @@ const items = [
         title: 'Bank Module',
         content: [{ id: 1, value: "Create" }, { id: 2, value: "Update" }, { id: 3, value: "Delete" }, { id: 4, value: "Update" }],
     },
-    // {   id: 2,
-    //     title: 'Bank Module',
-    //     content: ["Create", "Update", "Delete", "Update"],
-    // }
+    {
+        id: 2,
+        title: 'User Module',
+        content: [{ id: 1, value: "Create" }, { id: 2, value: "Update" }, { id: 3, value: "Delete" }, { id: 4, value: "Update" }],
+    }
 ];
 
 const Index = () => {
     const [checkBoxesData, setcheckBoxesData] = useState(items)
 
 
-    
-    
+
+
     return (
         <div>
             <div className="pt-5">
                 <div className="mb-5 grid grid-cols-1 gap-5 lg:grid-cols-3 xl:grid-cols-4">
                     {profileCard()}
                     <div className="panel lg:col-span-2 xl:col-span-3">
-                        <div className="mb-5">
-                            <h5 className="text-lg font-semibold dark:text-white-light">Roles & Permissions :</h5>
+                        <div className="mb-5 flex items-center flex-start">
+                            <h5 className="text-lg font-semibold dark:text-white-light">Roles & Permissions</h5>
+                            <DefaultButtonComponent className="ml-5" icon={<AiOutlinePlus  />} />
                         </div>
                         <div className="mb-5">
-                            <RolesAccordion  items={checkBoxesData}  />
+                            <RolesAccordion items={checkBoxesData} />
                         </div>
                         <DefaultButtonComponent title="Update" />
                     </div>
+
                 </div>
             </div>
         </div>
