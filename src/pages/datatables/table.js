@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import sortBy from 'lodash/sortBy';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import {GrView} from 'react-icons/gr';
+import Tippy from '@tippyjs/react';
 const rowData = [
     {
         id: 1,
@@ -87,10 +89,10 @@ const Table = () => {
     return (
         <div>
             <div className="panel mt-6">
-                <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
-                    <h5 className="text-lg font-semibold dark:text-white-light">Beneficiary Details</h5>
-                    <div className="ltr:ml-auto rtl:mr-auto">
-                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                <div className="flex flex-row  justify-between mb-5">
+            <h5 className="text-lg font-semibold dark:text-white-light">Beneficiary Details</h5>
+                    <div className="flex flex-row justify-between">
+                        <input type="text" className="form-input w-auto ml-2" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
                     </div>
                 </div>
                 <div className="datatables">
@@ -99,15 +101,28 @@ const Table = () => {
                         className={`${isRtl ? 'table-hover whitespace-nowrap' : 'table-hover whitespace-nowrap'}`}
                         records={recordsData}
                         columns={[
-                            { accessor: 'id', title: 'ID', sortable: true },
+                            { accessor: 'id', title: 'ID', sortable: true},
                             { accessor: 'BeneficiaryID', title: 'Beneficiary ID', sortable: true },
                             { accessor: 'BeneficiaryName', title: 'Beneficiary Name', sortable: true },
                             { accessor: 'BeneficiaryType', title : 'Beneficiary Type' , sortable: true },
+                            {
+                                accessor: 'Actions',
+                                title: 'Actions',
+                                render: () => (
+                                    <>
+                                        <Tippy content="View">
+                                            <button type="button">
+                                                <GrView className="mr-2" size={20} />
+                                            </button>
+                                        </Tippy>
+                                    </>
+                                ),
+                            },
                         ]}
                         totalRecords={initialRecords.length}
-                        onRowClick={handleRowClicked}
                         recordsPerPage={pageSize}
                         page={page}
+                        onRowClick={handleRowClicked}
                         onPageChange={(p) => setPage(p)}
                         recordsPerPageOptions={PAGE_SIZES}
                         onRecordsPerPageChange={setPageSize}

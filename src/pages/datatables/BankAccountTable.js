@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 import sortBy from 'lodash/sortBy';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import Tippy from '@tippyjs/react';
+import { GrEdit, GrView } from 'react-icons/gr';
+import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent';
+import { AiOutlinePlus } from 'react-icons/ai';
 const rowData = [
     {
         id: 1,
@@ -62,6 +66,9 @@ const router = useRouter()
 
     //
 };
+
+ 
+
     }
     useEffect(() => {
         setPage(1);
@@ -94,16 +101,24 @@ const router = useRouter()
         setPage(1);
     }, [sortStatus]);
 
- 
+    // function for adding bank details 
+
+    // const AddBankDetails = () =>{
+    //     const { userId, BeneficiaryId } = router.query;
+    //     router.push({
+    //         pathname: `/Beneficiary/${userId}/${BeneficiaryId}`,
+    //         query: { title: 'Add Bank Account Details' },
+    //       });
+    // }
     return (
 
         <div>
-            {console.log(userId)}
             <div className="panel mt-6">
-                <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
-                    <h5 className="text-lg font-semibold dark:text-white-light">Bank Account Details</h5>
-                    <div className="ltr:ml-auto rtl:mr-auto">
-                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
+            <h5 className="text-lg font-semibold dark:text-white-light mb-5">Bank Account Details</h5>
+                <div className="mb-5">
+                    <div className="flex flex-row justify-between">
+                    <DefaultButtonComponent style={{cursor:'pointer'}} title="Add Bank Account Details" icon={<AiOutlinePlus/>}></DefaultButtonComponent>
+                        <input type="text" className="form-input w-auto ml-2" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
                     </div>
                 </div>
                 <div className="datatables">
@@ -118,6 +133,24 @@ const router = useRouter()
                             { accessor: 'Bank', title : 'Bank' , sortable: true },
                             { accessor: 'BranchIFSC', title : 'Branch IFSC ' , sortable: true },
                             { accessor: 'AccountOpen', title : 'A/c Op. Date' , sortable: true },
+                            {
+                                accessor: 'Actions',
+                                title: 'Actions',
+                                render: () => (
+                                    <>
+                                        <Tippy content="Edit">
+                                            <button type="button">
+                                                <GrEdit className="mr-2" size={20} />
+                                            </button>
+                                        </Tippy>
+                                        <Tippy content="View">
+                                            <button type="button">
+                                                <GrView size={20} />
+                                            </button>
+                                        </Tippy>
+                                    </>
+                                ),
+                            },
                         ]}
                         totalRecords={initialRecords.length}
                         onRowClick={handleRowClicked}
