@@ -6,6 +6,7 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
 import ModalContainer from 'src/components/Modal/ModalContainer';
 import DefaultInput from 'src/components/Input/TextField/DefaultInput';
+import Link from 'next/link';
 
 const Index = () => {
     const [authData, setAuthData] = useState({ email: '', password: '' });
@@ -146,12 +147,12 @@ const Index = () => {
             <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
                 <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
                 <hr className="h-5" />
-                <p className="mb-7 text-lg">Please enter your email</p>
+                <p className="mb-4 text-lg">Please enter your email</p>
                 <form data-testid="login-form" className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                     <div>
                         <DefaultInput
                             value={authData.email}
-                            label="Emasil"
+                            label="Email"
                             id="email"
                             placeholder="Enter Email"
                             onChange={handleInputChange}
@@ -178,8 +179,12 @@ const Index = () => {
                                 icon={true}
 
                             />
+                            <div className='flex justify-end mt-4'>
+                    <Link href="/auth/ForgotPassword"><b>Forgot Password ?</b></Link>
+                    </div>
                         </div>
                     )}
+                    
                 </form>
                 {passwordNotGenerated && (
                     <p className="mt-5 text-gray-500 text-lg">
