@@ -81,11 +81,11 @@
 
     .sidebar .nav-item > button,
     .sidebar .nav-item > a {
-        @apply mb-1 flex w-full items-center justify-between overflow-hidden whitespace-nowrap rounded-md p-1.5  hover:bg-primary hover:text-white dark:hover:bg-[#181f32] dark:hover:text-white-dark;
+        @apply mb-1 flex w-full items-center justify-between overflow-hidden whitespace-nowrap rounded-md p-1.5  hover:bg-primary hover:text-white ;
     }
     .sidebar .nav-item > button.active,
     .sidebar .nav-item > a.active {
-        @apply bg-primary text-white dark:bg-[#181f32] dark:text-white-dark;
+        @apply bg-primary  dark:bg-[#181f32] dark:text-white;
     }
 
     .sidebar .nav-item > button.active > div > span,
@@ -709,3 +709,4 @@ pre.hljs {
     line-height: normal;
     text-transform: uppercase;
   }
+

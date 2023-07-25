@@ -6,148 +6,130 @@ import { toggleSidebar } from '../../store/themeConfigSlice';
 import AnimateHeight from 'react-animate-height';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import homeIcon from '../assets/icons/homeIcon.svg';
-import dashboardIcon from '../assets/icons/dashboardIcon.svg';
-import orginazationIcon from '../assets/icons/organizationIcon.svg';
-import claimIcon from '../assets/icons/clainManagement.svg';
-import schemeIcon from '../assets/icons/schemeIcon.png';
-import usersIcon from '../assets/icons/usersIcon.svg';
-import beneficiaryIcon from '../assets/icons/beneficiariesIcon.svg';
-import rolesIcon from '../assets/icons/rolesp.svg';
-import Image from 'next/image';
+import { RiHome5Line } from "react-icons/ri";
+import { BiSolidDashboard } from "react-icons/bi";
+import { GrOrganization } from "react-icons/gr";
+import { FiFileText, FiUsers } from "react-icons/fi";
+import { BsFileEarmarkRichtextFill } from "react-icons/bs";
+import { FaHandHoldingUsd, FaUserLock } from "react-icons/fa";
 
 const sidebarMenuOptions = [
     {
         title: 'Home',
         link: '/',
-        icon: homeIcon,
+        icon: <RiHome5Line size={25} />,
     },
     {
         title: 'Dashboard',
         link: '/dashboard',
-        icon: dashboardIcon,
+        icon: <BiSolidDashboard size={25} />,
     },
     {
         title: 'Organizations',
-        icon: orginazationIcon,
+        icon: <GrOrganization size={25} />,
         subMenu: [
             {
                 title: 'Central Government',
                 link: '/Organizations/Central-government',
-                icon: homeIcon,
             },
             {
                 title: 'State Government',
                 link: '/Organizations/State-government',
-                icon: homeIcon,
             },
             {
                 title: 'Agencies',
                 link: '/Organizations/Agencies',
-                icon: homeIcon,
             },
             {
                 title: 'NABARD',
                 link: '/Organizations/NABARD',
-                icon: homeIcon,
             },
         ],
     },
     {
         title: 'Banks',
-        icon: claimIcon,
+        icon: <FiFileText size={25} />,
         subMenu: [
             {
                 title: 'Public Sector Banks',
                 link: '/components/tabs',
-                icon: homeIcon,
             },
             {
                 title: 'Private Sector Banks',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
             {
                 title: 'Other Types of Banks',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
         ],
     },
     {
         title: 'Schemes',
-        icon: schemeIcon,
+        icon: <BsFileEarmarkRichtextFill size={25} />,
         subMenu: [
             {
                 title: 'Central Government',
                 link: '/components/tabs',
-                icon: homeIcon,
             },
             {
                 title: 'State Government',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
             {
                 title: 'Central Government and sponsored schemes',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
         ],
     },
     {
         title: 'Users',
-        icon: usersIcon,
+        icon: <FiUsers size={25} />,
         subMenu: [
             {
                 title: 'List',
-                link: '/components/tabs',
-                icon: homeIcon,
+                link: '/admin/users/list',
             },
             {
                 title: 'Banks',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
             {
                 title: 'NABARD',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
             {
                 title: 'Central/State Government',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
             {
                 title: 'Agency',
                 link: '/components/accordions',
-                icon: homeIcon,
             },
         ],
     },
     {
         title: 'BENEFICIARIES',
-        link: '/',
-        icon: beneficiaryIcon,
+        link: '/Beneficiary',
+        icon: <FaHandHoldingUsd size={25} />,
     },
     {
         title: 'Roles & Permissions',
-        icon: rolesIcon,
+        icon: <FaUserLock size={25} />,
         subMenu: [
             {
                 title: 'Roles',
-                link: '/components/tabs',
-                icon: homeIcon,
+                link: '/admin/administrative-tools/roles-and-permissions/role',
             },
             {
                 title: 'Permissions',
-                link: '/components/accordions',
-                icon: homeIcon,
+                link: '/admin/administrative-tools/roles-and-permissions/permissions',
             },
         ],
     },
 ];
+
+
 
 const Sidebar = () => {
     const router = useRouter();
@@ -203,7 +185,7 @@ const Sidebar = () => {
 
     function SideMenuList(index, menuOption) {
         function ListItem(menuOption) {
-            return <h2 className="-mx-4 mb-1 flex items-center  py-3 px-7 font-extrabold uppercase">
+            return <h2 className="-mx-4 mb-1 flex items-center  py-3 px-7 font-extrabold uppercase hover:text-white hover:bg-primary">
                 <svg
                     className="hidden h-5 w-4 flex-none"
                     viewBox="0 0 24 24"
@@ -216,7 +198,7 @@ const Sidebar = () => {
                     <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 <div className='flex items-center'>
-                    <Image src={menuOption.icon} alt="icon" width={25} height={25} />
+                    {menuOption.icon}
                     <Link className='ml-5' href={menuOption.link}>{t(menuOption.title)}</Link>
                 </div>
             </h2>;
@@ -230,9 +212,9 @@ const Sidebar = () => {
                         className={`${currentMenu === menuOption.title ? 'active' : ''} nav-link group w-full`}
                         onClick={() => toggleMenu(menuOption.title)}
                     >
-                        <div className="flex items-center ">
-                            <Image src={menuOption.icon} alt="icon" width={25} height={25} />
-                            <h2 className='ml-5 py-3 font-extrabold -mx-4'>
+                        <div className="flex items-center">
+                            <div className='hover:text-white'>{menuOption.icon}</div>
+                            <h2 className='ml-5 py-3 font-extrabold -mx-4  hover:text-white '>
                                 {t(menuOption.title)}
                             </h2>
                         </div>
