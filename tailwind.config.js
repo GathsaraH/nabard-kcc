@@ -6,11 +6,11 @@ module.exports = {
       container: {
           center: true,
       },
-      extend: {
+      extend: { 
           colors: {
               primary: {
-                  DEFAULT: '#4361ee',
-                  light: '#eaf1ff',
+                  DEFAULT: '#006600',
+                  light: '#03B72B',
                   'dark-light': 'rgba(67,97,238,.15)',
               },
               secondary: {
