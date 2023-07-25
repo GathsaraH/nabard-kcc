@@ -205,7 +205,7 @@ const Sidebar = () => {
                                 </svg>
                                 <span>{t('Schemes')}</span>
                             </h2>
-
+        {console.log(currentMenu)}
                             <li className="menu nav-item">
                                 <button type="button" className={`${currentMenu === 'Schemes' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('Schemes')}>
                                     <div className="flex items-center">
@@ -259,7 +259,7 @@ const Sidebar = () => {
                                 <svg className="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                 </svg>
-                                <span>{t('Users')}</span>
+                                <span>{t('User master data')}</span>
                             </h2>
 
                             <li className="menu nav-item">
@@ -281,7 +281,7 @@ const Sidebar = () => {
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Users')}</span>
+                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('User')}</span>
                                     </div>
 
                                     <div className={currentMenu === 'Users' ? 'rotate-90' : 'rtl:rotate-180'}>
@@ -293,6 +293,9 @@ const Sidebar = () => {
 
                                 <AnimateHeight duration={300} height={currentMenu === 'Users' ? 'auto' : 0}>
                                     <ul className="sub-menu text-gray-500">
+                                        <li>
+                                            <Link href="/admin/users/list">{t('List')}</Link>
+                                        </li>
                                         <li>
                                             <Link href="/components/tabs">{t('Banks')}</Link>
                                         </li>
@@ -314,18 +317,59 @@ const Sidebar = () => {
                                 </svg>
                                 <span>{t('Claim Management ')}</span>
                             </h2>
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                            {/* <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                                 <svg className="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                 </svg>
                                 <Link href="/admin/roles-and-permissions">{t('Roles and permissions')}</Link>
-                            </h2>
+                            </h2> */}
+                            
                             <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                                 <svg className="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                 </svg>
                                 <Link href="/admin">{t('Administrative tools')}</Link>
                             </h2>
+                              <li className="menu nav-item">
+                                <button type="button" className={`${currentMenu === 'Administrative tools' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('Roles and permissions')}>
+                                    <div className="flex items-center">
+                                        <svg className="group-hover:!text-primary shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.42229 20.6181C10.1779 21.5395 11.0557 22.0001 12 22.0001V12.0001L2.63802 7.07275C2.62423 7.09491 2.6107 7.11727 2.5974 7.13986C2 8.15436 2 9.41678 2 11.9416V12.0586C2 14.5834 2 15.8459 2.5974 16.8604C3.19479 17.8749 4.27063 18.4395 6.42229 19.5686L8.42229 20.6181Z"
+                                                fill="currentColor"
+                                            />
+                                            <path
+                                                opacity="0.7"
+                                                d="M17.5774 4.43152L15.5774 3.38197C13.8218 2.46066 12.944 2 11.9997 2C11.0554 2 10.1776 2.46066 8.42197 3.38197L6.42197 4.43152C4.31821 5.53552 3.24291 6.09982 2.6377 7.07264L11.9997 12L21.3617 7.07264C20.7564 6.09982 19.6811 5.53552 17.5774 4.43152Z"
+                                                fill="currentColor"
+                                            />
+                                            <path
+                                                opacity="0.5"
+                                                d="M21.4026 7.13986C21.3893 7.11727 21.3758 7.09491 21.362 7.07275L12 12.0001V22.0001C12.9443 22.0001 13.8221 21.5395 15.5777 20.6181L17.5777 19.5686C19.7294 18.4395 20.8052 17.8749 21.4026 16.8604C22 15.8459 22 14.5834 22 12.0586V11.9416C22 9.41678 22 8.15436 21.4026 7.13986Z"
+                                                fill="currentColor"
+                                            />
+                                        </svg>
+                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Roles and permissions')}</span>
+                                    </div>
+
+                                    <div className={currentMenu === 'Roles and permissions' ? 'rotate-90' : 'rtl:rotate-180'}>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </div>
+                                </button>
+
+                                <AnimateHeight duration={300} height={currentMenu === 'Roles and permissions' ? 'auto' : 0}>
+                                    <ul className="sub-menu text-gray-500">
+                                        <li>
+                                            <Link href="/admin/administrative-tools/roles-and-permissions/role">{t('Role')}</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/admin/administrative-tools/roles-and-permissions/permissions">{t('Permissions')}</Link>
+                                        </li>
+                                    </ul>
+                                </AnimateHeight>
+                            </li>
                         </ul>
                     </PerfectScrollbar>
                 </div>

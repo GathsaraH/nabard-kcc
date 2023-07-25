@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Tab } from '@headlessui/react';
-import { Fragment } from 'react';
 import DefaultTable from 'src/components/Table/DefaultTable';
+import Image from 'next/image';
 
 // Define the class names for the buttons based on their selected state
 const buttonClassName = (selected) => {
@@ -10,33 +10,19 @@ const buttonClassName = (selected) => {
 };
 
 // Define the tab titles
-const tabTitles = ["User's Role and Permissions", "Edit Role and permissions"];
+const tabTitles = [{id: 1, value : "User's Role and Permissions"}, {id: 2, value : "Edit Role and permissions"}];
+
 
 const index = () => {
-  return (
-    <div>
-      <Tab.Group>
-        {/* Render the tab titles */}
-        {renderTabTitles()}
 
-        {/* Render the tab content */}
-        <Tab.Panels>
-          {renderTabFirstContent()}
-          {renderTabSecondContent()}
-        </Tab.Panels>
-      </Tab.Group>
-    </div>
-  );
-};
-
-// Function to render the second tab content
+  // Function to render the second tab content
 function renderTabSecondContent() {
   return (
     <Tab.Panel>
       <div>
         <div className="flex items-start pt-5">
           <div className="h-20 w-20 flex-none ltr:mr-4 rtl:ml-4">
-            <img
+            <Image
               src="/assets/images/profile-34.jpeg"
               alt="img"
               className="m-0 h-20 w-20 rounded-full object-cover ring-2 ring-[#ebedf2] dark:ring-white-dark"
@@ -73,10 +59,10 @@ function renderTabTitles() {
     <Tab.List className="mt-3 flex flex-wrap border-b border-white-light dark:border-[#191e3a]">
       {tabTitles.map((item) => {
         return (
-          <Tab as={Fragment}>
+          <Tab key={item.id} as={Fragment}>
             {({ selected }) => (
               <button className={buttonClassName(selected)}>
-                {item}
+                {item.value}
               </button>
             )}
           </Tab>
@@ -85,5 +71,22 @@ function renderTabTitles() {
     </Tab.List>
   );
 }
+  return (
+    <div>
+      <Tab.Group>
+        {/* Render the tab titles */}
+        {renderTabTitles()}
+
+        {/* Render the tab content */}
+        <Tab.Panels>
+          {renderTabFirstContent()}
+          {renderTabSecondContent()}
+        </Tab.Panels>
+      </Tab.Group>
+    </div>
+  );
+};
+
+
 
 export default index;

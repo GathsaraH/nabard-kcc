@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineUser } from "react-icons/ai"
-import { AiFillEdit, AiOutlineMail,AiOutlinePlus } from "react-icons/ai"
+import { AiFillEdit, AiOutlineMail, AiOutlinePlus } from "react-icons/ai"
 import { SlCalender } from "react-icons/sl"
 import { ImLocation } from "react-icons/im"
 import { MdOutlineCall } from "react-icons/md"
 import RolesAccordion from 'src/components/Accordian/RolesAccordion';
 import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent'
+import Image from 'next/image'
 
 
 const items = [
@@ -36,7 +37,7 @@ const Index = () => {
                     <div className="panel lg:col-span-2 xl:col-span-3">
                         <div className="mb-5 flex items-center flex-start">
                             <h5 className="text-lg font-semibold dark:text-white-light">Roles & Permissions</h5>
-                            <DefaultButtonComponent className="ml-5" icon={<AiOutlinePlus  />} />
+                            <DefaultButtonComponent className="ml-5" icon={<AiOutlinePlus />} />
                         </div>
                         <div className="mb-5">
                             <RolesAccordion items={checkBoxesData} />
@@ -59,7 +60,10 @@ const Index = () => {
             </div>
             <div className="mb-5">
                 <div className="flex flex-col items-center justify-center">
-                    <img src="/assets/images/images.png" alt="img" className="mb-5 h-24 w-24 rounded-full  object-cover" />
+                    <Image
+                        width={96}
+                        height={96}
+                        src="/assets/images/images.png" alt="img" className="mb-5 h-24 w-24 rounded-full  object-cover" />
                     <p className="text-xl font-semibold text-primary">Jimmy Turner</p>
                 </div>
                 <ul className="m-auto mt-5 flex max-w-[160px] flex-col space-y-4 font-semibold text-white-dark">
