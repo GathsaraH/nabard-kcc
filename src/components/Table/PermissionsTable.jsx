@@ -6,29 +6,35 @@ import { setPageTitle } from 'store/themeConfigSlice';
 import Tippy from '@tippyjs/react';
 import { GrEdit } from 'react-icons/gr';
 import { useRouter } from 'next/router';
+import DefaultButtonComponent from '../Button/DefaultButtonComponent';
 
 // Sample data for the DataTable
 const rowData = [
     {
         id: 1,
-        username: 'Caroline',
-        email: 'carolinejensen@zidant.com',
-        phone: '+1 (821) 447-3782',
+        Name: 'Caroline',
+        CreatedDate: '14 Apr 2022, 8:43 PM',
         isActive: true,
-        Roles: 'Bank Admin',
+        AssignedTo: 'Bank Admin',
     },
     {
         id: 2,
-        username: 'Celeste',
-        email: 'celestegrant@polarax.com',
-        phone: '+1 (838) 515-3408',
+        Name: 'Celeste',
+        CreatedDate: '+1 (838) 515-3408',
         isActive: false,
-        Roles: 'Branch Admin',
+        AssignedTo: 'Branch Admin',
+    },
+    {
+        id: 3,
+        Name: 'Celeste',
+        CreatedDate: '+1 (838) 515-3408',
+        isActive: false,
+        AssignedTo: 'Branch Admin',
     },
 ];
 
 // Define the DefaultTable component
-const DefaultTable = () => {
+const PermissionsTable = () => {
     // Initialize Redux dispatch
     const router = useRouter()
     const dispatch = useDispatch();
@@ -49,6 +55,10 @@ const DefaultTable = () => {
     });
     // State to track component mount
     const [isMounted, setIsMounted] = useState(false);
+    const [search, setSearch] = useState('');
+
+
+
     useEffect(() => {
         setIsMounted(true);
     });
@@ -73,6 +83,19 @@ const DefaultTable = () => {
         setPage(1);
     }, [sortStatus]);
 
+    useEffect(() => {
+      setInitialRecords(() => {
+          return rowData.filter((item) => {
+              return (
+                  item.id.toString().includes(search.toLowerCase()) ||
+                  item.Name.toLowerCase().includes(search.toLowerCase()) ||
+                  item.CreatedDate.toLowerCase().includes(search.toLowerCase()) ||
+                  item.AssignedTo.toLowerCase().includes(search.toLowerCase())
+              );
+          });
+      });
+  }, [search]);
+
     const navToPage = (id) => {
         router.push(`/admin/roles-and-permissions/edit/${id}`)
     }
@@ -81,8 +104,15 @@ const DefaultTable = () => {
     return (
         <div>
             <div className="panel mt-6">
-                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                <h5 className="mb-5 text-lg font-semibold dark:text-white-light">User's list :</h5>
+                {/* <h5 className="mb-5 text-lg font-semibold dark:text-white-light">User's list :</h5> */}
+                <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
+                    <div className="ltl:ml-auto rtl:mr-auto">
+                        <input type="text" className="form-input w-auto" placeholder="Search permission" value={search} onChange={(e) => setSearch(e.target.value)} />
+                    </div>
+                    <div className="ltr:ml-auto rtl:mr-auto">
+                       <DefaultButtonComponent title="Add permission" />
+                    </div>
+                </div>
                 <div className="datatables">
                     {isMounted && (
                         <DataTable
@@ -92,40 +122,30 @@ const DefaultTable = () => {
                             records={recordsData}
                             columns={[
                                 {
-                                    accessor: 'id',
-                                    title: 'ID',
-                                    sortable: true,
-                                    render: ({ id }) => <strong className="text-info">{id}</strong>,
-                                },
-                                {
-                                    accessor: 'firstName',
-                                    title: 'User',
+                                    accessor: 'Name',
+                                    title: 'Name',
                                     // sortable: true,
-                                    render: ({ username }) => (
+                                    render: ({ Name }) => (
                                         <div className="flex items-center gap-2">
-                                            <div className="font-semibold">{username}</div>
+                                            <div className="font-semibold">{Name}</div>
                                         </div>
                                     ),
                                 },
                                 {
-                                    accessor: 'email',
-                                    title: 'Email',
-                                    // sortable: true,
-                                    render: ({ email }) => (
-                                        <a href={`mailto:${email}`} className="text-primary hover:underline">
-                                            {email}
-                                        </a>
+                                    accessor: 'AssignedTo',
+                                    title: 'Assigned to',
+                                    render: ({ AssignedTo }) => (
+                                        <span className={`badge badge-outline-primary `}>{AssignedTo}</span>
                                     ),
                                 },
                                 {
-                                    accessor: 'phone', title: 'Phone',
-                                    // sortable: true 
-                                },
-                                {
-                                    accessor: 'Roles',
-                                    title: 'Roles',
-                                    render: ({ Roles }) => (
-                                        <span className={`badge badge-outline-primary `}>{Roles}</span>
+                                    accessor: 'CreatedDate',
+                                    title: 'Created Date',
+                                    // sortable: true,
+                                    render: ({ CreatedDate }) => (
+                                      <div className="flex items-center gap-2">
+                                            <div className="font-semibold">{CreatedDate}</div>
+                                        </div>
                                     ),
                                 },
                                 {
@@ -161,4 +181,4 @@ const DefaultTable = () => {
     );
 };
 
-export default DefaultTable;
+export default PermissionsTable;

@@ -9,9 +9,11 @@ import React, { Fragment } from 'react';
  * @param {ReactNode} children - The content to be displayed within the modal.
  * @param {string} title - The title of the modal.
  * @param {boolean} hideCloseButton - Determines whether the close button is visible or hidden.
- * 
+ * @param {string} classname - The additional classname to be applied to the modal panel (optional).
  */
-const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButton }) => {
+const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButton, classname }) => {
+  const panelClassName = `panel my-8  overflow-hidden rounded-lg border-0 p-0 text-black dark:text-white-dark ${classname ? classname : "w-1/2"}`;
+
   return (
     <>
       <Transition appear show={showModal} as={Fragment}>
@@ -39,7 +41,7 @@ const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButt
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="panel my-8 w-full max-w-xl overflow-hidden rounded-lg border-0 p-0 text-black dark:text-white-dark">
+              <Dialog.Panel className={panelClassName}>
                 <div className="flex items-center justify-between bg-[#fbfbfb] px-5 py-3 dark:bg-[#121c2c]">
                   {/* Modal title */}
                   <h3 className="text-xl font-bold">{title}</h3>
