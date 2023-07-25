@@ -42,11 +42,11 @@ const Index = () => {
         }));
 
         setPasswordNotGenerated(false);
-           // Helper function to check if email is valid using regex
-      const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
+        // Helper function to check if email is valid using regex
+        const isValidEmail = (email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        };
         if (id === 'email') {
             setShowPassword(false)
             if (!isValidEmail(value)) {
@@ -105,17 +105,17 @@ const Index = () => {
         setloading(true);
         let formIsValid = true;
         const validationErrors = {};
-    
+
         if (authData.email.trim() === '') {
             validationErrors.email = 'Email is required.';
             formIsValid = false;
         }
-    
+
         setErrors(validationErrors);
-    
+
         if (Object.keys(validationErrors).length === 0) {
             // No validation errors, proceed with the code
-    
+
             if (authData.email === 'admin@test.com') {
                 if (showPassword) {
                     router.push('/dashboard');
@@ -127,10 +127,10 @@ const Index = () => {
                 // router.push('/dashboard');
             }
         }
-    
+
         setloading(false);
     };
-    
+
     const handlePreferredOtpMethodChange = (e) => {
         setPreferredOtpMethod(e.target.value);
     };
@@ -140,18 +140,18 @@ const Index = () => {
 
     }
 
-   
+
     return (
         <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
             <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
                 <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
                 <hr className="h-5" />
                 <p className="mb-7 text-lg">Please enter your email</p>
-                <form data-testid = "login-form" className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <form data-testid="login-form" className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                     <div>
                         <DefaultInput
                             value={authData.email}
-                            label="Email"
+                            label="Emasil"
                             id="email"
                             placeholder="Enter Email"
                             onChange={handleInputChange}
@@ -159,6 +159,7 @@ const Index = () => {
                             onClick={checkIfAccountIsCreated}
                             loading={loading}
                             error={errors.email}
+                            icon={true}
                         />
                     </div>
                     {showPassword && (
@@ -166,7 +167,7 @@ const Index = () => {
                             <DefaultInput
                                 value={authData.password}
                                 label="Password"
-                                data-testid = "Password"
+                                data-testid="Password"
                                 id="password"
                                 type="password"
                                 placeholder="Enter Password"
@@ -174,6 +175,8 @@ const Index = () => {
                                 onClick={submitForm}
                                 loading={loading}
                                 error={errors.password}
+                                icon={true}
+
                             />
                         </div>
                     )}
@@ -181,7 +184,7 @@ const Index = () => {
                 {passwordNotGenerated && (
                     <p className="mt-5 text-gray-500 text-lg">
                         The password has not been generated,{" "}
-                        <span style={{cursor:'pointer'}} onClick={() => navigateToGeneratePasswordPage()} className="text-blue-500">
+                        <span style={{ cursor: 'pointer' }} onClick={() => navigateToGeneratePasswordPage()} className="text-blue-500">
                             click here
                         </span>{" "}
                         to create it

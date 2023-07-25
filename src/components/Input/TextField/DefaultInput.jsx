@@ -27,7 +27,7 @@ const DefaultInput = ({
   loading = false,
   type = 'text',
   error,
-  icon = false
+  icon
 }) => {
   const hasValue = value !== '';
 
