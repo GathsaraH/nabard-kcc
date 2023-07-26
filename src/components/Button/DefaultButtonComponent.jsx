@@ -1,24 +1,28 @@
 import React from 'react';
 
 /**
- * DefaultButtonComponent is a reusable button component.
+ * DefaultButtonComponent
  *
- * @param {string} title - The title or label of the button.
- * @param {function} onClick - The click event handler for the button.
- * @param {string} className - Additional CSS classes for styling the button.
- * @param {boolean} isDisabled - Indicates if the button is disabled.
- * @param {JSX.Element} icon - The JSX element representing the icon.
- * @param {JSX.Element} icon - The color attribute, explains the color of the button.
- * @param {boolean} iconBefore - Set to true if the icon should appear before the title.
+ * @param {Object} props - Component props
+ * @param {string} props.title - The text to be displayed on the button.
+ * @param {Function} props.onClick - The function to be called when the button is clicked.
+ * @param {string} props.className - Additional CSS classes to be applied to the button.
+ * @param {boolean} props.isDisabled - A boolean indicating whether the button should be disabled.
+ * @param {React.ReactNode} props.icon - The icon to be displayed on the button.
+ * @param {boolean} props.iconBefore - A boolean indicating whether the icon should appear before the title.
+ * @param {string} props.color - The color variant of the button (e.g., "btn-primary", "btn-secondary").
+ * @returns {React.ReactElement} - A button component with the specified properties.
  */
 const DefaultButtonComponent = ({ title, onClick, className, isDisabled, icon, iconBefore, color }) => {
   return (
+    // Button with dynamic classes based on provided props
     <button
       disabled={isDisabled}
       type="button"
-      className={` ${color ? "" : "btn btn-primary"}  ${className}`}
+      className={` ${color ? "" : "btn btn-primary"}  ${className} rounded-2xl`}
       onClick={onClick}
     >
+      {/* Render the icon before or after the title based on iconBefore prop */}
       {iconBefore && icon}
       {title}
       {!iconBefore && icon}

@@ -12,7 +12,7 @@ import React, { Fragment } from 'react';
  * @param {string} classname - The additional classname to be applied to the modal panel (optional).
  */
 const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButton, classname }) => {
-  const panelClassName = `panel my-8  overflow-hidden rounded-lg border-0 p-0 text-black dark:text-white-dark ${classname ? classname : "w-1/2"}`;
+  const panelClassName = `panel my-8  overflow-hidden rounded-2xl border-0 p-0 text-black dark:text-white-dark ${classname ? classname : "w-1/2"}`;
 
   return (
     <>

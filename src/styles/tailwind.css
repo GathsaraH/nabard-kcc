@@ -85,13 +85,25 @@
     }
     .sidebar .nav-item > button.active,
     .sidebar .nav-item > a.active {
-        @apply bg-primary  dark:bg-[#181f32] dark:text-white;
+        @apply bg-primary text-white  dark:bg-white dark:text-white;
+      background-image: url('../assets/images/SideMenuBgSvg.svg');
+
     }
+   
+    
+    
 
     .sidebar .nav-item > button.active > div > span,
     .sidebar .nav-item > a.active > div > span {
-        @apply dark:!text-white-dark;
+        @apply dark:!text-white-dark ;
     }
+/* Assuming this CSS is part of your Tailwind CSS configuration */
+.sidebar .nav-item button.active svg,
+.sidebar .nav-item a.active svg {
+  fill: var(--active-icon-color, #fff); /* Set the color to the value of --active-icon-color or #fff as fallback */
+}
+
+    
 
     .sidebar ul.sub-menu li button,
     .sidebar ul.sub-menu li a {
@@ -103,10 +115,19 @@
         @apply text-primary before:bg-primary;
     }
 
-    .sidebar .nav-item a div:first-child svg,
-    .sidebar .nav-item button div:first-child svg {
-        @apply h-5 w-5 text-black/50 dark:text-white/50;
-    }
+   /* Assuming this CSS is part of your Tailwind CSS configuration */
+.sidebar .nav-item a div:first-child svg,
+.sidebar .nav-item button div:first-child svg {
+  @apply h-5 w-5 text-black dark:text-white/50;
+}
+
+/* Add the hover effect to change the color to white */
+.sidebar .nav-item a:hover div:first-child svg,
+.sidebar .nav-item button:hover div:first-child svg {
+  @apply text-white; /* Set the color to white on hover */
+}
+
+
 
     .main-container .main-content {
         @apply transition-all duration-300 lg:ltr:ml-[260px] lg:rtl:mr-[260px];
@@ -710,3 +731,20 @@ pre.hljs {
     text-transform: uppercase;
   }
 
+  .logo-container {
+    position: absolute;
+    top: 90px; /* Adjust this value to control the vertical position */
+    left: 50%;
+    transform: translateX(-50%);
+}
+@layer utilities {
+    .bg-svg-background {
+      background-image: url('../assets/images/SideMenuBgSvg.svg');
+      /* Additional background properties can be added if needed */
+    }
+  }
+
+  .no-padding-x {
+    padding-left: 0;
+    padding-right: 0;
+  }
