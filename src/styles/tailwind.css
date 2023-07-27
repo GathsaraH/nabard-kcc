@@ -85,13 +85,21 @@
     }
     .sidebar .nav-item > button.active,
     .sidebar .nav-item > a.active {
-        @apply bg-primary  dark:bg-[#181f32] dark:text-white;
+        @apply bg-primary text-white  dark:bg-white dark:text-white;
+      background-image: url('../assets/images/SideMenuBgSvg.svg');
+
     }
+   
+    
+    
 
     .sidebar .nav-item > button.active > div > span,
     .sidebar .nav-item > a.active > div > span {
-        @apply dark:!text-white-dark;
+        @apply dark:!text-white-dark ;
     }
+
+
+    
 
     .sidebar ul.sub-menu li button,
     .sidebar ul.sub-menu li a {
@@ -103,10 +111,19 @@
         @apply text-primary before:bg-primary;
     }
 
-    .sidebar .nav-item a div:first-child svg,
-    .sidebar .nav-item button div:first-child svg {
-        @apply h-5 w-5 text-black/50 dark:text-white/50;
-    }
+   /* Assuming this CSS is part of your Tailwind CSS configuration */
+.sidebar .nav-item a div:first-child svg,
+.sidebar .nav-item button div:first-child svg {
+  @apply h-5 w-5 text-black dark:text-white/50;
+}
+
+/* Add the hover effect to change the color to white */
+.sidebar .nav-item a:hover div:first-child svg,
+.sidebar .nav-item button:hover div:first-child svg {
+  @apply text-white; /* Set the color to white on hover */
+}
+
+
 
     .main-container .main-content {
         @apply transition-all duration-300 lg:ltr:ml-[260px] lg:rtl:mr-[260px];
@@ -700,13 +717,115 @@ pre.hljs {
 
 /* writing custom css */
 
-.logoTitle {
-    color: var(--primary, #060);
-    font-family: Nunito;
-    font-size: 22px;
-    font-style: normal;
-    /* font-weight: 800; */
-    line-height: normal;
-    text-transform: uppercase;
-  }
 
+/* writing custom css */
+
+.logoTitle {
+
+    position: absolute;
+    width: 347px;
+    height: 97px;
+    left: calc(50% - 347px/2 - 0.5px);
+    top: 173px;
+
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 71.1333px;
+    line-height: 97px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+
+    /* White */
+    color: #FFFFFF;
+
+
+}
+
+.logo-container {
+    position: absolute;
+    top: 90px;
+    /* Adjust this value to control the vertical position */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@layer utilities {
+    .bg-svg-background {
+        background-image: url('../assets/images/SideMenuBgSvg.svg');
+        /* Additional background properties can be added if needed */
+    }
+}
+
+.no-padding-x {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.loginBox-Container {
+    position: absolute;
+    height: 430px;
+}
+
+.signText {
+font-family: 'Nunito';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 49px;
+color: #000000;
+}
+
+.passwordNotGeneratedText {
+
+font-family: 'Nunito';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+}
+
+
+
+.toolbar {
+  background-color: #42C6E7;
+  padding: 1.25rem;
+  position: relative;
+  height: 1.75rem;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+  a,h3 { 
+    position: absolute;
+    top: 0.75rem;
+    text-decoration: none;
+  }
+  a {
+    font-size: 1.25em;
+    line-height: 1rem;
+  }
+  h3 {  
+    left: 50%;
+    margin: 0;
+    line-height: 1rem;
+    transform: translate(-50%, 0);
+    font-weight: 300;
+  }
+  .menu {
+    right: 0.75rem;
+  }
+}
+
+.profileEdit {
+  position: relative;
+  .portraitEdit {
+    margin: 0 auto;
+    top: -3rem;
+    position: relative;
+    display: block;
+  }
+ 
+}

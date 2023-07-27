@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { setPageTitle } from '../../../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
 import OtpSvg from 'src/assets/svg/OtpSvg';
-import ChooseMethodSvg from 'src/assets/svg/ChooseMethodSvg';
 import GeneratePasswordSvg from 'src/assets/svg/GeneratePasswordSvg';
 import Tippy from '@tippyjs/react';
 import InfoSvg from 'src/assets/svg/InfoSvg';
@@ -12,8 +11,15 @@ import OtpComponent from 'src/components/Input/Otp/OtpInput';
 import TimerComponent from 'src/components/Timer/TimerComponent';
 import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent';
 import PasswordInput from 'src/components/Input/TextField/PasswordInput';
-import TickSvg from 'src/assets/svg/tickSvg';
 import ModalContainer from 'src/components/Modal/ModalContainer';
+import { GiEarthAmerica } from 'react-icons/gi'
+import loginBG from '../../../assets/images/b3.svg'
+import Image from 'next/image';
+import CardContainer from 'src/components/Card/CardContainer';
+import { AiOutlineRight, AiOutlineLock } from 'react-icons/ai'
+import StarCheckSvg from 'src/assets/svg/StarCheckSvg';
+
+import styles from './generate-password.module.css';
 
 /**
  * GeneratePassword is a page for generating passwords using a multi-step process.
@@ -37,15 +43,16 @@ const GeneratePassword = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Recover Id Box'));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-     /**
-     * Handles the change event for the password input fields.
-     * Updates the new password and confirms password values,
-     * and checks if the entered password meets the guidelines.
-     * 
-     * @param {Object} e - The event object.
-     * @param {boolean} isConfirmPassword - Flag indicating if it's the confirm password field.
-     */
+    /**
+    * Handles the change event for the password input fields.
+    * Updates the new password and confirms password values,
+    * and checks if the entered password meets the guidelines.
+    * 
+    * @param {Object} e - The event object.
+    * @param {boolean} isConfirmPassword - Flag indicating if it's the confirm password field.
+    */
     const handlePasswordChange = (e, isConfirmPassword = false) => {
         const password = e.target.value;
         if (isConfirmPassword) {
@@ -69,18 +76,18 @@ const GeneratePassword = () => {
    * 
    * @param {Object} e - The event object.
    */
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
 
-        if (newPassword === confirmPassword) {
+    //     if (newPassword === confirmPassword) {
 
-            // Passwords match, proceed with submission
-            // ...
-        } else {
-            // Passwords do not match, show an error or take appropriate action
-            // ...
-        }
-    };
+    //         // Passwords match, proceed with submission
+    //         // ...
+    //     } else {
+    //         // Passwords do not match, show an error or take appropriate action
+    //         // ...
+    //     }
+    // };
 
     /**
     * Handles the change event for the preferred OTP method.
@@ -98,32 +105,35 @@ const GeneratePassword = () => {
    * It shows the password requirements and indicates whether each requirement is met.
    */
     const PasswordGuidelinesNote = () => {
+        const width = 20;
+        const height = 20;
 
         const guidelineItems = [
             {
                 id: 1,
                 text: 'Must contain at least one uppercase letter',
-                icon: newPassword.match(/[A-Z]/) ? <TickSvg width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
+                // icon: newPassword.match(/[A-Z]/) ? <StarCheckSvg checked width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
+                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[A-Z]/)} />,
             },
             {
                 id: 2,
                 text: 'Must contain at least one lowercase letter',
-                icon: newPassword.match(/[a-z]/) ? <TickSvg width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
+                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[a-z]/)} />,
             },
             {
                 id: 3,
                 text: 'Must contain at least one numeric digit',
-                icon: newPassword.match(/[0-9]/) ? <TickSvg width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
+                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[0-9]/)} />,
             },
             {
                 id: 4,
                 text: 'Must contain at least one special character',
-                icon: newPassword.match(/[!@#$%^&*]/) ? <TickSvg width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
+                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[!@#$%^&*]/)} />,
             },
             {
                 id: 5,
                 text: 'Must be at least 8 characters long',
-                icon: newPassword.length >= 8 ? <TickSvg width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
+                icon: <StarCheckSvg width={width} height={height} checked={newPassword.length >= 8} />,
             },
         ];
 
@@ -137,19 +147,20 @@ const GeneratePassword = () => {
         const GuidelineItem = ({ icon, text }) => (
             <li className="flex items-center">
                 {icon}
-                <span className="text-base font-medium text-black">{text}</span>
+                <span className="text-base font-medium text-black ml-3">{text}</span>
             </li>
         );
 
         return (
-            <div className="bg-gray-100 p-4 rounded-lg">
-                <h4 className="text-2xl font-semibold mb-2">Guidelines for passwords:</h4>
+            <div className="text-left">
+                <h4 className="text-xl font-semibold mb-2 ml-5">Guidelines for passwords:</h4>
                 <ul className="pl-6 space-y-1">
                     {guidelineItems.map((item) => (
                         <GuidelineItem key={item.id} icon={item.icon} text={item.text} />
                     ))}
                 </ul>
             </div>
+
         );
     };
 
@@ -166,32 +177,38 @@ const GeneratePassword = () => {
                         : `You will receive an OTP on your ${preferredOtpMethod}.`}
                 </h2>
                 <br />
-                <div className="mb-2">
-                    <label className="mt-1 inline-flex cursor-pointer">
-                        <input
-                            type="radio"
-                            name="otpMethod"
-                            className="form-radio"
-                            value="email"
-                            checked={preferredOtpMethod === 'email'}
-                            onChange={handlePreferredOtpMethodChange}
-                        />
-                        <span>Email</span>
-                    </label>
+                <div className='flex justify-evenly' >
+                    <CardContainer width="w-1/2 sm:w-1/3" shadow={"shadow-lg"}>
+                        <div className="mb-2">
+                            <label className="mt-1 inline-flex cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="otpMethod"
+                                    className="form-radio"
+                                    value="email"
+                                    checked={preferredOtpMethod === 'email'}
+                                    onChange={handlePreferredOtpMethodChange}
+                                />
+                                <span>Email</span>
+                            </label>
+                        </div>
+                    </CardContainer>
+                    <CardContainer width="w-1/2 sm:w-1/3" shadow={"shadow-lg"}>
+                        <div className="mb-2">
+                            <label className="mt-1 inline-flex cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="otpMethod"
+                                    className="form-radio"
+                                    value="mobile"
+                                    checked={preferredOtpMethod === 'mobile'}
+                                    onChange={handlePreferredOtpMethodChange}
+                                />
+                                <span>Mobile</span>
+                            </label>
+                        </div>
+                    </CardContainer>
 
-                </div>
-                <div className="mb-2">
-                    <label className="mt-1 inline-flex cursor-pointer">
-                        <input
-                            type="radio"
-                            name="otpMethod"
-                            className="form-radio"
-                            value="mobile"
-                            checked={preferredOtpMethod === 'mobile'}
-                            onChange={handlePreferredOtpMethodChange}
-                        />
-                        <span>Mobile</span>
-                    </label>
                 </div>
                 {
                     inputErrors.method && <p className="text-red-500 text-sm mt-1">{inputErrors.method}</p>
@@ -234,12 +251,13 @@ const GeneratePassword = () => {
         return (
             <div className="flex flex-col p-5 items-center text-center">
                 <br />
-                <div className="w-1/2">
+                <div className="w-full sm:w-1/2">
                     <PasswordInput
                         value={newPassword}
                         passwordShow={false}
                         placeholder="New Password"
                         onChange={(e) => handlePasswordChange(e)}
+                        icon={<AiOutlineLock size={25} color='gray' />}
                     />
                     {
                         inputErrors.newPassword && !newPassword && <p className="text-red-500 text-sm mt-1">{inputErrors.newPassword}</p>
@@ -253,6 +271,7 @@ const GeneratePassword = () => {
                             passwordShow={false}
                             placeholder="Confirm Password"
                             onChange={(e) => handlePasswordChange(e, true)}
+                            icon={<AiOutlineLock size={25} color='gray' />}
                         />
                     }
                     {
@@ -318,60 +337,64 @@ const GeneratePassword = () => {
             } else {
                 setpasswordChangedModal(true)
                 // alert("Password changed");
-                console.log("Passwords matched, ready for submission");
             }
         }
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
-            <div className="panel m-6 w-1/2">
-                {console.log(inputErrors)}
-                <h2 className="mb-3 text-2xl font-bold">
-                    Generate Password
-                    <Tippy
-                        trigger="mouseenter focus"
-                        placement="right"
-                        content={
-                            <div className="panel p-3 w-full">
-                                <h2 className="text-xl text-black font-semibold">
-                                    Steps to generate password
-                                </h2>
-                                <div className="p-3 text-black">
-                                    <p>1. Select the desired mode.</p>
-                                    <p>2. Request an OTP using your chosen method.</p>
-                                    <p>3. Generate a password.</p>
+        <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
+            <div className=" mb-10">
+                {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
+                <Image src="../../../assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
+            </div>
+            <div className={`${styles.boxContainer} panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}>
+                <div className='flex justify-center'>
+                    <h2 className="mb-3 text-2xl font-bold">
+                        Generate Password
+                        <Tippy
+                            trigger="mouseenter focus"
+                            placement="bottom"
+                            content={
+                                <div className="panel p-3 w-full">
+                                    <h2 className="text-xl text-black font-semibold">
+                                        Steps to generate password
+                                    </h2>
+                                    <div className="p-3 text-black">
+                                        <p>1. Select the desired mode.</p>
+                                        <p>2. Request an OTP using your chosen method.</p>
+                                        <p>3. Generate a password.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    >
-                        <button className="ml-2" type="button" data-trigger="mouseenter">
-                            <InfoSvg />
-                        </button>
-                    </Tippy>
-                </h2>
+                            }
+                        >
+                            <button className="ml-2" type="button" data-trigger="mouseenter">
+                                <InfoSvg className="mt-5" />
+                            </button>
+                        </Tippy>
+                    </h2>
+                </div>
                 <br />
                 <br />
                 <div className="inline-block w-full">
                     <div className="relative z-[1]">
                         <div
                             className={`${activeTab === 1
-                                ? 'w-[0%]'
+                                ? 'w-[0%] bg-primary'
                                 : activeTab === 2
-                                    ? 'w-[48%]'
+                                    ? 'w-[50%] bg-primary-light'
                                     : activeTab === 3
-                                        ? 'w-[81%]'
+                                        ? 'w-[81%] bg-primary-light'
                                         : ''
-                                } bg-primary w-[15%] h-1 absolute ltr:left-0 rtl:right-0 top-[30px] m-auto -z-[1] transition-[width]`}
+                                }   w-[15%] h-2 absolute ltr:left-0 rtl:right-0 top-[40px] m-auto -z-[1] transition-[width]`}
                         ></div>
                         <ul className="mb-5 grid grid-cols-3">
                             <li className="mx-auto">
                                 <button
                                     type="button"
-                                    className={`${activeTab === 1 ? '!border-primary !bg-primary text-white' : ''
-                                        } border-[3px] border-[#f3f2ee] bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
+                                    className={`${activeTab === 1 || activeTab === 2 || activeTab === 3 ? '!bg-primary text-white' : ''
+                                        }   ${activeTab === 2 || activeTab === 3 ? "!bg-primary-light" : ""} bg-white  flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
-                                    <ChooseMethodSvg />
+                                    <GiEarthAmerica color={'white'} size={38} />
                                 </button>
                                 <span
                                     className={`${activeTab === 1 ? 'text-primary ' : ''
@@ -383,12 +406,13 @@ const GeneratePassword = () => {
                             <li className="mx-auto">
                                 <button
                                     type="button"
-                                    className={`${activeTab === 2
-                                        ? '!border-primary !bg-primary text-white'
-                                        : ''
-                                        } border-[3px] border-[#f3f2ee] bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
+                                    className={`${activeTab === 2 || activeTab === 3
+                                        ? '!bg-primary text-white '
+                                        : 'bg-[#EEEEEE]'
+                                        } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
-                                    <OtpSvg color={activeTab === 2 ? 'white' : 'black'} />
+                                    <OtpSvg color={activeTab === 2 || activeTab === 3 ? 'white' : '#888EA8'} />
+                                    {/* <Image src={mobileOTp.src} alt="logo" width={30} height={30} /> */}
                                 </button>
                                 <span
                                     className={`${activeTab === 2 ? 'text-primary ' : ''
@@ -401,12 +425,12 @@ const GeneratePassword = () => {
                                 <button
                                     type="button"
                                     className={`${activeTab === 3
-                                        ? '!border-primary !bg-primary text-white'
-                                        : ''
-                                        } border-[3px] border-[#f3f2ee] bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
+                                        ? ' !bg-primary text-white'
+                                        : 'bg-[#EEEEEE]'
+                                        }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
                                     <GeneratePasswordSvg
-                                        color={activeTab === 3 ? 'white' : 'black'}
+                                        color={activeTab === 3 ? 'white' : '#888EA8'}
                                     />
                                 </button>
                                 <span
@@ -426,19 +450,20 @@ const GeneratePassword = () => {
                                 ? SecondStep()
                                 : ThirdStep()}
                     </div>
-                    <div className="flex justify-between">
+                    <div className={`flex ${activeTab === 1 ? "justify-center" : ""}`}>
                         <DefaultButtonComponent
                             className={activeTab === 1 ? 'hidden' : ''}
                             title="Back"
                             onClick={handleBackButton}
                         />
                         <DefaultButtonComponent
-                            className="ltr:ml-auto rtl:mr-auto"
+                            icon={<AiOutlineRight />}
+                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-20"}`}
                             title={
                                 activeTab === 1
                                     ? 'Send OTP'
                                     : activeTab === 2
-                                        ? 'Verify'
+                                        ? 'Verify OTP'
                                         : activeTab === 3 && 'Generate'
                             }
                             onClick={handleForwardButton}
@@ -446,13 +471,13 @@ const GeneratePassword = () => {
                     </div>
                 </div>
             </div>
-            <ModalContainer hideCloseButton showModal={passwordChangedModal} handleModal={handleModal}>
-            <div className="flex flex-col items-center justify-center p-5">
-                  <TickSvg width={100} height={100} />
-                  <p className="mt-4 text-xl font-bold text-center">Password Created Successfully</p>
-                  <br/>
-                  <br/>
-                  <DefaultButtonComponent title="Proceed to login" onClick={() => router.push("/")} />
+            <ModalContainer classname="p-10" hideCloseButton showModal={passwordChangedModal} handleModal={handleModal}>
+                <div className="flex flex-col items-center justify-center p-5">
+                    <StarCheckSvg width={100} height={100} checked />
+                    <p className="mt-4 text-2xl font-bold text-center">Password Created Successfully</p>
+                    <br />
+                    <br />
+                    <DefaultButtonComponent className='text-xl' title="Proceed to login" onClick={() => router.push("/")} icon={<AiOutlineRight />} />
                 </div>
             </ModalContainer>
         </div>

@@ -8,10 +8,12 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { RiHome5Line } from "react-icons/ri";
 import { BiSolidDashboard } from "react-icons/bi";
-import { GrOrganization } from "react-icons/gr";
+import { GoOrganization } from "react-icons/go";
 import { FiFileText, FiUsers } from "react-icons/fi";
 import { BsFileEarmarkRichtextFill } from "react-icons/bs";
 import { FaHandHoldingUsd, FaUserLock } from "react-icons/fa";
+import leftSidebarToggle from "../assets/icons/toggleSidebarLeft.svg"
+import Image from 'next/image';
 
 const sidebarMenuOptions = [
     {
@@ -26,7 +28,7 @@ const sidebarMenuOptions = [
     },
     {
         title: 'Organizations',
-        icon: <GrOrganization size={25} />,
+        icon: <GoOrganization size={25} />,
         subMenu: [
             {
                 title: 'Banks',
@@ -159,7 +161,7 @@ const Sidebar = () => {
 
     function SideMenuList(index, menuOption) {
         function ListItem(menuOption) {
-            return <h2 className="-mx-4 mb-1 flex items-center  py-3 px-7 font-extrabold uppercase hover:text-white hover:bg-primary">
+            return <li className=" mb-1 flex items-center  py-3 px-7 font-extrabold uppercase hover:text-white hover:bg-primary">
                 <svg
                     className="hidden h-5 w-4 flex-none"
                     viewBox="0 0 24 24"
@@ -173,37 +175,61 @@ const Sidebar = () => {
                 </svg>
                 <div className='flex items-center'>
                     {menuOption.icon}
-                    <Link className='ml-5' href={menuOption.link}>{t(menuOption.title)}</Link>
+                    <Link className='ml-5' href={menuOption.link}>{t(menuOption.title)}</Link>   {/* Main */}
+
                 </div>
-            </h2>;
+            </li>;
         }
+
+        function ListItem(menuOption) {
+            return <li className=" mb-1 flex items-center py-3 px-7 font-extrabold uppercase hover:text-white hover:bg-svg-background">
+                <svg
+                    className="hidden h-5 w-4 flex-none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                <div className='flex items-center'>
+                    {menuOption.icon}
+                    <Link className='ml-5' href={menuOption.link}>{t(menuOption.title)}</Link>   {/* Main */}
+
+                </div>
+            </li>;
+        }
+
 
         return <React.Fragment key={index}>
             {menuOption.subMenu ? (
-                <li className="menu nav-item">
+                <li className={`menu nav-item px-7 ${currentMenu === menuOption.title ? "active no-padding-x" : "hover:bg-svg-background group"
+                    }`}>
                     <button
                         type="button"
                         className={`${currentMenu === menuOption.title ? 'active' : ''} nav-link group w-full`}
                         onClick={() => toggleMenu(menuOption.title)}
                     >
                         <div className="flex items-center">
-                            <div className='hover:text-white'>{menuOption.icon}</div>
-                            <h2 className='ml-5 py-3 font-extrabold -mx-4  hover:text-white '>
-                                {t(menuOption.title)}
-                            </h2>
+                            <div className={`${currentMenu === menuOption.title ? "ml-4" : ""}`}>{menuOption.icon}</div>
+                            <li className='ml-5 py-2 font-extrabold  hover:text-white '>
+                                {t(menuOption.title)}  {/* sub */}
+                            </li>
                         </div>
-                        <div className={currentMenu === menuOption.title ? 'rotate-90' : 'rtl:rotate-180'}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div className={currentMenu === menuOption.title ? 'rotate-90 mr-5' : 'rtl:rotate-180'}>
+                            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
                     </button>
                     <AnimateHeight duration={300} height={currentMenu === menuOption.title ? 'auto' : 0}>
-                        <ul className="sub-menu ">
+                        <ul className="sub-menu">
                             {menuOption.subMenu.map((subMenuOption, subIndex) => (
                                 // eslint-disable-next-line react/no-array-index-key
                                 <li key={subIndex}>
-                                    <Link href={subMenuOption.link}>{t(subMenuOption.title)}</Link>
+                                    <Link href={subMenuOption.link}>{t(subMenuOption.title)}</Link>  {/* sub child link */}
                                 </li>
                             ))}
                         </ul>
@@ -217,12 +243,13 @@ const Sidebar = () => {
 
     }
 
+
     return (
         <div className={semidark ? 'dark' : ''}>
             <nav className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}>
                 <div className="h-full bg-white dark:bg-black">
                     <div className="flex items-center justify-between px-4 py-3">
-                        <Link href="/" className="flex-1 text-center logoTitle">
+                        <Link href="/" className="flex-1 text-center text-primary text-2xl">
                             <b>NabNext</b>
                         </Link>
 
@@ -231,14 +258,11 @@ const Sidebar = () => {
                             className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300  rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
                             onClick={() => dispatch(toggleSidebar())}
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="m-auto h-5 w-5">
-                                <path d="M13 19L7 12L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <Image src={leftSidebarToggle} alt="leftSidebarToggle" />
                         </button>            </div>
 
                     <PerfectScrollbar className="relative h-[calc(100vh-80px)]">
-                        <ul className="relative space-y-0.5 p-4 py-0 font-semibold">
+                        <ul className="relative space-y-0.5 py-0 font-semibold pr-0">
                             {sidebarMenuOptions.map((menuOption, index) => (
                                 // eslint-disable-next-line react/no-array-index-key
                                 SideMenuList(index, menuOption)

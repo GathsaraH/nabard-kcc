@@ -36,7 +36,7 @@ const TimerComponent = ({ time }) => {
     <div className="flex justify-center">
       <div className="flex items-center">
         {/* Display the formatted time */}
-        <div className="bg-primary rounded-md p-2 mx-1">
+        <div className="rounded-md p-2 mx-1">
           <span className="text-2xl font-bold text-primary-light">{formatTime(seconds)}</span>
         </div>
       </div>

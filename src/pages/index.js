@@ -77,7 +77,7 @@ const Index = () => {
         }
     };
 
-    const submitForm = (e) => {
+    const submitForm = () => {
 
         // Form validation
         let formIsValid = true;
@@ -102,13 +102,14 @@ const Index = () => {
     };
 
 
-    const checkIfAccountIsCreated = (text) => {
+    const checkIfAccountIsCreated = () => {
         setloading(true);
         let formIsValid = true;
         const validationErrors = {};
 
         if (authData.email.trim() === '') {
             validationErrors.email = 'Email is required.';
+            // eslint-disable-next-line no-unused-vars
             formIsValid = false;
         }
 
@@ -196,6 +197,7 @@ const Index = () => {
                     </p>
                 )}
             </div>
+
             {/* modal starts here */}
             <ModalContainer title={"Generate password"} showModal={chooseOtpModal} handleModal={handleModal}>
                 <p>Please select your preferred verification method:</p>
