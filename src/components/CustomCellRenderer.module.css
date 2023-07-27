@@ -1,0 +1,35 @@
+/* components/CustomCellRenderer.module.css */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 1;
+    width:100px;
+    height:100px;
+  }
+  
+  /* Add styles for the dropdown options */
+  .dropdown div {
+    padding: 8px;
+  }
+  
+  /* Add a separator between options */
+  .dropdown div:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Update the cell-content styles */
+  .cell-content {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Add some margin at the bottom to create space for the dropdown */
+  .cell-content {
+    margin-bottom: 16px;
+  }
+  
