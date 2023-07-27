@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 import LoadingSvg from 'src/assets/svg/LoadingSvg';
 
@@ -23,14 +22,11 @@ const DefaultInput = ({
   placeholder,
   value,
   onChange,
-  showPassword = false,
-  onClick,
   loading = false,
   type = 'text',
   error,
   icon
 }) => {
-  const hasValue = value !== '';
 
   return (
     <div className="relative">

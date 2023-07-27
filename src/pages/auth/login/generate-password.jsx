@@ -19,7 +19,7 @@ import CardContainer from 'src/components/Card/CardContainer';
 import { AiOutlineRight, AiOutlineLock } from 'react-icons/ai'
 import StarCheckSvg from 'src/assets/svg/StarCheckSvg';
 
-
+import styles from './generate-password.module.css';
 
 /**
  * GeneratePassword is a page for generating passwords using a multi-step process.
@@ -107,7 +107,7 @@ const GeneratePassword = () => {
     const PasswordGuidelinesNote = () => {
         const width = 20;
         const height = 20;
-        
+
         const guidelineItems = [
             {
                 id: 1,
@@ -347,7 +347,7 @@ const GeneratePassword = () => {
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
                 <Image src="../../../assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
             </div>
-            <div className="panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl">
+            <div className={`${styles.boxContainer} panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}>
                 <div className='flex justify-center'>
                     <h2 className="mb-3 text-2xl font-bold">
                         Generate Password
@@ -368,7 +368,7 @@ const GeneratePassword = () => {
                             }
                         >
                             <button className="ml-2" type="button" data-trigger="mouseenter">
-                                <InfoSvg />
+                                <InfoSvg className="mt-5" />
                             </button>
                         </Tippy>
                     </h2>
@@ -379,20 +379,20 @@ const GeneratePassword = () => {
                     <div className="relative z-[1]">
                         <div
                             className={`${activeTab === 1
-                                ? 'w-[0%]'
+                                ? 'w-[0%] bg-primary'
                                 : activeTab === 2
-                                    ? 'w-[48%]'
+                                    ? 'w-[50%] bg-primary-light'
                                     : activeTab === 3
-                                        ? 'w-[81%]'
+                                        ? 'w-[81%] bg-primary-light'
                                         : ''
-                                }  bg-primary  w-[15%] h-1 absolute ltr:left-0 rtl:right-0 top-[30px] m-auto -z-[1] transition-[width]`}
+                                }   w-[15%] h-2 absolute ltr:left-0 rtl:right-0 top-[40px] m-auto -z-[1] transition-[width]`}
                         ></div>
                         <ul className="mb-5 grid grid-cols-3">
                             <li className="mx-auto">
                                 <button
                                     type="button"
                                     className={`${activeTab === 1 || activeTab === 2 || activeTab === 3 ? '!bg-primary text-white' : ''
-                                        }  ${activeTab === 1 ? "!bg-primary-light" : ""} bg-white  flex justify-center items-center w-16 h-16 rounded-full`}
+                                        }   ${activeTab === 2 || activeTab === 3 ? "!bg-primary-light" : ""} bg-white  flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
                                     <GiEarthAmerica color={'white'} size={38} />
                                 </button>
@@ -407,9 +407,9 @@ const GeneratePassword = () => {
                                 <button
                                     type="button"
                                     className={`${activeTab === 2 || activeTab === 3
-                                        ? '!bg-primary text-white'
-                                        : ''
-                                        } border-[3px] border-[#f3f2ee] ${activeTab === 2 ? "!bg-primary-light" : ""}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
+                                        ? '!bg-primary text-white '
+                                        : 'border-[3px] border-[#f3f2ee]'
+                                        } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
                                     <OtpSvg color={activeTab === 2 || activeTab === 3 ? 'white' : '#888EA8'} />
                                     {/* <Image src={mobileOTp.src} alt="logo" width={30} height={30} /> */}
@@ -427,7 +427,7 @@ const GeneratePassword = () => {
                                     className={`${activeTab === 3
                                         ? ' !bg-primary text-white'
                                         : ''
-                                        } border-[3px] border-[#f3f2ee] ${activeTab === 3 ? "!bg-primary-light" : ""} bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-16 h-16 rounded-full`}
+                                        }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
                                     <GeneratePasswordSvg
                                         color={activeTab === 3 ? 'white' : '#888EA8'}
@@ -450,7 +450,7 @@ const GeneratePassword = () => {
                                 ? SecondStep()
                                 : ThirdStep()}
                     </div>
-                    <div className="flex">
+                    <div className={`flex ${activeTab === 1 ? "justify-center" : ""}`}>
                         <DefaultButtonComponent
                             className={activeTab === 1 ? 'hidden' : ''}
                             title="Back"
@@ -458,7 +458,7 @@ const GeneratePassword = () => {
                         />
                         <DefaultButtonComponent
                             icon={<AiOutlineRight />}
-                            className="ltr:ml-auto rtl:mr-auto"
+                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-20"}`}
                             title={
                                 activeTab === 1
                                     ? 'Send OTP'
@@ -477,7 +477,7 @@ const GeneratePassword = () => {
                     <p className="mt-4 text-2xl font-bold text-center">Password Created Successfully</p>
                     <br />
                     <br />
-                    <DefaultButtonComponent className='text-xl' title="Proceed to login" onClick={() => router.push("/")} icon={<AiOutlineRight/>} />
+                    <DefaultButtonComponent className='text-xl' title="Proceed to login" onClick={() => router.push("/")} icon={<AiOutlineRight />} />
                 </div>
             </ModalContainer>
         </div>

@@ -719,32 +719,3 @@ pre.hljs {
     @apply bg-success;
 }
 
-/* writing custom css */
-
-.logoTitle {
-    color: var(--primary, #060);
-    font-family: Nunito;
-    font-size: 22px;
-    font-style: normal;
-    /* font-weight: 800; */
-    line-height: normal;
-    text-transform: uppercase;
-  }
-
-  .logo-container {
-    position: absolute;
-    top: 90px; /* Adjust this value to control the vertical position */
-    left: 50%;
-    transform: translateX(-50%);
-}
-@layer utilities {
-    .bg-svg-background {
-      background-image: url('../assets/images/SideMenuBgSvg.svg');
-      /* Additional background properties can be added if needed */
-    }
-  }
-
-  .no-padding-x {
-    padding-left: 0;
-    padding-right: 0;
-  }

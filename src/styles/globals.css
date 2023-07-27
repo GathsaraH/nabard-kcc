@@ -15,3 +15,80 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+/* writing custom css */
+
+
+/* writing custom css */
+
+.logoTitle {
+
+  position: absolute;
+  width: 347px;
+  height: 97px;
+  left: calc(50% - 347px/2 - 0.5px);
+  top: 173px;
+
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 71.1333px;
+  line-height: 97px;
+  /* identical to box height */
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+
+  /* White */
+  color: #FFFFFF;
+
+
+}
+
+.logo-container {
+  position: absolute;
+  top: 90px;
+  /* Adjust this value to control the vertical position */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@layer utilities {
+  .bg-svg-background {
+      background-image: url('../assets/images/SideMenuBgSvg.svg');
+      /* Additional background properties can be added if needed */
+  }
+}
+
+
+/* login page CSS */
+
+.no-padding-x {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+.loginBox-Container {
+  position: absolute;
+  height: 430px;
+}
+
+.signText {
+font-family: 'Nunito';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 49px;
+color: #000000;
+}
+
+.passwordNotGeneratedText {
+font-family: 'Nunito';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+
+}
+
+
