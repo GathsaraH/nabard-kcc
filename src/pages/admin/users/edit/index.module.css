@@ -1,0 +1,12 @@
+
+.profileBackgroundCard {
+    position: absolute;
+    /* height: 50%; */
+    top: 25%;    
+    background: #FFFFFF;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    
+}
+
+

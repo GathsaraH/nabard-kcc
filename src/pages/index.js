@@ -149,10 +149,8 @@ const Index = () => {
 
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
-    
             <div className="logo-container mb-10">
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
-
                 <Image src="/assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
             </div>
             <div className="loginBox-Container panel m-6 w-full max-w-lg sm:w-[550px] shadow-2xl min-h-[200px]  rounded-2xl">

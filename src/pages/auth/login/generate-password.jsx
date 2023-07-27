@@ -408,7 +408,7 @@ const GeneratePassword = () => {
                                     type="button"
                                     className={`${activeTab === 2 || activeTab === 3
                                         ? '!bg-primary text-white '
-                                        : 'border-[3px] border-[#f3f2ee]'
+                                        : 'bg-[#EEEEEE]'
                                         } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
                                     <OtpSvg color={activeTab === 2 || activeTab === 3 ? 'white' : '#888EA8'} />
@@ -426,7 +426,7 @@ const GeneratePassword = () => {
                                     type="button"
                                     className={`${activeTab === 3
                                         ? ' !bg-primary text-white'
-                                        : ''
+                                        : 'bg-[#EEEEEE]'
                                         }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
                                 >
                                     <GeneratePasswordSvg

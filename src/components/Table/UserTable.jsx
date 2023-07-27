@@ -85,7 +85,7 @@ const UserTable = () => {
   }, [sortStatus]);
 
   const navToPage = (id) => {
-    router.push(`/admin/roles-and-permissions/edit/${id}`)
+    router.push(`/admin/users/edit/${id}`)
   }
 
   useEffect(() => {
