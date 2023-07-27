@@ -1,498 +1,268 @@
+/* eslint-disable react/jsx-no-duplicate-props */
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { setPageTitle } from '../../../../store/themeConfigSlice';
+import { setPageTitle } from '../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
-import OtpSvg from 'src/assets/svg/OtpSvg';
-import GeneratePasswordSvg from 'src/assets/svg/GeneratePasswordSvg';
-import Tippy from '@tippyjs/react';
-import InfoSvg from 'src/assets/svg/InfoSvg';
-import OtpComponent from 'src/components/Input/Otp/OtpInput';
-import TimerComponent from 'src/components/Timer/TimerComponent';
-import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent';
-import PasswordInput from 'src/components/Input/TextField/PasswordInput';
 import ModalContainer from 'src/components/Modal/ModalContainer';
-import { GiEarthAmerica } from 'react-icons/gi'
-import loginBG from '../../../assets/images/b3.svg'
+import DefaultInput from 'src/components/Input/TextField/DefaultInput';
 import Image from 'next/image';
-import CardContainer from 'src/components/Card/CardContainer';
-import { AiOutlineRight, AiOutlineLock } from 'react-icons/ai'
-import StarCheckSvg from 'src/assets/svg/StarCheckSvg';
+import loginBG from "../assets/images/b3.svg"
+import nextCircle from "../assets/images/nextCircle.svg"
+import {AiOutlineMail, AiOutlineLock} from "react-icons/ai"
 
-import styles from './generate-password.module.css';
 
-/**
- * GeneratePassword is a page for generating passwords using a multi-step process.
- * It allows users to select a verification method, enter an OTP, and generate a new password.
- */
-const GeneratePassword = () => {
+const Index = () => {
+    const [authData, setAuthData] = useState({ email: '', password: '' });
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setloading] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [passwordNotGenerated, setPasswordNotGenerated] = useState(false);
+    const [chooseOtpModal, setchooseOtpModal] = useState(false);
     const [preferredOtpMethod, setPreferredOtpMethod] = useState('');
-    const [activeTab, setActiveTab] = useState(1);
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [areGuidelinesMatched, setAreGuidelinesMatched] = useState(false);
-    const [inputErrors, setInputErrors] = useState({})
-    const [otp, setOtp] = useState("")
-    const [passwordChangedModal, setpasswordChangedModal] = useState(false)
-    const router = useRouter();
 
     const handleModal = (item) => {
-        setpasswordChangedModal(item)
-    }
+        setchooseOtpModal(item);
+    };
 
     const dispatch = useDispatch();
+
     useEffect(() => {
-        dispatch(setPageTitle('Recover Id Box'));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    /**
-    * Handles the change event for the password input fields.
-    * Updates the new password and confirms password values,
-    * and checks if the entered password meets the guidelines.
-    * 
-    * @param {Object} e - The event object.
-    * @param {boolean} isConfirmPassword - Flag indicating if it's the confirm password field.
-    */
-    const handlePasswordChange = (e, isConfirmPassword = false) => {
-        const password = e.target.value;
-        if (isConfirmPassword) {
-            setConfirmPassword(password);
-            setInputErrors({});
-        } else {
-            setNewPassword(password);
-            setAreGuidelinesMatched(
-                password.match(/[A-Z]/) &&
-                password.match(/[a-z]/) &&
-                password.match(/[0-9]/) &&
-                password.match(/[!@#$%^&*]/) &&
-                password.length >= 8
-            );
+        dispatch(setPageTitle('Login')); // Set the page title to 'Login' when the component mounts
+    }, [dispatch]);
+
+    const router = useRouter();
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setAuthData((prevData) => ({
+            ...prevData,
+            [id]: value,
+        }));
+
+        // Clear the corresponding error when the input value changes
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [id]: '',
+        }));
+
+        setPasswordNotGenerated(false);
+        // Helper function to check if email is valid using regex
+        const isValidEmail = (email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        };
+        if (id === 'email') {
+            setShowPassword(false)
+            if (!isValidEmail(value)) {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [id]: 'Invalid email format.',
+                }));
+            } else {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [id]: '',
+                }));
+            }
+        }
+
+        // Input validation rules
+        if (id === 'email' && value.trim() === '') {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [id]: 'Email is required.',
+            }));
+        } else if (id === 'password' && value.trim() === '') {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [id]: 'Password is required.',
+            }));
         }
     };
 
-    /**
-   * Handles the form submission.
-   * Validates if the new password and confirm password match.
-   * 
-   * @param {Object} e - The event object.
-   */
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
+    const submitForm = () => {
 
-    //     if (newPassword === confirmPassword) {
+        // Form validation
+        let formIsValid = true;
+        const validationErrors = {};
 
-    //         // Passwords match, proceed with submission
-    //         // ...
-    //     } else {
-    //         // Passwords do not match, show an error or take appropriate action
-    //         // ...
-    //     }
-    // };
+        if (authData.email.trim() === '') {
+            validationErrors.email = 'Email is required.';
+            formIsValid = false;
+        }
 
-    /**
-    * Handles the change event for the preferred OTP method.
-    * 
-    * @param {Object} e - The event object.
-    */
+        if (authData.password.trim() === '') {
+            validationErrors.password = 'Password is required.';
+            formIsValid = false;
+        }
+
+        setErrors(validationErrors);
+
+        if (formIsValid) {
+            // Form submission logic here
+            router.push('/dashboard');
+        }
+    };
+
+
+    const checkIfAccountIsCreated = () => {
+        setloading(true);
+        let formIsValid = true;
+        const validationErrors = {};
+
+        if (authData.email.trim() === '') {
+            validationErrors.email = 'Email is required.';
+            // eslint-disable-next-line no-unused-vars
+            formIsValid = false;
+        }
+
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            // No validation errors, proceed with the code
+
+            if (authData.email === 'admin@test.com') {
+                if (showPassword) {
+                    router.push('/dashboard');
+                } else {
+                    setShowPassword(true);
+                }
+            } else {
+                setPasswordNotGenerated(true);
+                // router.push('/dashboard');
+            }
+        }
+
+        setloading(false);
+    };
+
     const handlePreferredOtpMethodChange = (e) => {
         setPreferredOtpMethod(e.target.value);
-        setInputErrors({})
     };
 
+    const navigateToGeneratePasswordPage = () => {
+        router.push('/auth/login/generate-password')
 
-    /**
-   * PasswordGuidelinesNote is a component that displays the guidelines for passwords.
-   * It shows the password requirements and indicates whether each requirement is met.
-   */
-    const PasswordGuidelinesNote = () => {
-        const width = 20;
-        const height = 20;
-
-        const guidelineItems = [
-            {
-                id: 1,
-                text: 'Must contain at least one uppercase letter',
-                // icon: newPassword.match(/[A-Z]/) ? <StarCheckSvg checked width={20} height={20} /> : <span className="w-3 h-3 bg-dark rounded-full mr-2"></span>,
-                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[A-Z]/)} />,
-            },
-            {
-                id: 2,
-                text: 'Must contain at least one lowercase letter',
-                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[a-z]/)} />,
-            },
-            {
-                id: 3,
-                text: 'Must contain at least one numeric digit',
-                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[0-9]/)} />,
-            },
-            {
-                id: 4,
-                text: 'Must contain at least one special character',
-                icon: <StarCheckSvg width={width} height={height} checked={newPassword.match(/[!@#$%^&*]/)} />,
-            },
-            {
-                id: 5,
-                text: 'Must be at least 8 characters long',
-                icon: <StarCheckSvg width={width} height={height} checked={newPassword.length >= 8} />,
-            },
-        ];
-
-        /**
-        * GuidelineItem is a component that displays a single password guideline item.
-        * It shows an icon indicating whether the guideline is met and the text of the guideline.
-        *
-        * @param {Object} icon - The icon component to display.
-        * @param {string} text - The text of the guideline.
-        */
-        const GuidelineItem = ({ icon, text }) => (
-            <li className="flex items-center">
-                {icon}
-                <span className="text-base font-medium text-black ml-3">{text}</span>
-            </li>
-        );
-
-        return (
-            <div className="text-left">
-                <h4 className="text-xl font-semibold mb-2 ml-5">Guidelines for passwords:</h4>
-                <ul className="pl-6 space-y-1">
-                    {guidelineItems.map((item) => (
-                        <GuidelineItem key={item.id} icon={item.icon} text={item.text} />
-                    ))}
-                </ul>
-            </div>
-
-        );
-    };
-
-    /**
-        * FirstStep is a component that represents the first step of the password generation process.
-        * It allows the user to select their preferred verification method.
-        */
-    function FirstStep() {
-        return (
-            <div className="flex-1 p-5">
-                <h2 className="font-bold text-lg">
-                    {!preferredOtpMethod.length > 0
-                        ? 'Please select your preferred verification method:'
-                        : `You will receive an OTP on your ${preferredOtpMethod}.`}
-                </h2>
-                <br />
-                <div className='flex justify-evenly' >
-                    <CardContainer width="w-1/2 sm:w-1/3" shadow={"shadow-lg"}>
-                        <div className="mb-2">
-                            <label className="mt-1 inline-flex cursor-pointer">
-                                <input
-                                    type="radio"
-                                    name="otpMethod"
-                                    className="form-radio"
-                                    value="email"
-                                    checked={preferredOtpMethod === 'email'}
-                                    onChange={handlePreferredOtpMethodChange}
-                                />
-                                <span>Email</span>
-                            </label>
-                        </div>
-                    </CardContainer>
-                    <CardContainer width="w-1/2 sm:w-1/3" shadow={"shadow-lg"}>
-                        <div className="mb-2">
-                            <label className="mt-1 inline-flex cursor-pointer">
-                                <input
-                                    type="radio"
-                                    name="otpMethod"
-                                    className="form-radio"
-                                    value="mobile"
-                                    checked={preferredOtpMethod === 'mobile'}
-                                    onChange={handlePreferredOtpMethodChange}
-                                />
-                                <span>Mobile</span>
-                            </label>
-                        </div>
-                    </CardContainer>
-
-                </div>
-                {
-                    inputErrors.method && <p className="text-red-500 text-sm mt-1">{inputErrors.method}</p>
-                }
-            </div>
-        );
     }
 
-
-    /**
-    * SecondStep is a component that represents the second step of the password generation process.
-    * It prompts the user to enter the OTP received through their preferred method.
-    */
-    function SecondStep() {
-        return (
-            <div className="flex flex-col items-center p-5 text-center">
-                <h4 className="mb-3 font-bold text-lg">
-                    Please enter One Time Password (OTP) that has been sent to your{' '}
-                    {preferredOtpMethod}
-                </h4>
-                <br />
-                <OtpComponent onChange={setOtp} error={inputErrors.otp} setError={setInputErrors} />
-                <br />
-                {
-                    inputErrors.otp && <p className="text-red-500 text-sm mt-1">{inputErrors.otp}</p>
-                }
-                <br />
-                <DefaultButtonComponent className="mb-5" title="Resend OTP" />
-                <h5 className="mb-3 font-bold text-md">OTP will expire in</h5>
-                <TimerComponent time={300} />
-            </div>
-        );
-    }
-
-    /**
-     * ThirdStep is a component that represents the third step of the password generation process.
-     * It allows the user to generate a new password and confirm it.
-     */
-    function ThirdStep() {
-        return (
-            <div className="flex flex-col p-5 items-center text-center">
-                <br />
-                <div className="w-full sm:w-1/2">
-                    <PasswordInput
-                        value={newPassword}
-                        passwordShow={false}
-                        placeholder="New Password"
-                        onChange={(e) => handlePasswordChange(e)}
-                        icon={<AiOutlineLock size={25} color='gray' />}
-                    />
-                    {
-                        inputErrors.newPassword && !newPassword && <p className="text-red-500 text-sm mt-1">{inputErrors.newPassword}</p>
-                    }
-                    <br />
-                    {newPassword && areGuidelinesMatched ? <></> : <PasswordGuidelinesNote />}
-                    <br />
-                    {
-                        areGuidelinesMatched && <PasswordInput
-                            value={confirmPassword}
-                            passwordShow={false}
-                            placeholder="Confirm Password"
-                            onChange={(e) => handlePasswordChange(e, true)}
-                            icon={<AiOutlineLock size={25} color='gray' />}
-                        />
-                    }
-                    {
-                        inputErrors.confirmPassword && !confirmPassword && <p className="text-red-500 text-sm mt-1">{inputErrors.confirmPassword}</p>
-                    }
-                    {
-                        // Show the error message for confirm password beneath the input field
-                        inputErrors.confirmPassword && confirmPassword && <p className="text-red-500 text-sm mt-1">{inputErrors.confirmPassword}</p>
-                    }
-
-                </div>
-            </div>
-        );
-    }
-
-    /**
-     * Handles the click event for the Back button.
-     * Changes the active step to the previous step.
-     */
-    const handleBackButton = () => {
-        if (activeTab === 1) {
-            setActiveTab(activeTab === 3 ? 2 : 1);
-        } else if (activeTab === 2) {
-            setActiveTab(activeTab === 3 ? 2 : 1);
-        } else if (activeTab === 3) {
-            setActiveTab(1);
-            setOtp("")
-        }
-    };
-
-    /**
-     * Handles the click event for the Forward button.
-     * Changes the active step to the next step.
-     */
-    const handleForwardButton = () => {
-        const errors = {};
-
-        if (activeTab === 1) {
-            if (preferredOtpMethod) {
-                setActiveTab(2);
-                setInputErrors({});
-            } else {
-                errors.method = "Please select any method";
-                setInputErrors(errors);
-            }
-        } else if (activeTab === 2) {
-            if (otp) {
-                setActiveTab(3);
-            } else {
-                errors.otp = "Please enter OTP";
-                setInputErrors(errors);
-            }
-        } else if (activeTab === 3) {
-            if (!newPassword) {
-                errors.newPassword = "Please enter password";
-                setInputErrors(errors);
-            } else if (!confirmPassword) {
-                errors.confirmPassword = "Please enter password";
-                setInputErrors(errors);
-            } else if (newPassword !== confirmPassword) {
-                errors.confirmPassword = "Passwords do not match";
-                setInputErrors(errors);
-            } else {
-                setpasswordChangedModal(true)
-                // alert("Password changed");
-            }
-        }
-    };
 
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
-            <div className=" mb-10">
+            <div className="logo-container mb-10">
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
-                <Image src="../../../assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
+                <Image src="/assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
             </div>
-            <div className={`${styles.boxContainer} panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}>
-                <div className='flex justify-center'>
-                    <h2 className="mb-3 text-2xl font-bold">
-                        Generate Password
-                        <Tippy
-                            trigger="mouseenter focus"
-                            placement="bottom"
-                            content={
-                                <div className="panel p-3 w-full">
-                                    <h2 className="text-xl text-black font-semibold">
-                                        Steps to generate password
-                                    </h2>
-                                    <div className="p-3 text-black">
-                                        <p>1. Select the desired mode.</p>
-                                        <p>2. Request an OTP using your chosen method.</p>
-                                        <p>3. Generate a password.</p>
-                                    </div>
-                                </div>
-                            }
-                        >
-                            <button className="ml-2" type="button" data-trigger="mouseenter">
-                                <InfoSvg className="mt-5" />
-                            </button>
-                        </Tippy>
-                    </h2>
-                </div>
-                <br />
-                <br />
-                <div className="inline-block w-full">
-                    <div className="relative z-[1]">
-                        <div
-                            className={`${activeTab === 1
-                                ? 'w-[0%] bg-primary'
-                                : activeTab === 2
-                                    ? 'w-[50%] bg-primary-light'
-                                    : activeTab === 3
-                                        ? 'w-[81%] bg-primary-light'
-                                        : ''
-                                }   w-[15%] h-2 absolute ltr:left-0 rtl:right-0 top-[40px] m-auto -z-[1] transition-[width]`}
-                        ></div>
-                        <ul className="mb-5 grid grid-cols-3">
-                            <li className="mx-auto">
-                                <button
-                                    type="button"
-                                    className={`${activeTab === 1 || activeTab === 2 || activeTab === 3 ? '!bg-primary text-white' : ''
-                                        }   ${activeTab === 2 || activeTab === 3 ? "!bg-primary-light" : ""} bg-white  flex justify-center items-center w-20 h-20 rounded-full`}
-                                >
-                                    <GiEarthAmerica color={'white'} size={38} />
-                                </button>
-                                <span
-                                    className={`${activeTab === 1 ? 'text-primary ' : ''
-                                        }text-center block mt-2`}
-                                >
-                                    Select method
-                                </span>
-                            </li>
-                            <li className="mx-auto">
-                                <button
-                                    type="button"
-                                    className={`${activeTab === 2 || activeTab === 3
-                                        ? '!bg-primary text-white '
-                                        : 'bg-[#EEEEEE]'
-                                        } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
-                                >
-                                    <OtpSvg color={activeTab === 2 || activeTab === 3 ? 'white' : '#888EA8'} />
-                                    {/* <Image src={mobileOTp.src} alt="logo" width={30} height={30} /> */}
-                                </button>
-                                <span
-                                    className={`${activeTab === 2 ? 'text-primary ' : ''
-                                        }text-center block mt-2`}
-                                >
-                                    Verify OTP
-                                </span>
-                            </li>
-                            <li className="mx-auto">
-                                <button
-                                    type="button"
-                                    className={`${activeTab === 3
-                                        ? ' !bg-primary text-white'
-                                        : 'bg-[#EEEEEE]'
-                                        }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
-                                >
-                                    <GeneratePasswordSvg
-                                        color={activeTab === 3 ? 'white' : '#888EA8'}
-                                    />
-                                </button>
-                                <span
-                                    className={`${activeTab === 3 ? 'text-primary ' : ''
-                                        }text-center block mt-2`}
-                                >
-                                    Generate Password
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
+            <div className="loginBox-Container panel m-6 w-full max-w-lg sm:w-[550px] shadow-2xl min-h-[200px]  rounded-2xl">
+                <div className="flex flex-col justify-between h-full"> {/* Use flex column with justify-between to push content to bottom */}
                     <div>
-                        <hr />
-                        {activeTab === 1
-                            ? FirstStep()
-                            : activeTab === 2
-                                ? SecondStep()
-                                : ThirdStep()}
-                    </div>
-                    <div className={`flex ${activeTab === 1 ? "justify-center" : ""}`}>
-                        <DefaultButtonComponent
-                            className={activeTab === 1 ? 'hidden' : ''}
-                            title="Back"
-                            onClick={handleBackButton}
-                        />
-                        <DefaultButtonComponent
-                            icon={<AiOutlineRight />}
-                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-20"}`}
-                            title={
-                                activeTab === 1
-                                    ? 'Send OTP'
-                                    : activeTab === 2
-                                        ? 'Verify OTP'
-                                        : activeTab === 3 && 'Generate'
-                            }
-                            onClick={handleForwardButton}
-                        />
+                        <div className='flex justify-center'>
+                            <h2 className="signText mb-3 text-2xl font-bold mt-5">Sign With Nabnext</h2>
+                        </div>
+                        <form data-testid="login-form" className="space-y-5 mt-5 p-2" onSubmit={(e) => e.preventDefault()}>
+                            <div>
+                                <DefaultInput   
+                                    value={authData.email}
+                                    label="Email ID"
+                                    id="email"
+                                    placeholder="Enter Email"
+                                    onChange={handleInputChange}
+                                    showPassword={showPassword}
+                                    onClick={checkIfAccountIsCreated}
+                                    loading={loading}
+                                    error={errors.email}
+                                    icon={<AiOutlineMail size={24} className='mb-2 text-gray-500' />}
+                                />
+                            </div>
+                            {showPassword && (
+                                <div>
+                                    <DefaultInput
+                                        value={authData.password}
+                                        label="Password"
+                                        data-testid="Password"
+                                        id="password"
+                                        type="password"
+                                        placeholder="Enter Password"
+                                        onChange={handleInputChange}
+                                        onClick={submitForm}
+                                        loading={loading}
+                                        error={errors.password}
+                                        icon={<AiOutlineLock size={24} className='mb-2 text-gray-500' />}
+                                    />
+                                </div>
+                            )}
+                        </form>
+                        {passwordNotGenerated && (
+                            <p className=" passwordNotGeneratedText mt-5 ">
+                                The password has not been generated,{" "}
+                                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                                <span style={{ cursor: 'pointer' }} onClick={() => navigateToGeneratePasswordPage()} className="text-primary-light">
+                                    click here
+                                </span>{" "}
+                                to create it
+                            </p>
+                        )}
+                    </div> {/* authData.email */}
+                    <div className={`flex items-center justify-end `}> {/* Flex container to position the image at the bottom */}
+                       <button onClick={ (e)=> {
+                        authData.email.length !== 0 ? checkIfAccountIsCreated() : e.preventDefault()}} className={`${authData.email.length === 0 && `cursor-not-allowed`}`}>
+                       <Image src={nextCircle.src} alt="logo" width={50} height={50} />
+                       </button>
                     </div>
                 </div>
             </div>
-            <ModalContainer classname="p-10" hideCloseButton showModal={passwordChangedModal} handleModal={handleModal}>
-                <div className="flex flex-col items-center justify-center p-5">
-                    <StarCheckSvg width={100} height={100} checked />
-                    <p className="mt-4 text-2xl font-bold text-center">Password Created Successfully</p>
-                    <br />
-                    <br />
-                    <DefaultButtonComponent className='text-xl' title="Proceed to login" onClick={() => router.push("/")} icon={<AiOutlineRight />} />
+
+            {/* modal starts here */}
+            <ModalContainer title={"Generate password"} showModal={chooseOtpModal} handleModal={handleModal}>
+                <p>Please select your preferred verification method:</p>
+                <div className="flex-1 p-5">
+                    <div className="mb-2">
+                        <label className="mt-1 inline-flex cursor-pointer">
+                            <input
+                                type="radio"
+                                name="otpMethod"
+                                className="form-radio"
+                                value="email"
+                                checked={preferredOtpMethod === 'email'}
+                                onChange={handlePreferredOtpMethodChange}
+                            />
+                            <span>Email</span>
+                        </label>
+                    </div>
+                    <div className="mb-2">
+                        <label className="mt-1 inline-flex cursor-pointer">
+                            <input
+                                type="radio"
+                                name="otpMethod"
+                                className="form-radio"
+                                value="mobile"
+                                checked={preferredOtpMethod === 'mobile'}
+                                onChange={handlePreferredOtpMethodChange}
+                            />
+                            <span>Mobile</span>
+                        </label>
+                    </div>
+
                 </div>
+                <div className='mb-5' >
+                    <p> We will send you a One-Time Password (OTP) to the selected mode.</p>
+                </div>
+                <div className="note text-gray-700 bg-gray-200 rounded-md p-4">
+                    <h2 className="text-xl font-semibold">Steps to generate password</h2>
+                    <div className='p-3'>
+                        <p>1. Choose mode.</p>
+                        <p>2. Proceed to get OTP with your chosen methods.</p>
+                        <p>3. Generate password.</p>
+                    </div>
+                </div>
+
             </ModalContainer>
         </div>
     );
 };
 
-
-/**
- * Specifies the layout for the GeneratePassword page.
- *
- * @param {React.Component} page - The page component.
- * @returns {React.Component} - The page component wrapped in the BlankLayout.
- */
-GeneratePassword.getLayout = (page) => {
+Index.getLayout = (page) => {
     return <BlankLayout>{page}</BlankLayout>;
 };
 
-export default GeneratePassword;
+export default Index;
