@@ -6,11 +6,7 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import BlankLayout from 'src/layouts/BlankLayout';
 import ModalContainer from 'src/components/Modal/ModalContainer';
 import DefaultInput from 'src/components/Input/TextField/DefaultInput';
-import Image from 'next/image';
-import loginBG from "../assets/images/b3.svg"
-import nextCircle from "../assets/images/nextCircle.svg"
-import {AiOutlineMail, AiOutlineLock} from "react-icons/ai"
-
+import Link from 'next/link';
 
 const Index = () => {
     const [authData, setAuthData] = useState({ email: '', password: '' });
@@ -148,68 +144,58 @@ const Index = () => {
 
 
     return (
-        <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
-            <div className="logo-container mb-10">
-                {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
-                <Image src="/assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
-            </div>
-            <div className="loginBox-Container panel m-6 w-full max-w-lg sm:w-[550px] shadow-2xl min-h-[200px]  rounded-2xl">
-                <div className="flex flex-col justify-between h-full"> {/* Use flex column with justify-between to push content to bottom */}
+        <div className="flex min-h-screen items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
+            <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
+                <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
+                <hr className="h-5" />
+                <p className="mb-4 text-lg">Please enter your email</p>
+                <form data-testid="login-form" className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                     <div>
-                        <div className='flex justify-center'>
-                            <h2 className="signText mb-3 text-2xl font-bold mt-5">Sign With Nabnext</h2>
-                        </div>
-                        <form data-testid="login-form" className="space-y-5 mt-5 p-2" onSubmit={(e) => e.preventDefault()}>
-                            <div>
-                                <DefaultInput   
-                                    value={authData.email}
-                                    label="Email ID"
-                                    id="email"
-                                    placeholder="Enter Email"
-                                    onChange={handleInputChange}
-                                    showPassword={showPassword}
-                                    onClick={checkIfAccountIsCreated}
-                                    loading={loading}
-                                    error={errors.email}
-                                    icon={<AiOutlineMail size={24} className='mb-2 text-gray-500' />}
-                                />
-                            </div>
-                            {showPassword && (
-                                <div>
-                                    <DefaultInput
-                                        value={authData.password}
-                                        label="Password"
-                                        data-testid="Password"
-                                        id="password"
-                                        type="password"
-                                        placeholder="Enter Password"
-                                        onChange={handleInputChange}
-                                        onClick={submitForm}
-                                        loading={loading}
-                                        error={errors.password}
-                                        icon={<AiOutlineLock size={24} className='mb-2 text-gray-500' />}
-                                    />
-                                </div>
-                            )}
-                        </form>
-                        {passwordNotGenerated && (
-                            <p className=" passwordNotGeneratedText mt-5 ">
-                                The password has not been generated,{" "}
-                                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                                <span style={{ cursor: 'pointer' }} onClick={() => navigateToGeneratePasswordPage()} className="text-primary-light">
-                                    click here
-                                </span>{" "}
-                                to create it
-                            </p>
-                        )}
-                    </div> {/* authData.email */}
-                    <div className={`flex items-center justify-end `}> {/* Flex container to position the image at the bottom */}
-                       <button onClick={ (e)=> {
-                        authData.email.length !== 0 ? checkIfAccountIsCreated() : e.preventDefault()}} className={`${authData.email.length === 0 && `cursor-not-allowed`}`}>
-                       <Image src={nextCircle.src} alt="logo" width={50} height={50} />
-                       </button>
+                        <DefaultInput
+                            value={authData.email}
+                            label="Email"
+                            id="email"
+                            placeholder="Enter Email"
+                            onChange={handleInputChange}
+                            showPassword={showPassword}
+                            onClick={checkIfAccountIsCreated}
+                            loading={loading}
+                            error={errors.email}
+                            icon={true}
+                        />
                     </div>
-                </div>
+                    {showPassword && (
+                        <div>
+                            <DefaultInput
+                                value={authData.password}
+                                label="Password"
+                                data-testid="Password"
+                                id="password"
+                                type="password"
+                                placeholder="Enter Password"
+                                onChange={handleInputChange}
+                                onClick={submitForm}
+                                loading={loading}
+                                error={errors.password}
+                                icon={true}
+
+                            />
+                            <div className='flex justify-end mt-4'>
+                    <Link href="/auth/ForgotPassword"><b>Forgot Password ?</b></Link>
+                    </div>
+                        </div>
+                    )}
+                    
+                </form>
+                {passwordNotGenerated && (
+                    <p className="mt-5 text-gray-500 text-lg">
+                        The password has not been generated,{" "}
+                        <span style={{ cursor: 'pointer' }} onClick={() => navigateToGeneratePasswordPage()} className="text-blue-500">
+                            click here
+                        </span>{" "}
+                        to create it
+                    </p>
+                )}
             </div>
 
             {/* modal starts here */}

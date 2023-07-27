@@ -31,38 +31,12 @@ const sidebarMenuOptions = [
         icon: <GoOrganization size={25} />,
         subMenu: [
             {
-                title: 'Central Government',
-                link: '/Organizations/Central-government',
+                title: 'Banks',
+                link: '/Organizations/Banks',
             },
             {
-                title: 'State Government',
-                link: '/Organizations/State-government',
-            },
-            {
-                title: 'Agencies',
-                link: '/Organizations/Agencies',
-            },
-            {
-                title: 'NABARD',
-                link: '/Organizations/NABARD',
-            },
-        ],
-    },
-    {
-        title: 'Banks',
-        icon: <FiFileText size={25} />,
-        subMenu: [
-            {
-                title: 'Public Sector Banks',
-                link: '/components/tabs',
-            },
-            {
-                title: 'Private Sector Banks',
-                link: '/components/accordions',
-            },
-            {
-                title: 'Other Types of Banks',
-                link: '/components/accordions',
+                title: 'Stakeholders',
+                link: '/Organizations/Stakeholders',
             },
         ],
     },

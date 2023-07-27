@@ -9,7 +9,7 @@ import React from 'react';
  */
 const IconButton = ({ icon, label, onClick }) => {
   return (
-    <button type="button" className={`btn btn-primary`} onClick={onClick}>
+    <button type="button" className={`btn btn-success`} onClick={onClick}>
       <span className="text-xl">{icon}</span>
       <span className='ml-2'>{label}</span>
     </button>
