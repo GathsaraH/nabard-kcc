@@ -828,4 +828,14 @@ line-height: 22px;
     display: block;
   }
  
+
+/* Ag grid header style  */
+
 }
+
+
+.ag-theme-alpine .ag-header {
+    background-color: #BAE7FF; 
+    font-family: 'Nunito';
+    font-style: normal;
+  }

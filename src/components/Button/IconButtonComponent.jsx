@@ -7,9 +7,9 @@ import React from 'react';
  * @param {string} label - The label or text associated with the button.
  * @param {function} onClick - The click event handler for the button.
  */
-const IconButton = ({ icon, label, onClick }) => {
+const IconButton = ({ icon, label, onClick, className }) => {
   return (
-    <button type="button" className={`btn btn-success`} onClick={onClick}>
+    <button type="button" className={`btn  ${className ? className : "bg-primary text-white"} `} onClick={onClick}>
       <span className="text-xl">{icon}</span>
       <span className='ml-2'>{label}</span>
     </button>

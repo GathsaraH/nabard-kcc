@@ -1,35 +1,28 @@
-// components/CustomCellRenderer.js
 import React from 'react';
 import { ColorConstants } from 'src/constants/ColorConstants';
-const StatusRenderer = ({ value }) => {
-  const statusStyle = {
-    padding: '3px , 16px , 10px , 5px',
-    borderRadius: '50px',
-    color: '#fff',
-    fontWeight: '700',
-    textAlign : 'center',
-    fontSize: '14px',
-    width:'84px',
-    height:'35px'
-  };
 
+const StatusRenderer = ({ value }) => {
   let statusColor;
-  let color 
+  let textColor;
   switch (value) {
     case 'Inactive':
       statusColor = ColorConstants.primaryColor;
-      color = ColorConstants.white
+      textColor = ColorConstants.white;
       break;
     case 'Active':
       statusColor = ColorConstants.secondaryColor;
-      color = ColorConstants.black
+      textColor = ColorConstants.black;
       break;
     default:
       statusColor = '#777';
+      textColor = '#fff';
   }
 
   return (
-    <div style={{ ...statusStyle, backgroundColor: statusColor , color : color}}>
+    <div
+      className={`rounded-full text-white font-semibold text-center text-sm py-1 px-4 w-20 mt-2`}
+      style={{ backgroundColor: statusColor, color: textColor }}
+    >
       {value}
     </div>
   );
