@@ -40,7 +40,7 @@ module.exports = {
               },
               dark: {
                   DEFAULT: '#3b3f5c',
-                  light: '#eaeaec',
+                  light: '#888EA8',
                   'dark-light': 'rgba(59,63,92,.15)',
               },
               black: {
