@@ -4,10 +4,11 @@ import Dropdown from './Dropdown';
 import { BiDotsVertical } from 'react-icons/bi';
 import styles from './CustomCellRenderer.module.css';
 import { useRouter } from 'next/router';
-const CustomCellRenderer = () => {
+const CustomCellRenderer = ({userId}) => {
+    console.log("id" , userId);
     const router = useRouter();
     const ViewDetails = () =>{
-        router.push('/Organizations/Banks/Hierarchy/View')
+        router.push(`/Organizations/Banks/Hierarchy/View/${userId}`)
     }
 
   return (

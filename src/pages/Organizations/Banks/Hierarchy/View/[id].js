@@ -36,7 +36,6 @@ const Index = () => {
             { id: 9, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
             { id: 10, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
           ];
-        
           const columnDefs = [
             {
               headerCheckboxSelection: true,
@@ -152,7 +151,7 @@ const Index = () => {
     }
     const renderTabThirdContent = () => {
         const AddRegion = () =>{
-            router.push('/Organizations/Banks/Hierarchy/Region')
+            router.push('/Organizations/Banks/Hierarchy/Add/Region')
         }
         return(
             <Tab.Panel>
@@ -224,12 +223,12 @@ const Index = () => {
     }
     const renderTabFourthContent = () => {
         const AddCluster = () =>{
-            router.push('/Organizations/Banks/Hierarchy/Cluster')
+            router.push('/Organizations/Banks/Hierarchy/Add/Cluster')
         }
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                    <p>Cluster content</p>
+                  
                     <div className="flex flex-wrap gap-1 mb-4">
         <div className="px-2">
           <TextField
@@ -296,7 +295,7 @@ const Index = () => {
     }
     const renderTabFifthContent = () => {
         const AddBranch = () => {
-            router.push('/Organizations/Banks/Hierarchy/Branch')
+            router.push('/Organizations/Banks/Hierarchy/Add/Branch')
         }
         return(
             <Tab.Panel>

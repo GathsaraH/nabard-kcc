@@ -10,7 +10,6 @@ import CustomCellRenderer from 'src/components/CustomCellRenderer';
 import StatusRenderer from 'src/components/StatusRenderer';
 const Index = () => {
   const { t } = useTranslation();
- 
   const rowData = [
     { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
     { id: 2, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
@@ -23,6 +22,8 @@ const Index = () => {
     { id: 9, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
     { id: 10, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
   ];
+  
+ const router = useRouter();
   const columnDefs = [
     {
       headerCheckboxSelection: true,
@@ -45,7 +46,7 @@ const Index = () => {
       headerName: 'Actions',
       field: 'actions',
       cellRenderer: () => (
-        <CustomCellRenderer />
+        <CustomCellRenderer userId={router.query.id} />
       ),
       width: 100,
       suppressMenu: true, // Remove default filter options from this column
@@ -53,7 +54,6 @@ const Index = () => {
     },
   ];
 
-  const router = useRouter();
   const AddBankHierarchy = () => {
     router.push('/Organizations/Banks/Hierarchy/Add');
   }

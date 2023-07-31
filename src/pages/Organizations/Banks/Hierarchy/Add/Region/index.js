@@ -11,7 +11,8 @@ import * as yup from "yup";
 const Index = () => {
   const IntialInputFields = {
     Zoneid: "",
-    ZoneName: "",
+    RegionId:"",
+    RegionName:"",
     address: "",
     state: "",
     district: "",
@@ -29,13 +30,14 @@ const Index = () => {
   const [inputFields, setInputFields] = useState([{ ...IntialInputFields }]);
   const [inputErrors, setInputErrors] = useState({});
   const [Zoneid, setZoneid] = useState([]);
-  const [ZoneName, setZoneName] = useState([]);
+  const[RegionId , setRegionId] = useState("");
+  const[RegionName , setRegionName] = useState("");
   const[address , setAddress] = useState("");
   const [stateList, setStateList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
   const [subDistrictList, setSubDistrictList] = useState([]);
-  const [designationList, setDesignationList] = useState([]);
   const[pincode , setPincode] = useState();
+  const[designationlist , setDesignationList] = useState([]);
   const InputObject = {
     label: "",
     name: "",
@@ -56,7 +58,6 @@ const Index = () => {
   };
   const mapInputFieldToErrorPayload = (item) => ({
     Zoneid: (item.Zoneid) || "" ,
-    ZoneName: (item.ZoneName) || "" ,
     address: (item.address) || "",
     state: item.state?.value || "",
     district: item.district?.value || "",
@@ -87,7 +88,6 @@ const Index = () => {
   };
   const inputSchema = yup.object().shape({
     Zoneid: yup.string().required("zone id  is required"),
-    ZoneName: yup.string().required("zone name is required"),
     address: yup.string().required("address is required"),
   });
   const onBackButton = () => {
@@ -122,7 +122,7 @@ const Index = () => {
                                 </button>
                               <div className="col-start-5 col-end-8">
                                 <span className="heading-Font-Family" style={{fontWeight:'700'}}>
-                                  {t("Add New Zone")}
+                                  {t("Add New Region")}
                                 </span>
                               </div>
                               </div>
@@ -132,7 +132,7 @@ const Index = () => {
                                 className="subheading-Font-Family"
                                 style={{ color: ColorConstants.primaryColor , fontWeight: '700' }}
                               >
-                                {t("Zone Details")}
+                                {t("Region Details")}
                               </span>
                             </div>
                               <div className="w-auto m-3">
@@ -151,27 +151,51 @@ const Index = () => {
                                 }
                               >
                                 <div className="font-semibold">
-                                <TextField
-                                    id="outlined-basic"
-                                    label={t("zoneId")}
-                                    name="zoneID"
-                                    inputProps={{ maxLength: 4 }}
-                                    onChange={(evnt) =>
+                                  <Autocomplete
+                                    id="country-select-demo"
+                                    size="small"
+                                    sx={{ className: "common-Font-Family" }}
+                                    className="common-Font-Family"
+                                    options={Zoneid}
+                                    name="Zone"
+                                    value={data.Zoneid}
+                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    onChange={(e, option) => {
                                       onChangeInputSelect(
                                         index,
-                                        "zoneId",
-                                        evnt.target.value.trim()
-                                      )
-                                    }
-                                    value={data.Zoneid}
-                                    required
-                                   
-                                    variant="outlined"
-                                    size="small"
-                                    className="w-full"
+                                        "Zone",
+                                        option
+                                      );
+                                    }}
+                                    autoHighlight
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        label={t("Zone")}
+                                        required
+                                        className="common-Font-Family"
+                                        inputProps={{
+                                          ...params.inputProps,
+                                          autoComplete: "new-password",
+                                          style: {
+                                            fontSize: "0.875rem",
+                                            fontFamily: "Montserrat",
+                                            fontWeight: "500",
+                                          },
+                                        }}
+                                      
+                                      />
+                                    )}
+                                    renderOption={(props, option) => (
+                                      <Box component="li" {...props}>
+                                        <span className="common-Font-Family">
+                                          {option.label}
+                                        </span>
+                                      </Box>
+                                    )}
                                   />
                                 </div>
-                             
+                                
                               </div>
 
                               <div
@@ -179,28 +203,56 @@ const Index = () => {
                                   ResponsiveClassName.responsiveFour3ColChild
                                 }
                               >
-                                <div className="font-semibold font-montserrat">
-                                <TextField
+                              <div className="font-semibold font-montserrat">
+                              <TextField
                                     id="outlined-basic"
-                                    label={t("ZoneName")}
-                                    name="ZoneName"
+                                    label={t("RegionId")}
+                                    name="RegionId"
                                     inputProps={{ maxLength: 4 }}
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
                                         index,
-                                        "zoneName",
+                                        "RegionId",
                                         evnt.target.value.trim()
                                       )
                                     }
-                                    value={data.ZoneName}
+                                    value={data.RegionId}
                                     required
                                    
                                     variant="outlined"
                                     size="small"
                                     className="w-full"
                                   />
+                              </div>
+                               
+                              </div>
+                              <div
+                                className={
+                                  ResponsiveClassName.responsiveFour3ColChild
+                                }
+                              >
+                              <div className='font-semibold'>
+                                <TextField
+                                    id="outlined-basic"
+                                    label={t("RegionName")}
+                                    name="RegionName"
+                                    inputProps={{ maxLength: 4 }}
+                                    onChange={(evnt) =>
+                                      onChangeInputSelect(
+                                        index,
+                                        "RegionName",
+                                        evnt.target.value.trim()
+                                      )
+                                    }
+                                    value={data.RegionName}
+                                    required
+                                   
+                                    variant="outlined"
+                                    size="small"
+                                    className="w-full"
+                                  />
+                             
                                 </div>
-                              
                               </div>
                             </div>
                               {/* bank details  */}
@@ -209,7 +261,7 @@ const Index = () => {
                                 className="subheading-Font-Family"
                                 style={{ color: ColorConstants.primaryColor , fontWeight : '700' }}
                               >
-                                {t("Zone Admin Details")}
+                                {t("Region Admin Details")}
                               </span>
                             </div>
                             <div className="w-auto m-3">
@@ -314,7 +366,7 @@ const Index = () => {
                                     id="country-select-demo"
                                     size="small"
                                     name="designation"
-                                    options={designationList}
+                                    options={designationlist}
                                     onChange={(e, option) => {
                                       onChangeInputSelect(
                                         index,
@@ -511,7 +563,6 @@ const Index = () => {
                                 </div>
                               </div>
                             </div>
-                            {/* </div> */}
                             {/* address details  */}
                             <div className="grid lg:grid-cols-2 m-3">
                               <span
