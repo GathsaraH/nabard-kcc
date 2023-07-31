@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { RiHome5Line } from "react-icons/ri";
 import { BiSolidDashboard } from "react-icons/bi";
 import { GoOrganization } from "react-icons/go";
-import { FiFileText, FiUsers } from "react-icons/fi";
+import { FiUsers } from "react-icons/fi";
 import { BsFileEarmarkRichtextFill } from "react-icons/bs";
 import { FaHandHoldingUsd, FaUserLock } from "react-icons/fa";
 import leftSidebarToggle from "../assets/icons/toggleSidebarLeft.svg"

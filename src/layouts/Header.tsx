@@ -3,15 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IRootState } from '../../store';
-import { toggleLocale, toggleTheme,toggleSidebar, toggleRTL  } from '../../store/themeConfigSlice';
+import { toggleLocale, toggleTheme,toggleSidebar, toggleRTL} from '../../store/themeConfigSlice';
 import { useTranslation } from 'react-i18next';
 import Dropdown from './Dropdown';
+import { useAuthToken } from 'src/hooks/Auth/useAuthToken';
 
 const Header = () => {
     const router = useRouter();
+    const { removeAuthToken} = useAuthToken();
+    const [flag, setFlag] = useState('');
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
+        const selector = document.querySelector(`ul.horizontal-menu a[href="${ window.location.pathname}"]`);
         if (selector) {
             const all: any = document.querySelectorAll('ul.horizontal-menu .nav-link.active');
             for (let i = 0; i < all.length; i++) {
@@ -29,6 +33,7 @@ const Header = () => {
             if (ul) {
                 let ele: any = ul.closest('li.menu').querySelectorAll('.nav-link');
                 if (ele) {
+                    // eslint-disable-next-line prefer-destructuring
                     ele = ele[0];
                     setTimeout(() => {
                         ele?.classList.add('active');
@@ -49,11 +54,9 @@ const Header = () => {
             dispatch(toggleRTL('ltr'));
         }
     };
-    const [flag, setFlag] = useState('');
     useEffect(() => {
         setLocale(localStorage.getItem('i18nextLng') || themeConfig.locale);
     });
-    const dispatch = useDispatch();
 
     function createMarkup(messages: any) {
         return { __html: messages };
@@ -122,24 +125,29 @@ const Header = () => {
 
     const { t, i18n } = useTranslation();
 
+    const handleLogout = () => {
+        removeAuthToken()
+        router.push('/');
+    }
+
     return (
         <header className={themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''}>
             <div className="shadow-sm">
                 <div className="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-black">
                     <div className="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
                         <Link href="/" className="main-logo flex shrink-0 items-center">
-                            <img className="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/logo.svg" alt="logo" />
-                            <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">VRISTO</span>
+                            {/* <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">NabNext</span> */}
+                            <span className="hidden align-middle text-2xl  font-bold text-primary transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">NabNext</span>
                         </Link>
                         <button
                             type="button"
-                            className="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary ltr:ml-2 rtl:mr-2 dark:bg-dark/40 dark:text-[#d0d2d6] dark:hover:bg-dark/60 dark:hover:text-primary lg:hidden"
+                            className="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary ltr:ml-2 rtl:mr-2 dark:bg-dark/40  dark:hover:bg-primary dark:hover:text-primary-light lg:hidden"
                             onClick={() => dispatch(toggleSidebar())}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 7L4 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                <path opacity="0.5" d="M20 12L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                <path d="M20 17L4 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                                <path d="M20 7L4 7" stroke="#006600" strokeWidth="1.5" strokeLinecap="round" />
+                                <path d="M20 12L4 12" stroke="#006600" strokeWidth="1.5" strokeLinecap="round" />
+                                <path d="M20 17L4 17" stroke="#006600" strokeWidth="1.5" strokeLinecap="round" />
                             </svg>
                         </button>
                     </div>
@@ -284,6 +292,7 @@ const Header = () => {
                                                 {messages.map((message) => {
                                                     return (
                                                         <div key={message.id} className="flex items-center py-3 px-5">
+                                                       {/* eslint-disable-next-line react/no-danger */}
                                                             <div dangerouslySetInnerHTML={createMarkup(message.image)}></div>
                                                             <span className="px-3 dark:text-gray-500">
                                                                 <div className="text-sm font-semibold dark:text-white-light/90">{message.title}</div>
@@ -390,6 +399,7 @@ const Header = () => {
                                                             <div className="flex flex-auto ltr:pl-3 rtl:pr-3">
                                                                 <div className="ltr:pr-3 rtl:pl-3">
                                                                     <h6
+                                                                        // eslint-disable-next-line react/no-danger
                                                                         dangerouslySetInnerHTML={{
                                                                             __html: notification.message,
                                                                         }}
@@ -524,7 +534,7 @@ const Header = () => {
                                         </Link>
                                     </li>
                                     <li className="border-t border-white-light dark:border-white-light/10">
-                                        <Link href="/auth/boxed-signin" className="!py-3 text-danger">
+                                        <Link onClick={handleLogout} href="#" className="!py-3 text-danger">
                                             <svg className="rotate-90 ltr:mr-2 rtl:ml-2 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     opacity="0.5"
