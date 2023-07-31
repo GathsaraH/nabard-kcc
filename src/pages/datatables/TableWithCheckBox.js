@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const TableWithCheckBox = ({rowData , columnDefs , pagination}) => {
-   
+  
   return (
     <div>
           <div className="ag-theme-alpine" style={{height:'100vh'}}>
@@ -22,6 +22,8 @@ const TableWithCheckBox = ({rowData , columnDefs , pagination}) => {
 
       />
       </div>
+
+      
     </div>
   )
 }

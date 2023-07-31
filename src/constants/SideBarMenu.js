@@ -109,7 +109,7 @@ export const SideBarMenuOptions = [
         ],
     },
     {
-        title: 'BENEFICIARIES',
+        title: 'Beneficiaries',
         link: '/',
         icon: beneficiaryIcon,
     },

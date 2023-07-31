@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React , {useState} from 'react'
 import { AiOutlinePlus } from 'react-icons/ai';
 import IconButton from 'src/components/Button/IconButtonComponent'
 import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
@@ -10,6 +10,7 @@ import CustomCellRenderer from 'src/components/CustomCellRenderer';
 import StatusRenderer from 'src/components/StatusRenderer';
 const Index = () => {
   const { t } = useTranslation();
+ 
   const rowData = [
     { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
     { id: 2, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
@@ -22,7 +23,6 @@ const Index = () => {
     { id: 9, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
     { id: 10, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
   ];
-
   const columnDefs = [
     {
       headerCheckboxSelection: true,
@@ -57,7 +57,12 @@ const Index = () => {
   const AddBankHierarchy = () => {
     router.push('/Organizations/Banks/Hierarchy/Add');
   }
-
+  const handleRowClicked = (row) => {
+    // Assuming the row data contains an "id" property
+    if (row && row.id) {
+        router.push(`/Organizations/Banks/Hierarchy/View/${row.id}`)
+    }
+  };
   return (
     <div>
       <div className="flex flex-wrap gap-1 mb-4">
@@ -119,7 +124,7 @@ const Index = () => {
         <IconButton label="Add Bank Hierarchy" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={AddBankHierarchy} />
         </div>
       </div>
-      <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+      <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} onRowClick={handleRowClicked} />
     </div>
   )
 }

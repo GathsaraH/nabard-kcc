@@ -3,8 +3,12 @@ import React from 'react';
 import Dropdown from './Dropdown';
 import { BiDotsVertical } from 'react-icons/bi';
 import styles from './CustomCellRenderer.module.css';
+import { useRouter } from 'next/router';
 const CustomCellRenderer = () => {
- 
+    const router = useRouter();
+    const ViewDetails = () =>{
+        router.push('/Organizations/Banks/Hierarchy/View')
+    }
 
   return (
        <>
@@ -12,7 +16,7 @@ const CustomCellRenderer = () => {
     <Dropdown
         btnClassName="btn p-0 rounded-none border-0 shadow-none dropdown-toggle text-black dark:text-white-dark hover:text-primary dark:hover:text-primary"
         button={
-          <BiDotsVertical size={25} style={{margin:'6px'}}/>
+          <BiDotsVertical size={25} style={{margin:'6px'}} onClick={ViewDetails}/>
         }
     >
         <ul className={styles.dropdown} >

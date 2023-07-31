@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { RiHome5Line } from "react-icons/ri";
 import { BiSolidDashboard } from "react-icons/bi";
 import { GoOrganization } from "react-icons/go";
-import { FiFileText, FiUsers } from "react-icons/fi";
+import {FiUsers } from "react-icons/fi";
 import { BsFileEarmarkRichtextFill } from "react-icons/bs";
 import { FaHandHoldingUsd, FaUserLock } from "react-icons/fa";
 import leftSidebarToggle from "../assets/icons/toggleSidebarLeft.svg"
@@ -85,7 +85,7 @@ const sidebarMenuOptions = [
         ],
     },
     {
-        title: 'BENEFICIARIES',
+        title: 'Beneficiaries',
         link: '/Beneficiary',
         icon: <FaHandHoldingUsd size={25} />,
     },
@@ -104,7 +104,6 @@ const sidebarMenuOptions = [
         ],
     },
 ];
-
 
 
 const Sidebar = () => {
@@ -161,7 +160,7 @@ const Sidebar = () => {
 
     function SideMenuList(index, menuOption) {
         function ListItem(menuOption) {
-            return <li className=" mb-1 flex items-center  py-3 px-7 font-extrabold uppercase hover:text-white hover:bg-primary">
+            return <li className=" mb-1 flex items-center  py-3 px-7 font-extrabold  hover:text-white hover:bg-primary">
                 <svg
                     className="hidden h-5 w-4 flex-none"
                     viewBox="0 0 24 24"
@@ -182,7 +181,7 @@ const Sidebar = () => {
         }
 
         function ListItem(menuOption) {
-            return <li className=" mb-1 flex items-center py-3 px-7 font-extrabold uppercase hover:text-white hover:bg-svg-background">
+            return <li className=" mb-1 flex items-center py-3 px-7 font-extrabold  hover:text-white hover:bg-svg-background">
                 <svg
                     className="hidden h-5 w-4 flex-none"
                     viewBox="0 0 24 24"
