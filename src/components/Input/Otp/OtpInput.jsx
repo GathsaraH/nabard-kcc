@@ -4,7 +4,7 @@ import React, { useState } from 'react';
  * OtpComponent is a component for entering One Time Password (OTP).
  */
 const OtpComponent = ({ onChange, error, setError }) => {
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const [otp, setOtp] = useState(['', '', '', '', '','']);
 
   /**
    * Handles the change event for an OTP digit input.

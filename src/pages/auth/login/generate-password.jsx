@@ -20,6 +20,9 @@ import { AiOutlineRight, AiOutlineLock } from 'react-icons/ai'
 import StarCheckSvg from 'src/assets/svg/StarCheckSvg';
 
 import styles from './generate-password.module.css';
+import { TokenConstants } from 'src/constants/TokenConstants';
+import { GeneratePasswordApi, GeneratePasswordSendOtpApi, GeneratePasswordVerifyOtpApi } from 'src/services/Auth/AuthApi';
+import { ShowSuccessAlert } from 'src/Alerts/AlertComponent';
 
 /**
  * GeneratePassword is a page for generating passwords using a multi-step process.
@@ -35,6 +38,7 @@ const GeneratePassword = () => {
     const [otp, setOtp] = useState("")
     const [passwordChangedModal, setpasswordChangedModal] = useState(false)
     const router = useRouter();
+    const [email, setemail] = useState("")
 
     const handleModal = (item) => {
         setpasswordChangedModal(item)
@@ -42,6 +46,8 @@ const GeneratePassword = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        const email = localStorage.getItem(TokenConstants.EMAIL)
+        setemail(email)
         dispatch(setPageTitle('Recover Id Box'));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -169,6 +175,11 @@ const GeneratePassword = () => {
         * It allows the user to select their preferred verification method.
         */
     function FirstStep() {
+
+
+
+
+
         return (
             <div className="flex-1 p-5">
                 <h2 className="font-bold text-lg">
@@ -302,24 +313,73 @@ const GeneratePassword = () => {
         }
     };
 
+    const sendOtpFunction = async () => {
+        const OtpType = preferredOtpMethod
+        try {
+            const data = await GeneratePasswordSendOtpApi(email, OtpType)
+            if (data.status === 200) {
+                return true
+            }
+        } catch (error) {
+
+        }
+    }
+
+    const VerifyOtpFunction = async () => {
+        const OtpType = preferredOtpMethod
+        try {
+            const data = await GeneratePasswordVerifyOtpApi(email, OtpType, otp)
+            if (data) {
+                return true
+            }
+        } catch (error) {
+
+        }
+    }
+    const GeneratePassword = async () => {
+        try {
+            const data = await GeneratePasswordApi(email, newPassword)
+            if (data) {
+                return true
+            }
+        } catch (error) {
+
+        }
+    }
+
+
+
     /**
      * Handles the click event for the Forward button.
      * Changes the active step to the next step.
      */
-    const handleForwardButton = () => {
+    const handleForwardButton = async () => {
         const errors = {};
 
         if (activeTab === 1) {
             if (preferredOtpMethod) {
-                setActiveTab(2);
-                setInputErrors({});
+                // setActiveTab(2);
+                // setInputErrors({});
+                const sendOtp = await sendOtpFunction()
+                if (sendOtp) {
+                    ShowSuccessAlert("OTP sent successfully")
+                    setActiveTab(2);
+                    setInputErrors({});
+                }
+
             } else {
                 errors.method = "Please select any method";
                 setInputErrors(errors);
             }
         } else if (activeTab === 2) {
             if (otp) {
-                setActiveTab(3);
+                // setActiveTab(3);
+                const verifyOtp = await VerifyOtpFunction()
+                if (verifyOtp) {
+                    ShowSuccessAlert("OTP verified successfully")
+                    setActiveTab(3);
+                    setInputErrors({});
+                }
             } else {
                 errors.otp = "Please enter OTP";
                 setInputErrors(errors);
@@ -335,14 +395,19 @@ const GeneratePassword = () => {
                 errors.confirmPassword = "Passwords do not match";
                 setInputErrors(errors);
             } else {
-                setpasswordChangedModal(true)
+                const data = await GeneratePassword()
+                if(data) {
+                    setpasswordChangedModal(true)
+                }
                 // alert("Password changed");
             }
         }
     };
 
+
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
+
             <div className=" mb-10">
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
                 <Image src="../../../assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />

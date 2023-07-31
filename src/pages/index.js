@@ -12,10 +12,13 @@ import nextCircle from "../assets/images/nextCircle.svg"
 import loadingSvg from "../assets/images/Loading.svg"
 import { AiOutlineMail, AiOutlineLock } from "react-icons/ai"
 import Loader from 'src/components/Loader/Loader';
-import { CheckIfEmailExists } from 'src/services/Auth/AuthApi';
+import { CheckIfEmailExists, loginApi } from 'src/services/Auth/AuthApi';
+import { useAuthToken } from 'src/hooks/Auth/useAuthToken';
+import { TokenConstants } from 'src/constants/TokenConstants';
 
 
 const Index = () => {
+    const { token, setAuthToken } = useAuthToken();
     const [authData, setAuthData] = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setloading] = useState(false);
@@ -122,6 +125,31 @@ const Index = () => {
                     setErrors(validationErrors);
                 } else {
                     // Call login API here since both email and password are provided
+                    const postData = {
+                        username: authData.email,
+                        password: authData.password,
+                        rememberMe: false
+                    }
+
+                    try {
+                        const data = await loginApi(postData);
+                        setloading(false);
+                        console.log(data.data.id_token)
+                        if (data.data) {
+                            setAuthToken(data.data.id_token)
+                            // router.push('/dashboard');
+                        }
+
+                    } catch (error) {
+                        if (error.status === 401) {
+                            setErrors((prevErrors) => ({
+                                ...prevErrors,
+                                password: 'Invalid password.',
+                            }));
+                        }
+
+                        setloading(false);
+                    }
                 }
             } else {
                 setloading(true);
@@ -138,6 +166,13 @@ const Index = () => {
                         setPasswordNotGenerated(true);
                     }
                 } catch (error) {
+                    console.log(`error${JSON.stringify(error)}`)
+                    if (error.status === 400) {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            email: 'Email Id does not exist.',
+                        }));
+                    }
                     setloading(false);
                 }
             }
@@ -153,9 +188,15 @@ const Index = () => {
     };
 
     const navigateToGeneratePasswordPage = () => {
+        localStorage.setItem(TokenConstants.EMAIL,authData.email.toString()); // Store the email value in localStorage
         router.push('/auth/login/generate-password')
 
     }
+    useEffect(() => {
+        if (token) {
+            router.push('/dashboard');
+        }
+    }, [token, router]);
 
 
 
