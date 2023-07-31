@@ -9,7 +9,10 @@ import DefaultInput from 'src/components/Input/TextField/DefaultInput';
 import Image from 'next/image';
 import loginBG from "../assets/images/b3.svg"
 import nextCircle from "../assets/images/nextCircle.svg"
-import {AiOutlineMail, AiOutlineLock} from "react-icons/ai"
+import loadingSvg from "../assets/images/Loading.svg"
+import { AiOutlineMail, AiOutlineLock } from "react-icons/ai"
+import Loader from 'src/components/Loader/Loader';
+import { CheckIfEmailExists } from 'src/services/Auth/AuthApi';
 
 
 const Index = () => {
@@ -82,60 +85,68 @@ const Index = () => {
     };
 
     const submitForm = () => {
-
         // Form validation
-        let formIsValid = true;
         const validationErrors = {};
 
-        if (authData.email.trim() === '') {
+        if (!authData.email.trim()) {
             validationErrors.email = 'Email is required.';
-            formIsValid = false;
         }
 
-        if (authData.password.trim() === '') {
+        if (!authData.password.trim()) {
             validationErrors.password = 'Password is required.';
-            formIsValid = false;
         }
 
         setErrors(validationErrors);
 
-        if (formIsValid) {
+        if (Object.keys(validationErrors).length === 0) {
             // Form submission logic here
             router.push('/dashboard');
         }
     };
 
 
-    const checkIfAccountIsCreated = () => {
-        setloading(true);
-        let formIsValid = true;
+    //This function checks if the account is created or not and password is generated or not
+    const checkIfAccountIsCreated = async () => {
         const validationErrors = {};
 
-        if (authData.email.trim() === '') {
+        if (!authData.email.trim()) {
             validationErrors.email = 'Email is required.';
-            // eslint-disable-next-line no-unused-vars
-            formIsValid = false;
         }
 
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            // No validation errors, proceed with the code
-
-            if (authData.email === 'admin@test.com') {
-                if (showPassword) {
-                    router.push('/dashboard');
+            if (showPassword) {
+                if (!authData.password.trim()) {
+                    validationErrors.password = 'Password is required.';
+                    setErrors(validationErrors);
                 } else {
-                    setShowPassword(true);
+                    // Call login API here since both email and password are provided
                 }
             } else {
-                setPasswordNotGenerated(true);
-                // router.push('/dashboard');
+                setloading(true);
+
+                try {
+                    const data = await CheckIfEmailExists(authData.email);
+                    setloading(false);
+
+                    if (data.data) {
+                        // If data.data is true, it means the account is created and the password is generated
+                        setShowPassword(true);
+                    } else {
+                        // If it is false, it means the account is not created, and the password is not generated
+                        setPasswordNotGenerated(true);
+                    }
+                } catch (error) {
+                    setloading(false);
+                }
             }
         }
 
         setloading(false);
     };
+
+
 
     const handlePreferredOtpMethodChange = (e) => {
         setPreferredOtpMethod(e.target.value);
@@ -147,8 +158,12 @@ const Index = () => {
     }
 
 
+
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
+            {
+                loading && <Loader />
+            }
             <div className="logo-container mb-10">
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
                 <Image src="/assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
@@ -161,7 +176,7 @@ const Index = () => {
                         </div>
                         <form data-testid="login-form" className="space-y-5 mt-5 p-2" onSubmit={(e) => e.preventDefault()}>
                             <div>
-                                <DefaultInput   
+                                <DefaultInput
                                     value={authData.email}
                                     label="Email ID"
                                     id="email"
@@ -169,7 +184,6 @@ const Index = () => {
                                     onChange={handleInputChange}
                                     showPassword={showPassword}
                                     onClick={checkIfAccountIsCreated}
-                                    loading={loading}
                                     error={errors.email}
                                     icon={<AiOutlineMail size={24} className='mb-2 text-gray-500' />}
                                 />
@@ -185,7 +199,7 @@ const Index = () => {
                                         placeholder="Enter Password"
                                         onChange={handleInputChange}
                                         onClick={submitForm}
-                                        loading={loading}
+
                                         error={errors.password}
                                         icon={<AiOutlineLock size={24} className='mb-2 text-gray-500' />}
                                     />
@@ -195,7 +209,7 @@ const Index = () => {
                         {passwordNotGenerated && (
                             <p className=" passwordNotGeneratedText mt-5 ">
                                 The password has not been generated,{" "}
-                                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                                 <span style={{ cursor: 'pointer' }} onClick={() => navigateToGeneratePasswordPage()} className="text-primary-light">
                                     click here
                                 </span>{" "}
@@ -204,10 +218,11 @@ const Index = () => {
                         )}
                     </div> {/* authData.email */}
                     <div className={`flex items-center justify-end `}> {/* Flex container to position the image at the bottom */}
-                       <button onClick={ (e)=> {
-                        authData.email.length !== 0 ? checkIfAccountIsCreated() : e.preventDefault()}} className={`${authData.email.length === 0 && `cursor-not-allowed`}`}>
-                       <Image src={nextCircle.src} alt="logo" width={50} height={50} />
-                       </button>
+                        <button onClick={(e) => {
+                            authData.email.length !== 0 && !loading ? checkIfAccountIsCreated() : e.preventDefault()
+                        }} className={`${authData.email.length === 0 && `cursor-not-allowed`}`}>
+                            <Image src={loading ? loadingSvg.src : nextCircle.src} alt="logo" width={50} height={50} />
+                        </button>
                     </div>
                 </div>
             </div>
