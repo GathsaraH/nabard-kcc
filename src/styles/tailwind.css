@@ -839,3 +839,7 @@ line-height: 22px;
     font-family: 'Nunito';
     font-style: normal;
   }
+
+  .rounded-circle {
+    border-radius: 9999px; /* A very large value to make the button perfectly circular */
+  }
