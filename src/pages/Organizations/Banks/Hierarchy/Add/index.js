@@ -54,7 +54,6 @@ const Index = () => {
 
   const [isPACS, setIsPACS] = useState("");
   const onChangeInputSelect = (index, name, value) => {
-    console.log("name" + name);
     if (name === "cnumber" || name === "pincode") {
       value = value.replace(/\D/g, "");
     }
@@ -106,7 +105,7 @@ const Index = () => {
       levelTwo: item.level2,
       levelThree: item.level3,
       levelFour: item.level4,
-      levelFifth: "Branch",
+      levelFifth: item.level5,
       levelSixth: item.pacs
     }));
   }
@@ -127,6 +126,7 @@ const Index = () => {
     level2: (item.level2) || "",
     level3: (item.level3) || "",
     level4: (item.level4) || "",
+    level5 : (item.level5) || "" ,
     pacs: (item.pacs) || "",
   });
   const createErrorPayload = () => inputFields.map(mapInputFieldToErrorPayload);
@@ -138,7 +138,7 @@ const Index = () => {
     { ...IntialIField },
   ]);
   const addInputFieldHierarchy = () => {
-    if (inputFieldHierarchy.length <= 3) {
+    if (inputFieldHierarchy.length <= 5) {
       setInputFieldHierarchy([
         ...inputFieldHierarchy,
         {
@@ -151,13 +151,16 @@ const Index = () => {
   const removeInputFieldsHierarchy = () => {
     const rows = [...inputFieldHierarchy];
     rows.pop();
-    if (inputFieldHierarchy.length == 4) {
+    if (inputFieldHierarchy.length == 5) {
+      setInputFields([{ ...inputFields[0], level5: "" }]);
+      setInputErrors([{ ...inputErrors, level5: "" }]);
+    } else if (inputFieldHierarchy.length == 4) {
       setInputFields([{ ...inputFields[0], level4: "" }]);
       setInputErrors([{ ...inputErrors, level4: "" }]);
     } else if (inputFieldHierarchy.length == 3) {
       setInputFields([{ ...inputFields[0], level3: "" }]);
       setInputErrors([{ ...inputErrors, level3: "" }]);
-    } else if (inputFieldHierarchy.length == 2) {
+    }else if (inputFieldHierarchy.length == 2) {
       setInputFields([{ ...inputFields[0], level2: "" }]);
       setInputErrors([{ ...inputErrors, level2: "" }]);
     }
@@ -522,47 +525,6 @@ const Index = () => {
                                 }
                               >
                                 <div className="font-semibold font-montserrat">
-                                  <Autocomplete
-                                    id="country-select-demo"
-                                    size="small"
-                                    options={districtList}
-                                    name="District"
-                                    onChange={(e, option) => {
-                                      onChangeInputSelect(
-                                        index,
-                                        "district",
-                                        option
-                                      );
-                                    }}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
-                                    // value={data.bankName}
-                                    autoHighlight
-                                    //getOptionLabel={(option) => option.label}
-                                    renderOption={(props, option) => (
-                                      <Box component="li" {...props}>
-                                        <span className="common-Font-Family">
-                                          {option.label}
-                                        </span>
-                                      </Box>
-                                    )}
-                                    renderInput={(params) => (
-                                      <TextField
-                                        {...params}
-                                        label={t("District")}
-                                        required
-                                      />
-                                    )}
-                                  />
-                                </div>
-                              
-                              </div>
-
-                              <div
-                                className={
-                                  ResponsiveClassName.responsiveFour3ColChild
-                                }
-                              >
-                                <div className="font-semibold font-montserrat">
                                 <Autocomplete
                                     id="country-select-demo"
                                     size="small"
@@ -595,22 +557,78 @@ const Index = () => {
                                     )}
                                   />
                                 </div>
+                              
+                                <div className="font-semibold font-montserrat mt-3">
+                              <TextField
+                                    id="outlined-basic"
+                                    label={t("SubDistrict")}
+                                    name="SubDistrict"
+                                    inputProps={{ maxLength: 4 }}
+                                    onChange={(evnt) =>
+                                      onChangeInputSelect(
+                                        index,
+                                        "SubDistrict",
+                                        evnt.target.value.trim()
+                                      )
+                                    }
+                                    value={data.subDistrict}
+                                    required
+                                   
+                                    variant="outlined"
+                                    size="small"
+                                    className="w-full"
+                                  />
                               </div>
+                              </div>
+
                               <div
                                 className={
                                   ResponsiveClassName.responsiveFour3ColChild
                                 }
                               >
-                              <div className="font-semibold font-montserrat">
+                                <div className="font-semibold font-montserrat">
+                                  <Autocomplete
+                                    id="country-select-demo"
+                                    size="small"
+                                    options={districtList}
+                                    name="District"
+                                    onChange={(e, option) => {
+                                      onChangeInputSelect(
+                                        index,
+                                        "district",
+                                        option
+                                      );
+                                    }}
+                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    // value={data.bankName}
+                                    autoHighlight
+                                    //getOptionLabel={(option) => option.label}
+                                    renderOption={(props, option) => (
+                                      <Box component="li" {...props}>
+                                        <span className="common-Font-Family">
+                                          {option.label}
+                                        </span>
+                                      </Box>
+                                    )}
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        label={t("District")}
+                                        required
+                                      />
+                                    )}
+                                  />
+                                </div>
+                                <div className="font-semibold font-montserrat mt-3">
                               <TextField
                                     id="outlined-basic"
-                                    label={t("pincode")}
-                                    name="pincode"
+                                    label={t("Pincode")}
+                                    name="Pincode"
                                     inputProps={{ maxLength: 4 }}
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
                                         index,
-                                        "pincode",
+                                        "Pincode",
                                         evnt.target.value.trim()
                                       )
                                     }
@@ -622,7 +640,9 @@ const Index = () => {
                                     className="w-full"
                                   />
                               </div>
+                                
                               </div>
+                           
                             </div>
                             {/* address details  */}
                           
@@ -910,18 +930,7 @@ const Index = () => {
                                   </div>
                                 </div>
 
-                                <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                  <div className="col-start-2 col-end-6 xl:w-auto">
-                                    <input
-                                      type="text"
-                                      value="Branch"
-                                      className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
-                                      id="exampleFormControlInput3"
-                                      placeholder={t("GrassRootLevel")}
-                                      disabled
-                                    />
-                                  </div>
-                                </div>
+                                
 
                                 <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
                                   <div className="col-start-3 col-end-7 xl:w-auto">
@@ -1121,20 +1130,93 @@ const Index = () => {
                                   </div>
                                 )}
 
-                                <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                  <div className="col-start-5 col-end-10 xl:w-auto">
-                                    <input
-                                      type="text"
-                                      value="Branch"
-                                      className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
-                                      id="exampleFormControlInput3"
-                                      placeholder={t("GrassRootLevel")}
-                                      disabled
-                                    />
+                                  {inputFieldHierarchy.length > 4 && (
+                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
+                                    <div className="col-start-5 col-end-10 xl:w-auto">
+                                      <TextField
+                                        id="outlined-basic"
+                                        label="Level 5"
+                                        name="level5"
+                                        onChange={(evnt) =>
+                                          onChangeInputSelect(
+                                            index,
+                                            "level5",
+                                            evnt.target.value
+                                          )
+                                        }
+                                        value={data.level5}
+                                        required
+                                        InputProps={{
+                                          style: {
+                                            fontSize: "0.875rem",
+                                            fontFamily: "Montserrat",
+                                            fontWeight: "500",
+                                          },
+                                        }}
+                                        InputLabelProps={{
+                                          className: "common-Font-Family",
+                                        }}
+                                        error={inputErrors.level5}
+                                        variant="outlined"
+                                        size="small"
+                                        className="w-full"
+                                      />
+                                      {inputErrors.level5 && (
+                                        <span className="errorMessageStyle">
+                                          {inputErrors.level5}
+                                        </span>
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
+                                )}
                               </>
                             )}
+                             {/* buttons section */}
+                             <div className="grid lg:grid-cols-10 mt-6 mb-6">
+                              <div className="col-start-9 col-end-10 gap-2">
+                                <button
+                                  type="button"
+                                  className="flex items-center text-white p-3 rounded text-sm w-24"
+                                  style={{ backgroundColor: "#EEEEEE" }}
+                                >
+                                  <span
+                                    className="common-Font-Family ml-2"
+                                    style={{ color: "#696969" }}
+                                  >
+                                    {t("Cancel")}
+                                  </span>
+                                </button>
+                              </div>
+
+                              <div className="col-start-10 col-end-11 gap-2">
+                                <button
+                                  type="button"
+                                  className="flex items-center text-white p-3 rounded text-sm w-24"
+                                  style={{
+                                    backgroundColor:
+                                      ColorConstants.primaryColor,
+                                  }}
+                                >
+                                  <span className="common-Font-Family ml-1 mr-2">
+                                    {t("Create")}
+                                  </span>
+
+                                  <svg
+                                    width="20"
+                                    height="10"
+                                    viewBox="0 0 18 9"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M0.703112 3.79687H15.5938L13.1271 1.34212C12.8519 1.06818 12.8508 0.623001 13.1248 0.347763C13.3987 0.0724898 13.8439 0.0714705 14.1192 0.345372L17.7931 4.00162C17.7934 4.00183 17.7935 4.00207 17.7938 4.00228C18.0683 4.27622 18.0692 4.72285 17.7938 4.9977C17.7936 4.99791 17.7934 4.99815 17.7932 4.99836L14.1192 8.65461C13.844 8.92847 13.3988 8.92752 13.1248 8.65222C12.8509 8.37698 12.852 7.9318 13.1272 7.65786L15.5938 5.20311H0.703112C0.314775 5.20311 -1.33514e-05 4.88832 -1.33514e-05 4.49999C-1.33514e-05 4.11165 0.314775 3.79687 0.703112 3.79687Z"
+                                      fill="white"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                            {/* button's scetion  */}
                             {/* bank hierarchy  */}
                           </>
                         )
