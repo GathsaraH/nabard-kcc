@@ -10,6 +10,7 @@ import 'tippy.js/dist/tippy.css';
 import '../styles/tailwind.css';
 import DefaultLayout from 'src/layouts/DefaultLayout';
 
+
 export const NextPageWithLayout = (Component) => {
     return Component;
 };
