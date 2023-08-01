@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -126,7 +126,7 @@ const Index = () => {
     level2: (item.level2) || "",
     level3: (item.level3) || "",
     level4: (item.level4) || "",
-    level5 : (item.level5) || "" ,
+    level5: (item.level5) || "",
     pacs: (item.pacs) || "",
   });
   const createErrorPayload = () => inputFields.map(mapInputFieldToErrorPayload);
@@ -160,7 +160,7 @@ const Index = () => {
     } else if (inputFieldHierarchy.length == 3) {
       setInputFields([{ ...inputFields[0], level3: "" }]);
       setInputErrors([{ ...inputErrors, level3: "" }]);
-    }else if (inputFieldHierarchy.length == 2) {
+    } else if (inputFieldHierarchy.length == 2) {
       setInputFields([{ ...inputFields[0], level2: "" }]);
       setInputErrors([{ ...inputErrors, level2: "" }]);
     }
@@ -207,7 +207,7 @@ const Index = () => {
     designation: yup.string().required("Designation is required"),
   });
   const onBackButton = () => {
-    router.push("/Organizations/Banks");
+    router.push("/Organizations/Banks");    
   };
 
   function productSelection() {
@@ -215,41 +215,41 @@ const Index = () => {
   }
   return (
     <div>
-              <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
-          <div className="flex w-full mx-auto px-6 py-8">
-            <div className="flex flex-col w-full h-full text-gray-900 text-xl ">
-              <div className="px-2 md:px-5">
-                <div>
-                  <div className="flex w-full">
-                    <div className="w-full block rounded-lg shadow-lg bg-white">
+      <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
+        <div className="flex w-full mx-auto px-6 py-8">
+          <div className="flex flex-col w-full h-full text-gray-900 text-xl ">
+            <div className="px-2 md:px-5">
+              <div>
+                <div className="flex w-full">
+                  <div className="w-full block rounded-lg shadow-lg bg-white">
                     {inputFields.map((data, index) => {
-                        return (
-                          <>
-                             <div className="text-left p-4" key={data.id}>
-                              {/* heading section  */}
-                             <div className="grid lg:grid-cols-10 flex items-center">
-                             <button
-                                  onClick={() => router.back()}
-                                  type="button"
-                                  className="flex items-center  p-3 rounded text-sm w-24"
-                                 >
-                                  <span className="common-Font-Family ml-4">
-                                    <Tippy content ="back">
-                                    <MdArrowBackIos size ={20}/>
-                                    </Tippy>
-                                  </span>
-                                </button>
+                      return (
+                        <>
+                          <div className="text-left p-4" key={data.id}>
+                            {/* heading section  */}
+                            <div className="grid lg:grid-cols-10 flex items-center">
+                              <button
+                                onClick={() => router.back()}
+                                type="button"
+                                className="flex items-center  p-3 rounded text-sm w-24"
+                              >
+                                <span className="common-Font-Family ml-4">
+                                  <Tippy content="back">
+                                    <MdArrowBackIos size={20} />
+                                  </Tippy>
+                                </span>
+                              </button>
                               <div className="col-start-5 col-end-8">
-                                <span className="heading-Font-Family" style={{fontWeight:'700'}}>
+                                <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
                                   {t("Add Bank Hierarchy")}
                                 </span>
                               </div>
-                              </div>
-                              {/* heading section  */}
-                              <div className="w-auto m-3">
+                            </div>
+                            {/* heading section  */}
+                            <div className="w-auto m-3">
                               <hr style={{ color: "#000000" }}></hr>
                             </div>
-                            
+
                             {/* Bank details  */}
                             <div
                               className={
@@ -270,7 +270,7 @@ const Index = () => {
                                     options={allBankTypeList}
                                     name="bankType"
                                     value={data.bankType}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    popupIcon={<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25} />}
                                     onChange={(e, option) => {
                                       onChangeInputSelect(
                                         index,
@@ -294,7 +294,7 @@ const Index = () => {
                                             fontWeight: "500",
                                           },
                                         }}
-                                      
+
                                       />
                                     )}
                                     renderOption={(props, option) => (
@@ -306,7 +306,7 @@ const Index = () => {
                                     )}
                                   />
                                 </div>
-                             
+
                               </div>
 
                               <div
@@ -327,7 +327,7 @@ const Index = () => {
                                         option
                                       );
                                     }}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    popupIcon={<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25} />}
                                     value={data.bankName}
                                     autoHighlight
                                     // getOptionLabel={(option) => option.label}
@@ -347,7 +347,7 @@ const Index = () => {
                                     )}
                                   />
                                 </div>
-                              
+
                               </div>
 
                               <div
@@ -356,7 +356,7 @@ const Index = () => {
                                 }
                               >
                                 <div className="font-semibold font-montserrat">
-                                   <Autocomplete
+                                  <Autocomplete
                                     id="country-select-demo"
                                     size="small"
                                     options={allBankNameList}
@@ -368,7 +368,7 @@ const Index = () => {
                                         option
                                       );
                                     }}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    popupIcon={<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25} />}
                                     value={data.ShortName}
                                     autoHighlight
                                     // getOptionLabel={(option) => option.label}
@@ -390,16 +390,16 @@ const Index = () => {
                                 </div>
                               </div>
                             </div>
-                              {/* bank details  */}
+                            {/* bank details  */}
 
-                              {/* bank logo  */}
-                              <div className="grid lg:grid-cols-2 m-3 mt-8">
+                            {/* bank logo  */}
+                            <div className="grid lg:grid-cols-2 m-3 mt-8">
                               <span className="subheading-Font-Family"
-                               style={{
-                                color:
-                                  ColorConstants.primaryColor,
-                                  fontWeight:'700'
-                              }} >
+                                style={{
+                                  color:
+                                    ColorConstants.primaryColor,
+                                  fontWeight: '700'
+                                }} >
                                 {t("Bank Logo")}
                               </span>
                             </div>
@@ -454,7 +454,7 @@ const Index = () => {
                             <div className="grid lg:grid-cols-2 m-3">
                               <span
                                 className="subheading-Font-Family"
-                                style={{ color: ColorConstants.primaryColor , fontWeight: '700' }}
+                                style={{ color: ColorConstants.primaryColor, fontWeight: '700' }}
                               >
                                 {t("Address Details")}
                               </span>
@@ -473,7 +473,7 @@ const Index = () => {
                                 }
                               >
                                 <div className="font-semibold">
-                                <TextareaAutosize
+                                  <TextareaAutosize
                                     aria-label="minimum height"
                                     name="address"
                                     error={inputErrors.address}
@@ -516,7 +516,7 @@ const Index = () => {
                                     variant="outlined"
                                   />
                                 </div>
-                             
+
                               </div>
 
                               <div
@@ -525,7 +525,7 @@ const Index = () => {
                                 }
                               >
                                 <div className="font-semibold font-montserrat">
-                                <Autocomplete
+                                  <Autocomplete
                                     id="country-select-demo"
                                     size="small"
                                     options={stateList}
@@ -537,7 +537,7 @@ const Index = () => {
                                         option
                                       );
                                     }}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    popupIcon={<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25} />}
                                     // value={data.bankName}
                                     autoHighlight
                                     //getOptionLabel={(option) => option.label}
@@ -557,9 +557,9 @@ const Index = () => {
                                     )}
                                   />
                                 </div>
-                              
+
                                 <div className="font-semibold font-montserrat mt-3">
-                              <TextField
+                                  <TextField
                                     id="outlined-basic"
                                     label={t("SubDistrict")}
                                     name="SubDistrict"
@@ -573,12 +573,12 @@ const Index = () => {
                                     }
                                     value={data.subDistrict}
                                     required
-                                   
+
                                     variant="outlined"
                                     size="small"
                                     className="w-full"
                                   />
-                              </div>
+                                </div>
                               </div>
 
                               <div
@@ -599,7 +599,7 @@ const Index = () => {
                                         option
                                       );
                                     }}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    popupIcon={<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25} />}
                                     // value={data.bankName}
                                     autoHighlight
                                     //getOptionLabel={(option) => option.label}
@@ -620,7 +620,7 @@ const Index = () => {
                                   />
                                 </div>
                                 <div className="font-semibold font-montserrat mt-3">
-                              <TextField
+                                  <TextField
                                     id="outlined-basic"
                                     label={t("Pincode")}
                                     name="Pincode"
@@ -634,24 +634,24 @@ const Index = () => {
                                     }
                                     value={data.pincode}
                                     required
-                                   
+
                                     variant="outlined"
                                     size="small"
                                     className="w-full"
                                   />
+                                </div>
+
                               </div>
-                                
-                              </div>
-                           
+
                             </div>
                             {/* address details  */}
-                          
+
 
                             {/* super admin details  */}
                             <div className="grid lg:grid-cols-2 m-3">
                               <span
                                 className="subheading-Font-Family"
-                                style={{ color: ColorConstants.primaryColor , fontWeight : '700' }}
+                                style={{ color: ColorConstants.primaryColor, fontWeight: '700' }}
                               >
                                 {t("Super Admin Details")}
                               </span>
@@ -659,7 +659,7 @@ const Index = () => {
                             <div className="w-auto m-3">
                               <hr style={{ color: "#000000" }}></hr>
                             </div>
-                            
+
                             <div
                               className={
                                 ResponsiveClassName.responsiveFour3ColParent
@@ -766,7 +766,7 @@ const Index = () => {
                                         option
                                       );
                                     }}
-                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    popupIcon={<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25} />}
                                     autoHighlight
                                     renderInput={(params) => (
                                       <TextField
@@ -899,335 +899,335 @@ const Index = () => {
                                 </div>
                               </div>
                             </div>
-                            </div>
-                            {/* super admin details  */}
+                          </div>
+                          {/* super admin details  */}
 
-                            {/* bank hierarchy  */}
-                            <div className="grid lg:grid-cols-2 m-4 mt-6">
-                              <span
-                                className="subheading-Font-Family"
-                                style={{ color: ColorConstants.primaryColor , fontWeight : '700' }}
-                              >
-                                {t("Bank Hierarchy")}
-                              </span>
-                            </div>
+                          {/* bank hierarchy  */}
+                          <div className="grid lg:grid-cols-2 m-4 mt-6">
+                            <span
+                              className="subheading-Font-Family"
+                              style={{ color: ColorConstants.primaryColor, fontWeight: '700' }}
+                            >
+                              {t("Bank Hierarchy")}
+                            </span>
+                          </div>
 
-                            <div className="w-auto m-3">
-                              <hr style={{ color: "#000000" }}></hr>
-                            </div>
-                            {isPACS == "PACS" ? (
-                              <>
-                                <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                  <div className="col-start-1 col-end-5 xl:w-auto">
-                                    <input
-                                      type="text"
-                                      className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
-                                      id="exampleFormControlInput3"
-                                      placeholder="Level 1"
-                                      value="Head Office/Main Office/Headquarters"
-                                      disabled
-                                    />
-                                  </div>
+                          <div className="w-auto m-3">
+                            <hr style={{ color: "#000000" }}></hr>
+                          </div>
+                          {isPACS == "PACS" ? (
+                            <>
+                              <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
+                                <div className="col-start-1 col-end-5 xl:w-auto">
+                                  <input
+                                    type="text"
+                                    className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
+                                    id="exampleFormControlInput3"
+                                    placeholder="Level 1"
+                                    value="Head Office/Main Office/Headquarters"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+
+
+
+                              <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
+                                <div className="col-start-3 col-end-7 xl:w-auto">
+                                  <TextField
+                                    id="outlined-basic"
+                                    label="PACS"
+                                    name="PACS"
+                                    onChange={(evnt) =>
+                                      onChangeInputSelect(
+                                        index,
+                                        "pacs",
+                                        evnt.target.value
+                                      )
+                                    }
+                                    value={data.pacs}
+                                    required
+                                    InputProps={{
+                                      style: {
+                                        fontSize: 15,
+                                        fontFamily: "Montserrat",
+                                      },
+                                    }}
+                                    InputLabelProps={{
+                                      style: {
+                                        fontSize: 15,
+                                        fontFamily: "Montserrat",
+                                        color: "#6F6F6F",
+                                      },
+                                    }}
+                                    error={inputErrors.pacs}
+                                    variant="outlined"
+                                    size="small"
+                                    className="w-full"
+                                  />
+                                  {inputErrors.pacs && (
+                                    <span className="errorMessageStyle">
+                                      {inputErrors.pacs}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
+                                <div className="col-start-1 col-end-6 xl:w-auto">
+                                  <input
+                                    type="text"
+                                    className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
+                                    id="exampleFormControlInput3"
+                                    placeholder="Level 1"
+                                    value="Head Office/Main Office/Headquarters"
+                                    disabled
+                                  />
                                 </div>
 
-                                
+                                <div className="col-start-6 col-end-7 text-right">
+                                  <IconButton
+                                    onClick={addInputFieldHierarchy}
+                                    aria-label="delete"
+                                    className="text-white"
+                                    style={{ backgroundColor: "green" }}
+                                  >
+                                    <AddIcon />
+                                  </IconButton>
+                                </div>
+                                <div className="col-start-7 col-end-8">
+                                  <IconButton
+                                    onClick={removeInputFieldsHierarchy}
+                                    aria-label="delete"
+                                    className="text-white"
+                                    style={{ backgroundColor: "red" }}
+                                  >
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </div>
+                                <div className="col-start-8 col-end-9"></div>
+                              </div>
 
+                              {inputFieldHierarchy.length > 1 && (
                                 <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                  <div className="col-start-3 col-end-7 xl:w-auto">
+                                  <div className="col-start-2 col-end-7 xl:w-auto">
                                     <TextField
                                       id="outlined-basic"
-                                      label="PACS"
-                                      name="PACS"
+                                      label="Level 2"
+                                      name="level2"
                                       onChange={(evnt) =>
                                         onChangeInputSelect(
                                           index,
-                                          "pacs",
+                                          "level2",
                                           evnt.target.value
                                         )
                                       }
-                                      value={data.pacs}
+                                      value={data.level2}
                                       required
                                       InputProps={{
                                         style: {
-                                          fontSize: 15,
+                                          fontSize: "0.875rem",
                                           fontFamily: "Montserrat",
+                                          fontWeight: "500",
                                         },
                                       }}
                                       InputLabelProps={{
-                                        style: {
-                                          fontSize: 15,
-                                          fontFamily: "Montserrat",
-                                          color: "#6F6F6F",
-                                        },
+                                        className: "common-Font-Family",
                                       }}
-                                      error={inputErrors.pacs}
+                                      error={inputErrors.level2}
                                       variant="outlined"
                                       size="small"
                                       className="w-full"
                                     />
-                                    {inputErrors.pacs && (
+                                    {inputErrors.level2 && (
                                       <span className="errorMessageStyle">
-                                        {inputErrors.pacs}
+                                        {inputErrors.level2}
                                       </span>
                                     )}
                                   </div>
                                 </div>
-                              </>
-                            ) : (
-                              <>
+                              )}
+
+                              {inputFieldHierarchy.length > 2 && (
                                 <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                  <div className="col-start-1 col-end-6 xl:w-auto">
-                                    <input
-                                      type="text"
-                                      className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
-                                      id="exampleFormControlInput3"
-                                      placeholder="Level 1"
-                                      value="Head Office/Main Office/Headquarters"
-                                      disabled
+                                  <div className="col-start-3 col-end-8 xl:w-auto">
+                                    <TextField
+                                      id="outlined-basic"
+                                      label="Level 3"
+                                      name="level3"
+                                      onChange={(evnt) =>
+                                        onChangeInputSelect(
+                                          index,
+                                          "level3",
+                                          evnt.target.value
+                                        )
+                                      }
+                                      value={data.level3}
+                                      required
+                                      InputProps={{
+                                        style: {
+                                          fontSize: "0.875rem",
+                                          fontFamily: "Montserrat",
+                                          fontWeight: "500",
+                                        },
+                                      }}
+                                      InputLabelProps={{
+                                        className: "common-Font-Family",
+                                      }}
+                                      error={inputErrors.level3}
+                                      variant="outlined"
+                                      size="small"
+                                      className="w-full"
                                     />
+                                    {inputErrors.level3 && (
+                                      <span className="errorMessageStyle">
+                                        {inputErrors.level3}
+                                      </span>
+                                    )}
                                   </div>
-
-                                  <div className="col-start-6 col-end-7 text-right">
-                                    <IconButton
-                                      onClick={addInputFieldHierarchy}
-                                      aria-label="delete"
-                                      className="text-white"
-                                      style={{ backgroundColor: "green" }}
-                                    >
-                                      <AddIcon />
-                                    </IconButton>
-                                  </div>
-                                  <div className="col-start-7 col-end-8">
-                                    <IconButton
-                                      onClick={removeInputFieldsHierarchy}
-                                      aria-label="delete"
-                                      className="text-white"
-                                      style={{ backgroundColor: "red" }}
-                                    >
-                                      <DeleteIcon />
-                                    </IconButton>
-                                  </div>
-                                  <div className="col-start-8 col-end-9"></div>
                                 </div>
+                              )}
 
-                                {inputFieldHierarchy.length > 1 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-2 col-end-7 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 2"
-                                        name="level2"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level2",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level2}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level2}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level2 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level2}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {inputFieldHierarchy.length > 2 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-3 col-end-8 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 3"
-                                        name="level3"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level3",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level3}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level3}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level3 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level3}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {inputFieldHierarchy.length > 3 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-4 col-end-9 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 4"
-                                        name="level4"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level4",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level4}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level4}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level4 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level4}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                                  {inputFieldHierarchy.length > 4 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-5 col-end-10 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 5"
-                                        name="level5"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level5",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level5}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level5}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level5 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level5}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-                              </>
-                            )}
-                             {/* buttons section */}
-                             <div className="grid lg:grid-cols-10 mt-6 mb-6">
-                              <div className="col-start-9 col-end-10 gap-2">
-                                <button
-                                  type="button"
-                                  className="flex items-center text-white p-3 rounded text-sm w-24"
-                                  style={{ backgroundColor: "#EEEEEE" }}
-                                >
-                                  <span
-                                    className="common-Font-Family ml-2"
-                                    style={{ color: "#696969" }}
-                                  >
-                                    {t("Cancel")}
-                                  </span>
-                                </button>
-                              </div>
-
-                              <div className="col-start-10 col-end-11 gap-2">
-                                <button
-                                  type="button"
-                                  className="flex items-center text-white p-3 rounded text-sm w-24"
-                                  style={{
-                                    backgroundColor:
-                                      ColorConstants.primaryColor,
-                                  }}
-                                >
-                                  <span className="common-Font-Family ml-1 mr-2">
-                                    {t("Create")}
-                                  </span>
-
-                                  <svg
-                                    width="20"
-                                    height="10"
-                                    viewBox="0 0 18 9"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M0.703112 3.79687H15.5938L13.1271 1.34212C12.8519 1.06818 12.8508 0.623001 13.1248 0.347763C13.3987 0.0724898 13.8439 0.0714705 14.1192 0.345372L17.7931 4.00162C17.7934 4.00183 17.7935 4.00207 17.7938 4.00228C18.0683 4.27622 18.0692 4.72285 17.7938 4.9977C17.7936 4.99791 17.7934 4.99815 17.7932 4.99836L14.1192 8.65461C13.844 8.92847 13.3988 8.92752 13.1248 8.65222C12.8509 8.37698 12.852 7.9318 13.1272 7.65786L15.5938 5.20311H0.703112C0.314775 5.20311 -1.33514e-05 4.88832 -1.33514e-05 4.49999C-1.33514e-05 4.11165 0.314775 3.79687 0.703112 3.79687Z"
-                                      fill="white"
+                              {inputFieldHierarchy.length > 3 && (
+                                <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
+                                  <div className="col-start-4 col-end-9 xl:w-auto">
+                                    <TextField
+                                      id="outlined-basic"
+                                      label="Level 4"
+                                      name="level4"
+                                      onChange={(evnt) =>
+                                        onChangeInputSelect(
+                                          index,
+                                          "level4",
+                                          evnt.target.value
+                                        )
+                                      }
+                                      value={data.level4}
+                                      required
+                                      InputProps={{
+                                        style: {
+                                          fontSize: "0.875rem",
+                                          fontFamily: "Montserrat",
+                                          fontWeight: "500",
+                                        },
+                                      }}
+                                      InputLabelProps={{
+                                        className: "common-Font-Family",
+                                      }}
+                                      error={inputErrors.level4}
+                                      variant="outlined"
+                                      size="small"
+                                      className="w-full"
                                     />
-                                  </svg>
-                                </button>
-                              </div>
+                                    {inputErrors.level4 && (
+                                      <span className="errorMessageStyle">
+                                        {inputErrors.level4}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+
+                              {inputFieldHierarchy.length > 4 && (
+                                <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
+                                  <div className="col-start-5 col-end-10 xl:w-auto">
+                                    <TextField
+                                      id="outlined-basic"
+                                      label="Level 5"
+                                      name="level5"
+                                      onChange={(evnt) =>
+                                        onChangeInputSelect(
+                                          index,
+                                          "level5",
+                                          evnt.target.value
+                                        )
+                                      }
+                                      value={data.level5}
+                                      required
+                                      InputProps={{
+                                        style: {
+                                          fontSize: "0.875rem",
+                                          fontFamily: "Montserrat",
+                                          fontWeight: "500",
+                                        },
+                                      }}
+                                      InputLabelProps={{
+                                        className: "common-Font-Family",
+                                      }}
+                                      error={inputErrors.level5}
+                                      variant="outlined"
+                                      size="small"
+                                      className="w-full"
+                                    />
+                                    {inputErrors.level5 && (
+                                      <span className="errorMessageStyle">
+                                        {inputErrors.level5}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                          {/* buttons section */}
+                          <div className="grid lg:grid-cols-10 mt-6 mb-6">
+                            <div className="col-start-9 col-end-10 gap-2">
+                              <button
+                                type="button"
+                                className="flex items-center text-white p-3 rounded text-sm w-24"
+                                style={{ backgroundColor: "#EEEEEE" }}
+                              >
+                                <span
+                                  className="common-Font-Family ml-2"
+                                  style={{ color: "#696969" }}
+                                >
+                                  {t("Cancel")}
+                                </span>
+                              </button>
                             </div>
-                            {/* button's scetion  */}
-                            {/* bank hierarchy  */}
-                          </>
-                        )
+
+                            <div className="col-start-10 col-end-11 gap-2">
+                              <button
+                                type="button"
+                                className="flex items-center text-white p-3 rounded text-sm w-24"
+                                style={{
+                                  backgroundColor:
+                                    ColorConstants.primaryColor,
+                                }}
+                              >
+                                <span className="common-Font-Family ml-1 mr-2">
+                                  {t("Create")}
+                                </span>
+
+                                <svg
+                                  width="20"
+                                  height="10"
+                                  viewBox="0 0 18 9"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M0.703112 3.79687H15.5938L13.1271 1.34212C12.8519 1.06818 12.8508 0.623001 13.1248 0.347763C13.3987 0.0724898 13.8439 0.0714705 14.1192 0.345372L17.7931 4.00162C17.7934 4.00183 17.7935 4.00207 17.7938 4.00228C18.0683 4.27622 18.0692 4.72285 17.7938 4.9977C17.7936 4.99791 17.7934 4.99815 17.7932 4.99836L14.1192 8.65461C13.844 8.92847 13.3988 8.92752 13.1248 8.65222C12.8509 8.37698 12.852 7.9318 13.1272 7.65786L15.5938 5.20311H0.703112C0.314775 5.20311 -1.33514e-05 4.88832 -1.33514e-05 4.49999C-1.33514e-05 4.11165 0.314775 3.79687 0.703112 3.79687Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          {/* button's scetion  */}
+                          {/* bank hierarchy  */}
+                        </>
+                      )
                     })}
-</div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </main>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
   )
