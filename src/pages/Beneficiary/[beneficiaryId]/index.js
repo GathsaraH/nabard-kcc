@@ -1,10 +1,50 @@
-import { useRouter } from 'next/router'
 import React from 'react'
-import BankAccountTable from 'src/pages/datatables/BankAccountTable'
-import  {BsChevronDoubleLeft, BsChevronDoubleRight} from 'react-icons/bs'
+import { BsChevronDoubleLeft, BsChevronDoubleRight } from 'react-icons/bs'
+import IconButton from 'src/components/Button/IconButtonComponent'
+import TableRow from 'src/components/Table/PageTable/TableRow'
+import TableHeadings from 'src/components/Table/PageTable/TableHeadings'
+import HrTag from 'src/components/Hr/HrTag'
+import { useRouter } from 'next/router'
+
+
+const beneficiaryDetailsHeading1 = ['Beneficiary ID', 'Beneficiary Type', 'Beneficiary Name', 'Scheme'];
+const beneficiaryDetailsContent = ['155404', 'Individual', 'Andrew Marcel', 'AIF'];
+
+const beneficiaryDetailsHeading2 = ['Legal Entity Type', 'Registered ID/ No.', 'Date of Registration/ Incorporation'];
+const beneficiaryDetailsContent2 = ['Company', 'E4545878 870000S', '20 FEB 2020'];
+
+
+const beneficiaryDetailsHeading3 = ['Identity No', 'Social Category', 'Gender'];
+const beneficiaryDetailsContent3 = ['EDOP4587W', 'SEBC', 'MALE'];
+
+
+const beneficiaryDetailsHeading4 = ['Loan A/c No.', 'Application ID', 'Branch IFSC', 'Loan Limit', 'A/C Op.Date'];
+const beneficiaryDetailsContent4 = ['025252100001452', '14540454', 'BARB0OPROA', '2,00,00,000', '23 Aug 2020'];
+
+
 
 const Index = () => {
   const router = useRouter()
+
+  function PageTitle() {
+    return <span className="text-2xl text-bold">
+      Andrew Marcels
+    </span>
+  }
+
+  function SubHeading(item) {
+    return <div className="mr-5 m-2 m-sm-10 text-primary font-bold">
+      {item}
+    </div>
+  }
+
+  const routeToAccountDetails = () => {
+    router.push(`/Beneficiary/${router.query.beneficiaryId}/4`)
+
+  }
+
+
+
   return (
     <div>
       {/* <BankAccountTable userId={router.query.beneficiaryId} /> */}
@@ -20,31 +60,43 @@ const Index = () => {
                         <div className="text-left p-2">
                           <div className="grid grid-cols-12 m-1">
                             <div className="col-start-10 col-end-13 flex justify-end items-center">
-                              <BsChevronDoubleLeft/>
-                              <BsChevronDoubleRight className='bg-primary p-3' />
+                              <BsChevronDoubleLeft />
+                              <IconButton className={'p-2 bg-primary text-white ml-3'} icon={<BsChevronDoubleRight />} />
                             </div>
                             <div className="col-start-1 col-end-13 flex justify-center items-center">
-                              <span className="text-2xl text-bold">
-                                Andrew Marcels
-                              </span>
+                              {PageTitle()}
                             </div>
                           </div>
-
-                          <div className="w-auto m-3">
-                            <hr style={{ color: "#000000" }}></hr>
-                          </div>
+                          <HrTag />
                           <div className="w-full">
-                            <div className="mr-5 m-2 m-sm-10">
+                            {SubHeading("Beneficiary Details")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading1} colsLength={8} colSpan={2} />
+                            <TableRow headings={beneficiaryDetailsContent} colsLength={8} colSpan={2} />
 
-                              as
-                              <div className="w-auto ">
-                                <hr style={{ color: "#000000" }}></hr>
-                              </div>
-                              asd
-                              <div className="tab-content tab-space">
-                                asd
-                              </div>
-                            </div>
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("If Group/Company")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading2} colsLength={6} colSpan={2} />
+                            <TableRow headings={beneficiaryDetailsContent2} colsLength={6} colSpan={2} />
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("If Individual")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading3} colsLength={6} colSpan={2} />
+                            <TableRow headings={beneficiaryDetailsContent3} colsLength={6} colSpan={2} />
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("Address")}
+                            <HrTag />
+                            <span className='px-2' >Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</span>
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("Bank Account Details")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading4} colsLength={10} colSpan={2} />
+                            <TableRow onClick={routeToAccountDetails} Link headings={beneficiaryDetailsContent4} colsLength={10} colSpan={2} />
                           </div>
                         </div>
                       </div>
@@ -61,6 +113,11 @@ const Index = () => {
       </div>
     </div>
   )
+
+
+
+
+
 }
 
 export default Index
