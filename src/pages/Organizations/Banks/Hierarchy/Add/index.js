@@ -24,6 +24,7 @@ const Index = () => {
     state: "",
     district: "",
     subDistrict: "",
+    Village : "",
     pincode: "",
     ename: "",
     userId: "",
@@ -45,6 +46,7 @@ const Index = () => {
   const [stateList, setStateList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
   const [subDistrictList, setSubDistrictList] = useState([]);
+  const [VillageList, setVillageList] = useState([]);
   const [designationList, setDesignationList] = useState([]);
   const [bankType, setBankType] = useState(0);
   const InputObject = {
@@ -551,7 +553,7 @@ const Index = () => {
                                     renderInput={(params) => (
                                       <TextField
                                         {...params}
-                                        label={t("state")}
+                                        label={t("State")}
                                         required
                                       />
                                     )}
@@ -561,7 +563,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat mt-3">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("SubDistrict")}
+                                    label={t("Sub District")}
                                     name="SubDistrict"
                                     inputProps={{ maxLength: 4 }}
                                     onChange={(evnt) =>
@@ -673,7 +675,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("EmployeeName")}
+                                    label={t("Employee Name")}
                                     name="ename"
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
@@ -715,7 +717,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("UserId")}
+                                    label={t("User Id")}
                                     name="userId"
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
@@ -824,7 +826,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("EmailID")}
+                                    label={t("Email ID")}
                                     name="email"
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
@@ -866,7 +868,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("ContactNumber")}
+                                    label={t("Contact Number")}
                                     inputProps={{ maxLength: 10 }}
                                     name="cnumber"
                                     onChange={(evnt) => {
