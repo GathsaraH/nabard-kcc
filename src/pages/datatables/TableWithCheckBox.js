@@ -4,12 +4,10 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-const TableWithCheckBox = ({rowData , columnDefs , pagination}) => {
-  
+const TableWithCheckBox = ({ rowData, columnDefs, pagination }) => {
   return (
-    <div>
-          <div className="ag-theme-alpine" style={{height:'100vh'}}>
-          <AgGridReact
+    <div className="ag-theme-alpine" style={{ height: '100vh' }}>
+      <AgGridReact
         rowData={rowData}
         columnDefs={columnDefs}
         defaultColDef={{
@@ -19,13 +17,9 @@ const TableWithCheckBox = ({rowData , columnDefs , pagination}) => {
         rowSelection="multiple"
         pagination={pagination} // Enable pagination
         paginationPageSize={10} // Number of rows per page
-
       />
-      </div>
-
-      
     </div>
-  )
-}
+  );
+};
 
-export default TableWithCheckBox
+export default TableWithCheckBox;
