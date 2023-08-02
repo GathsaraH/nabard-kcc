@@ -52,7 +52,7 @@ const handleRowClicked = (id) => {
     {
       headerName: 'Status', field: 'Status', suppressMenu: true,
       cellRenderer: () => (
-        <StatusRenderer value="Active" />
+        <StatusRenderer value="Inactive" />
       ),
     },
     {
@@ -70,7 +70,7 @@ const handleRowClicked = (id) => {
 
   return (
     <div>
-      <CommonFilters onClick={AddBankHierarchy} addButtonLabel="Add Bank Hierarchy"/>
+      <CommonFilters onClick={AddBankHierarchy} addButtonLabel="Add Bank Hierarchy" icon={<AiOutlinePlus/>}/>
       <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} onRowClick={handleRowClicked} />
     </div>
   )

@@ -73,8 +73,7 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                <CommonFilters hideIconButton={ministry}/>
-                    <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+                  <p>Ministry content</p>
                 </div>
             </Tab.Panel>
         )

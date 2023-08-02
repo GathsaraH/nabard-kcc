@@ -10,8 +10,9 @@ import React from 'react';
 const IconButton = ({ icon, label, onClick, className }) => {
   return (
     <button type="button" className={`btn  ${className ? className : "bg-primary text-white"} `} onClick={onClick}>
+      <span className='ml-2 mr-2'>{label}</span>
       <span className="text-xl">{icon}</span>
-      <span className='ml-2'>{label}</span>
+
     </button>
   );
 };
