@@ -2,19 +2,16 @@ import React , {useState} from 'react';
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { useDispatch} from "react-redux";
 import { useRouter } from "next/router";
-import { ResponsiveClassName } from "../../../../../constants/ResponsiveClassName";
 import { ColorConstants } from 'src/constants/ColorConstants';
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos, MdKeyboardArrowDown } from 'react-icons/md';
 import CardContainer from 'src/components/Card/CardContainer';
+import { ResponsiveClassName } from 'src/constants/ResponsiveClassName';
 const Index = () => {
   const IntialInputFields = {
     id: "",
@@ -133,47 +130,16 @@ const Index = () => {
     userId: item.userId || "",
     designation: item.designation?.value || "",
     email: (item.email) || "",
-    cnumber: item.cnumber || "",
-    level2: (item.level2) || "",
-    level3: (item.level3) || "",
-    level4: (item.level4) || "",
-    pacs: (item.pacs) || "",
+    cnumber: item.cnumber || ""
   });
   const createErrorPayload = () => inputFields.map(mapInputFieldToErrorPayload);
   const IntialIField = {
     AssestId: "",
   };
 
-  const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
-    { ...IntialIField },
-  ]);
-  const addInputFieldHierarchy = () => {
-    if (inputFieldHierarchy.length <= 5) {
-      setInputFieldHierarchy([
-        ...inputFieldHierarchy,
-        {
-          ...IntialIField,
-        },
-      ]);
-    }
-  };
+ 
 
-  const removeInputFieldsHierarchy = () => {
-    const rows = [...inputFieldHierarchy];
-    rows.pop();
-   
-    if (inputFieldHierarchy.length == 4) {
-      setInputFields([{ ...inputFields[0], level4: "" }]);
-      setInputErrors([{ ...inputErrors, level4: "" }]);
-    } else if (inputFieldHierarchy.length == 3) {
-      setInputFields([{ ...inputFields[0], level3: "" }]);
-      setInputErrors([{ ...inputErrors, level3: "" }]);
-    }else if (inputFieldHierarchy.length == 2) {
-      setInputFields([{ ...inputFields[0], level2: "" }]);
-      setInputErrors([{ ...inputErrors, level2: "" }]);
-    }
-    setInputFieldHierarchy(rows);
-  };
+  
   const checkValidation = async (data) => {
     let validateResult = await inputSchema
       .validate(data, {
@@ -189,30 +155,12 @@ const Index = () => {
       errors[item.path] = item.message;
       errorLength++;
     });
-    if (isPACS != "") {
-      delete errors.level2;
-      delete errors.level3;
-      delete errors.level4;
-    } else {
-      if (inputFieldHierarchy.length == 1) {
-        delete errors.level2;
-        delete errors.level3;
-        delete errors.level4;
-      } else if (inputFieldHierarchy.length == 2) {
-        delete errors.level3;
-        delete errors.level4;
-      } else if (inputFieldHierarchy.length == 3) {
-        delete errors.level4;
-      }
-      delete errors.pacs;
-    }
     setInputErrors(errors);
     return Object.keys(errors).length > 0 ? false : true;
   };
   const inputSchema = yup.object().shape({
     Name: yup.string().required("name is required"),
     Type: yup.string().required("type is required"),
-    designation: yup.string().required("Designation is required"),
   });
   return (
     <div>
@@ -242,7 +190,7 @@ const Index = () => {
                                 </button>
                               <div className="col-start-5 col-end-8">
                                 <span className="heading-Font-Family" style={{fontWeight:'700'}}>
-                                  {t("Stakeholder Hierarchy")}
+                                  {t("Add PMU")}
                                 </span>
                               </div>
                               </div>
@@ -255,7 +203,7 @@ const Index = () => {
                                 className="subheading-Font-Family"
                                 style={{ color: ColorConstants.primaryColor , fontWeight: '700' }}
                               >
-                                {t("Stake Holder's Details")}
+                                {t("Agency Details")}
                               </span>
                             </div>
                             {/* stack holders details  */}
@@ -346,33 +294,7 @@ const Index = () => {
                               
                               </div>
 
-                              <div
-                                className={
-                                  ResponsiveClassName.responsiveFour3ColChild
-                                }
-                              >
-                                <div className="font-semibold font-montserrat">
-                                <TextField
-                                    id="outlined-basic"
-                                    label={t("Department")}
-                                    name="Department"
-                                    inputProps={{ maxLength: 4 }}
-                                    onChange={(evnt) =>
-                                      onChangeInputSelect(
-                                        index,
-                                        "Department",
-                                        evnt.target.value.trim()
-                                      )
-                                    }
-                                    value={data.Department}
-                                    required
-                                   
-                                    variant="outlined"
-                                    size="small"
-                                    className="w-full"
-                                  />
-                                </div>
-                              </div>
+                             
                             </div>
                               {/* stakeholder's details  */}
                             {/* address details  */}
@@ -934,178 +856,6 @@ const Index = () => {
                 
             </div>
                               {/* Area of operation  */}
-
-                            {/* stake holder hierarchy  */}
-                            <div className="grid lg:grid-cols-2 m-4 mt-6">
-                              <span
-                                className="subheading-Font-Family"
-                                style={{ color: ColorConstants.primaryColor , fontWeight : '700' }}
-                              >
-                                {t("Stakeholder Hierarchy")}
-                              </span>
-                            </div>
-
-                            <div className="w-auto m-3">
-                              <hr style={{ color: "#000000" }}></hr>
-                            </div>
-                           
-                                <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                  <div className="col-start-1 col-end-6 xl:w-auto">
-                                    <input
-                                      type="text"
-                                      className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
-                                      id="exampleFormControlInput3"
-                                      placeholder="Level 1"
-                                      value="Ministry"
-                                      disabled
-                                    />
-                                  </div>
-
-                                  <div className="col-start-6 col-end-7 text-right">
-                                    <IconButton
-                                      onClick={addInputFieldHierarchy}
-                                      aria-label="delete"
-                                      className="text-white"
-                                      style={{ backgroundColor: "green" }}
-                                    >
-                                      <AddIcon />
-                                    </IconButton>
-                                  </div>
-                                  <div className="col-start-7 col-end-8">
-                                    <IconButton
-                                      onClick={removeInputFieldsHierarchy}
-                                      aria-label="delete"
-                                      className="text-white"
-                                      style={{ backgroundColor: "red" }}
-                                    >
-                                      <DeleteIcon />
-                                    </IconButton>
-                                  </div>
-                                  <div className="col-start-8 col-end-9"></div>
-                                </div>
-
-                                {inputFieldHierarchy.length > 1 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-2 col-end-7 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 2"
-                                        name="level2"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level2",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level2}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level2}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level2 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level2}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {inputFieldHierarchy.length > 2 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-3 col-end-8 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 3"
-                                        name="level3"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level3",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level3}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level3}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level3 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level3}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {inputFieldHierarchy.length > 3 && (
-                                  <div className="grid lg:grid-cols-12 m-5 mt-6 gap-5">
-                                    <div className="col-start-4 col-end-9 xl:w-auto">
-                                      <TextField
-                                        id="outlined-basic"
-                                        label="Level 4"
-                                        name="level4"
-                                        onChange={(evnt) =>
-                                          onChangeInputSelect(
-                                            index,
-                                            "level4",
-                                            evnt.target.value
-                                          )
-                                        }
-                                        value={data.level4}
-                                        required
-                                        InputProps={{
-                                          style: {
-                                            fontSize: "0.875rem",
-                                            fontFamily: "Montserrat",
-                                            fontWeight: "500",
-                                          },
-                                        }}
-                                        InputLabelProps={{
-                                          className: "common-Font-Family",
-                                        }}
-                                        error={inputErrors.level4}
-                                        variant="outlined"
-                                        size="small"
-                                        className="w-full"
-                                      />
-                                      {inputErrors.level4 && (
-                                        <span className="errorMessageStyle">
-                                          {inputErrors.level4}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                              
-                              
                              {/* buttons section */}
                              <div className="flex justify-end m-10">
                                 <button
@@ -1147,7 +897,6 @@ const Index = () => {
                                 </button>
                             </div>
                             {/* button's scetion  */}
-                            {/* bank hierarchy  */}
                           </>
                         )
                     })}

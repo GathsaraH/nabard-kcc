@@ -561,24 +561,65 @@ const Index = () => {
                                 </div>
 
                                 <div className="font-semibold font-montserrat mt-3">
-                                  <TextField
-                                    id="outlined-basic"
-                                    label={t("Sub District")}
-                                    name="SubDistrict"
-                                    inputProps={{ maxLength: 4 }}
-                                    onChange={(evnt) =>
+                                  <Autocomplete
+                                    id="country-select-demo"
+                                    size="small"
+                                    options={subDistrictList}
+                                    name="Sub District"
+                                    onChange={(e, option) => {
                                       onChangeInputSelect(
                                         index,
-                                        "SubDistrict",
-                                        evnt.target.value.trim()
-                                      )
-                                    }
-                                    value={data.subDistrict}
-                                    required
-
-                                    variant="outlined"
+                                        "Sub District",
+                                        option
+                                      );
+                                    }}
+                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    autoHighlight
+                                    renderOption={(props, option) => (
+                                      <Box component="li" {...props}>
+                                        <span className="common-Font-Family">
+                                          {option.label}
+                                        </span>
+                                      </Box>
+                                    )}
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        label={t("Sub District")}
+                                        required
+                                      />
+                                    )}
+                                  />
+                                </div>
+                              <div className="font-semibold font-montserrat mt-3">
+                                <Autocomplete
+                                    id="country-select-demo"
                                     size="small"
-                                    className="w-full"
+                                    options={VillageList}
+                                    name="Villages"
+                                    onChange={(e, option) => {
+                                      onChangeInputSelect(
+                                        index,
+                                        "Village",
+                                        option
+                                      );
+                                    }}
+                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    autoHighlight
+                                    renderOption={(props, option) => (
+                                      <Box component="li" {...props}>
+                                        <span className="common-Font-Family">
+                                          {option.label}
+                                        </span>
+                                      </Box>
+                                    )}
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        label={t("Village")}
+                                        required
+                                      />
+                                    )}
                                   />
                                 </div>
                               </div>

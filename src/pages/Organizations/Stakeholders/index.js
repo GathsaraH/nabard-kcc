@@ -6,8 +6,8 @@ import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
 import { useTranslation } from "react-i18next";
 import 'flatpickr/dist/flatpickr.css';
 import { TextField } from '@mui/material';
-import CustomCellRenderer from 'src/components/CustomCellRenderer';
 import StatusRenderer from 'src/components/StatusRenderer';
+import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
 const Index = () => {
   const { t } = useTranslation();
   const rowData = [
@@ -22,7 +22,14 @@ const Index = () => {
     { id: 9, Type: 'Central', Name: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
     { id: 10, Type: 'state level', Name: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
   ];
-
+  const router = useRouter();
+  const AddStakeholderHierarchy = () => {
+    router.push('/Organizations/Stakeholders/Hierarchy/Add');
+  }
+  const handleRowClicked = (id) => {
+    // Assuming the row data contains an "id" property
+        router.push(`/Organizations/Stakeholders/Hierarchy/View/${id}/`)
+  };
   const columnDefs = [
     {
       headerCheckboxSelection: true,
@@ -44,8 +51,8 @@ const Index = () => {
     {
       headerName: 'Actions',
       field: 'actions',
-      cellRenderer: () => (
-        <CustomCellRenderer />
+      cellRenderer: (params) => (
+        <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data}/>
       ),
       width: 100,
       suppressMenu: true, // Remove default filter options from this column
@@ -53,10 +60,7 @@ const Index = () => {
     },
   ];
 
-  const router = useRouter();
-  const AddStakeholderHierarchy = () => {
-    router.push('/Organizations/Stakeholders/Hierarchy/Add');
-  }
+
 
   return (
     <div>
