@@ -1,12 +1,11 @@
-import React from 'react'
-import { BsChevronDoubleLeft, BsChevronDoubleRight } from 'react-icons/bs'
-import IconButton from 'src/components/Button/IconButtonComponent'
-import TableRow from 'src/components/Table/PageTable/TableRow'
-import TableHeadings from 'src/components/Table/PageTable/TableHeadings'
+import React, { useState } from 'react'
 import HrTag from 'src/components/Hr/HrTag'
 import { useRouter } from 'next/router'
-import DynamicGrid from 'src/components/Grid/DynamicGrid'
-
+import TableComponent from 'src/components/Table/PageTable/TableComponent'
+import { Grid } from '@mui/material';
+import SelectInput from 'src/components/Input/Select/SelectInput';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ModalContainer from 'src/components/Modal/ModalContainer';
 
 const beneficiaryDetailsHeading1 = ['Bank Name', 'Account No.', 'Account Opening Date', 'Branch Name', 'IFSC', 'Claim Period'];
 const beneficiaryDetailsContent = ['BOB', '028281000145812', '23 Aug 2020', 'Baroda', 'BARB0OPROA', 'Sept 2023 Quarter'];
@@ -22,6 +21,13 @@ const beneficiaryDetailsContent3 = ['AIF', 'Sept 2023 Quarter', 'Interest Subven
 const beneficiaryDetailsHeading4 = ['Effective Date', 'Rate Of Interest'];
 const beneficiaryDetailsContent4 = ['23 Sept 2022', '9%',];
 
+const modalDetailsDataHeading = ['Transaction Date','Value Date','Particular','Transaction Type','Sub-Type','Outstanding','Days','Int.Sbv Amount']
+const modalDetailsDataContent = ['23 Aug 2023','22 Aug 2023','By Transfer','Credit','Customer Induced','-2,00,000','10','554.25']
+
+
+
+
+
 const loandDetailsData = [
   { property: "Application ID", value: "14505454" },
   { property: "Scheme Name", value: "AIF" },
@@ -29,22 +35,50 @@ const loandDetailsData = [
   { property: "Convergence with other Scheme", value: "No" },
   { property: "Asset Classification", value: "Standards " },
   { property: "Date of NPA; if NPA", value: "Not Applicable" },
-  { property: "Sanction Date", value: "23 Aug 2023 "},
-  { property: "Installment Type", value: "Non-EMI"},
-  { property: "Repayment Start Date", value: "26 Aug 2023"},
-  { property: "Repayment Start Date", value: "26 Aug 2023"},
-  { property: "First Disbursement Date", value: "26 Aug 2023"},
-  { property: "Claim Type", value: "Interest Subvention"},
-  { property: "Restructured/ Rephasement Date", value: "Not Applicable "},
+  { property: "Sanction Date", value: "23 Aug 2023 " },
+  { property: "Installment Type", value: "Non-EMI" },
+  { property: "Repayment Start Date", value: "26 Aug 2023" },
+  { property: "Repayment Start Date", value: "26 Aug 2023" },
+  { property: "First Disbursement Date", value: "26 Aug 2023" },
+  { property: "Claim Type", value: "Interest Subvention" },
+  { property: "Restructured/ Rephasement Date", value: "Not Applicable " },
+]
+
+const loanAccountOptions = [
+  { value: '1', label: '025252100001452' },
+  { value: '2', label: '025252100001453' },
+  { value: '3', label: '025252100001454' },
 ]
 
 const Index = () => {
   const router = useRouter()
+  const [selectedAccountNo, setselectedAccountNo] = useState(loanAccountOptions[0].value)
+  const [calculationModal, setcalculationModal] = useState(false)
+
+  const handleAccountNoChange = (event) => {
+    setselectedAccountNo(event.target.value);
+  };
+
+  const handleModalChange = (item) => {
+    setcalculationModal(item);
+  };
+
+
+
 
   function PageTitle() {
-    return <span className="text-2xl font-semibold">
-      Loan A/c No : 025252100001452
-    </span>
+    return <div>
+      <Grid container>
+        <Grid item xs={12} sm={4}>
+          <span className="text-xl font-semibold">
+            Loan A/C  :
+          </span>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <SelectInput className="sm:ml-3 mt-3 sm:mt-0" onChange={handleAccountNoChange} options={loanAccountOptions} label="Account number" value={selectedAccountNo} />
+        </Grid>
+      </Grid>
+    </div>
   }
 
   function SubHeading(item) {
@@ -58,18 +92,30 @@ const Index = () => {
 
   }
 
+
   function TwoColGrid(title, value) {
-    return <div className={`col-span-${2} text-center`}>
-      <div className={`grid lg:grid-cols-${4} text-black font-semibold text-xl text-left`}>
-        <div className={`col-span-${2} p-2 bg-[#D2ECFA] text-center`}>
+    return <>
+      <Grid item xs={6} sm={3}>
+        <div className={`p-2 bg-[#D2ECFA] text-center`}>
           {title}
         </div>
-        <div className={`col-span-${2} p-2 bg-[#F6F4F4] text-center`}>
+      </Grid>
+      <Grid item xs={6} sm={3}>
+        <div className={`p-2 bg-[#F6F4F4] text-center`}>
           {value}
         </div>
-      </div>
-    </div>
+      </Grid>
+    </>
   }
+
+  function calculationModalContainer() {
+    return <ModalContainer responsiveWidth title="Interest Subvention Calculation Details" showModal={calculationModal} handleModal={handleModalChange} >
+<TableComponent headings={modalDetailsDataHeading} contents={modalDetailsDataContent} colsLength={10} colSpan={2} />
+    </ModalContainer>
+
+  }
+
+
 
 
 
@@ -87,7 +133,7 @@ const Index = () => {
                       <div className="w-full block rounded-lg shadow-lg bg-white">
                         <div className="text-left p-5">
                           <div className="grid grid-cols-12 m-1">
-                            <div className="col-start-1 col-end-13 flex justify-center items-center">
+                            <div className="col-start-1 col-end-13 flex justify-center items-center mb-10">
                               {PageTitle()}
                             </div>
                           </div>
@@ -95,13 +141,13 @@ const Index = () => {
                           <div className="w-full">
                             {SubHeading("Account Details")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading1} colsLength={12} colSpan={2} />
-                            <TableRow headings={beneficiaryDetailsContent} colsLength={12} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading1} contents={beneficiaryDetailsContent} colsLength={6} colSpan={2} />
+
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("Loan Details")}
                             <HrTag />
-                            <div className={`grid lg:grid-cols-${4} text-black gap-1 font-semibold text-xl text-left`}>
+                            <Grid style={{ overflow: 'auto' }} container spacing={0.5}>
                               {
                                 loandDetailsData.map((item) => {
                                   return <>
@@ -109,25 +155,25 @@ const Index = () => {
                                   </>
                                 })
                               }
-                            </div>
+                            </Grid>
                           </div>
                           <div className="w-full py-5">
-                            {SubHeading("Transaction Details ")}
+                            <Grid container columns={16}>
+                              <Grid item xs={12} sm={12}>  {SubHeading("Transaction Details ")}  </Grid>
+                              <Grid item xs={12} sm={4}><span onClick={() => handleModalChange(true)} className="text-primary font-bold"><RemoveRedEyeIcon className='mb-1 mr-2' />Show Claim Calculation</span> </Grid>
+                            </Grid>
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading2} colsLength={12} colSpan={2} />
-                            <TableRow headings={beneficiaryDetailsContent2} colsLength={12} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading2} contents={beneficiaryDetailsContent2} colsLength={6} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("Claim Details")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading3} colsLength={12} colSpan={2} />
-                            <TableRow headings={beneficiaryDetailsContent3} colsLength={12} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading3} contents={beneficiaryDetailsContent3} colsLength={6} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("Interest Details")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading4} colsLength={4} colSpan={2} />
-                            <TableRow onClick={routeToAccountDetails} Link headings={beneficiaryDetailsContent4} colsLength={4} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading4} Link onClick={routeToAccountDetails} contents={beneficiaryDetailsContent4} colsLength={6} colSpan={2} />
                           </div>
                         </div>
                       </div>
@@ -135,13 +181,11 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid lg:grid-cols-10 mt-6">
-                <div className="col-start-9 col-end-10 gap-2"></div>
-              </div>
             </div>
           </main>
         </div>
       </div>
+      {calculationModalContainer()}
     </div>
   )
 

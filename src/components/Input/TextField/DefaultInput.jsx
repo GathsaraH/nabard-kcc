@@ -3,18 +3,17 @@ import LoadingSvg from 'src/assets/svg/LoadingSvg';
 
 /**
  * A reusable component for rendering an input field.
- * @param {Object} props - The props for the input field.
- * @param {string} props.label - The label text for the input field.
- * @param {string} props.id - The unique identifier for the input field.
- * @param {string} props.placeholder - The placeholder text for the input field.
- * @param {string} props.value - The current value of the input field.
- * @param {function} props.onChange - The callback function triggered on input change.
- * @param {boolean} props.showPassword - Whether to show the password field.
- * @param {boolean} props.icon - Whether to show the icon or not
- * @param {function} props.onClick - The callback function triggered when the arrow icon is clicked (optional).
- * @param {boolean} props.loading - Whether to show the loading SVG.
- * @param {string} props.type - The type of input field (password, email, text).
- * @param {string} props.error - The error message to display.
+ * @param {string} label - The label text for the input field.
+ * @param {string} id - The unique identifier for the input field.
+ * @param {string} placeholder - The placeholder text for the input field.
+ * @param {string} value - The current value of the input field.
+ * @param {function} onChange - The callback function triggered on input change.
+ * @param {boolean} showPassword - Whether to show the password field.
+ * @param {boolean} icon - Whether to show the icon or not
+ * @param {function} onClick - The callback function triggered when the arrow icon is clicked (optional).
+ * @param {boolean} loading - Whether to show the loading SVG.
+ * @param {string} type - The type of input field (password, email, text).
+ * @param {string} error - The error message to display.
  */
 const DefaultInput = ({
   label,
