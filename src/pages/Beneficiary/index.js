@@ -32,7 +32,7 @@ const Index = () => {
 
   const handleRowClicked = (id) => {
     // Assuming the row data contains an "id" property
-      router.push(`/Beneficiary/${id}/`)
+    router.push(`/Beneficiary/${id}/`)
   };
 
 

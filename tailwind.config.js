@@ -35,7 +35,7 @@ module.exports = {
               },
               info: {
                   DEFAULT: '#2196f3',
-                  light: '#e7f7ff',
+                  light: '#BAE7FF',
                   'dark-light': 'rgba(33,150,243,.15)',
               },
               dark: {
@@ -53,6 +53,12 @@ module.exports = {
                   light: '#e0e6ed',
                   dark: '#888ea8',
               },
+              gray: {
+                  DEFAULT: '#ffffff',
+                  light: '#EEEEEE',
+                  dark: '#888ea8',
+              }
+            
           },
           fontFamily: {
               nunito: ['Nunito', 'sans-serif'],

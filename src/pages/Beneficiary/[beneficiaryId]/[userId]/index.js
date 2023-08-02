@@ -1,205 +1,154 @@
-import React , {Fragment} from 'react';
-import { Tab } from '@headlessui/react';
-import DefaultForm from 'src/components/Forms/DefaultForm';
-import CommonTable from 'src/components/Table/CommonTable';
-import { useRouter } from 'next/router';
-// Define the class names for the buttons based on their selected state
-const buttonClassName = (selected) => {
-  return `${selected ? 'bg-primary text-white !outline-none' : ''
-    } -mb-[1px] block rounded p-4 py-3.5 text-md font-medium hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2`;
-};
+import React from 'react'
+import { BsChevronDoubleLeft, BsChevronDoubleRight } from 'react-icons/bs'
+import IconButton from 'src/components/Button/IconButtonComponent'
+import TableRow from 'src/components/Table/PageTable/TableRow'
+import TableHeadings from 'src/components/Table/PageTable/TableHeadings'
+import HrTag from 'src/components/Hr/HrTag'
+import { useRouter } from 'next/router'
+import DynamicGrid from 'src/components/Grid/DynamicGrid'
 
-// Define the tab titles
-const tabTitles = ["Account Details", "Loan Details" , "Transaction Details" , "Claim Details"];
+
+const beneficiaryDetailsHeading1 = ['Bank Name', 'Account No.', 'Account Opening Date', 'Branch Name', 'IFSC', 'Claim Period'];
+const beneficiaryDetailsContent = ['BOB', '028281000145812', '23 Aug 2020', 'Baroda', 'BARB0OPROA', 'Sept 2023 Quarter'];
+
+const beneficiaryDetailsHeading2 = ['Transaction Date', 'Value Date', 'Particulars', 'Debit', 'Credit', 'Outstanding'];
+const beneficiaryDetailsContent2 = ['16 Aug 2023', '20 Aug 2023', 'By Transfer', '2,00,000', '3,00,000', '-1 ,00,000'];
+
+
+const beneficiaryDetailsHeading3 = ['Scheme Type', 'Period', 'Claim Type', 'Claim Amount', 'Status', 'Date Of Status'];
+const beneficiaryDetailsContent3 = ['AIF', 'Sept 2023 Quarter', 'Interest Subvention', '2,00,000', 'Claim Pending', '23 Aug 2023'];
+
+
+const beneficiaryDetailsHeading4 = ['Effective Date', 'Rate Of Interest'];
+const beneficiaryDetailsContent4 = ['23 Sept 2022', '9%',];
+
+const loandDetailsData = [
+  { property: "Application ID", value: "14505454" },
+  { property: "Scheme Name", value: "AIF" },
+  { property: "Loan Limit.", value: "2,00,00,000" },
+  { property: "Convergence with other Scheme", value: "No" },
+  { property: "Asset Classification", value: "Standards " },
+  { property: "Date of NPA; if NPA", value: "Not Applicable" },
+  { property: "Sanction Date", value: "23 Aug 2023 "},
+  { property: "Installment Type", value: "Non-EMI"},
+  { property: "Repayment Start Date", value: "26 Aug 2023"},
+  { property: "Repayment Start Date", value: "26 Aug 2023"},
+  { property: "First Disbursement Date", value: "26 Aug 2023"},
+  { property: "Claim Type", value: "Interest Subvention"},
+  { property: "Restructured/ Rephasement Date", value: "Not Applicable "},
+]
 
 const Index = () => {
-     const router = useRouter();
-     const { title } = router.query;
-     console.log("a" ,title);
+  const router = useRouter()
+
+  function PageTitle() {
+    return <span className="text-2xl font-semibold">
+      Loan A/c No : 025252100001452
+    </span>
+  }
+
+  function SubHeading(item) {
+    return <div className="mr-5 m-2 m-sm-10 text-primary font-bold">
+      {item}
+    </div>
+  }
+
+  const routeToAccountDetails = () => {
+    router.push(`/Beneficiary/${router.query.beneficiaryId}/4`)
+
+  }
+
+  function TwoColGrid(title, value) {
+    return <div className={`col-span-${2} text-center`}>
+      <div className={`grid lg:grid-cols-${4} text-black font-semibold text-xl text-left`}>
+        <div className={`col-span-${2} p-2 bg-[#D2ECFA] text-center`}>
+          {title}
+        </div>
+        <div className={`col-span-${2} p-2 bg-[#F6F4F4] text-center`}>
+          {value}
+        </div>
+      </div>
+    </div>
+  }
+
+
+
   return (
     <div>
-      <Tab.Group>
-        {/* Render the tab titles */}
-        {renderTabTitles()}
-
-        {/* Render the tab content */}
-        <Tab.Panels>
-          {renderTabFirstContent()}
-          {renderTabSecondContent()}
-          {renderTabThirdContent()}
-          {renderTabFourthContent()}
-        </Tab.Panels>
-      </Tab.Group>
-    </div>
-  );
-};
-// Function to render the fourth tab content 
-function renderTabFourthContent(){
-  const formFields = [
-    { name: 'Scheme Type', label: 'Scheme  Type', type: 'text' , required : true},
-    { name: 'Period', label: 'Period ', type: 'text' },
-    {name : 'Type of Benefits' , label :'Type of Benefits' , type:'select',
-      options: [
-        {label :'Intrest Subvention' , value :'Intrest Subvention'},
-        {label :'Subsidy' , value: 'Subsidy'},
-        {label :'CGTMSE Fee' , value: 'CGTMSE Fee'},
-      ]
-  },
-    { name: 'Amount of Benefit', label: 'Amount of Benefit', type: 'number' },
-    {name : 'status' , label :'status' , type:'select',
-      options: [
-        {label :'approve' , value :'approve'},
-        {label :'reject' , value: 'reject'},
-      ]
-  },
-  {name:'date of status' , label :'date of status' , type:'date'},
-  {name:'Effective Date' , label :'Effective Date' , type:'date'},
-  {name:'Rate of intrest' , label :'Rate of intrest' , type:'number'},
-  {name:'Date of Disbursement' , label :'Date of Disbursement' , type:'date'},
-  {name:'Disbursemnt Amount' , label :'Disbursement Amount' , type:'number'},
-
-    // You can add more form fields here as needed
-  ];
-  const handleFormSubmit = (formData) => {
-    // Do something with the form data, e.g., submit it to a server
-    console.log(formData);
-  };
-  return(
-    <Tab.Panel>
-      <div className='pt-5'>
-      <p>Claim Details</p>
-      <DefaultForm fields={formFields} onSubmit={handleFormSubmit} title={"Update"}/>
-      </div>
-    </Tab.Panel>
-  )
-}
-// Function to render the third tab content 
-function renderTabThirdContent(){
-  const data = [
-    ['15/10/2001', '15/10/2006', 'xyz' , '10000' , "20000" , "5000"],
-    ['15/10/2001', '15/10/2006', 'xyz' , '10000' , "20000" , "5000"],
-    ['15/10/2001', '15/10/2006', 'xyz' , '10000' , "20000" , "5000"],
-    ['15/10/2001', '15/10/2006', 'xyz' , '10000' , "20000" , "5000"],
-  ];
-  
-  const columns = ['Transaction Date', 'Value Date', 'Particulars' , 'Debit' , 'Credit' , 'Outstanding'];
-  
-  const CalculationData = [
-    ['15/10/2001', '15/10/2006', 'xyz' , 'Credit' , "-" , "5000" , "10" , "15000"],
-    ['15/10/2001', '15/10/2006', 'xyz' , 'Debit' , "-" , "5000" , "9" , "39000"],
-    ['15/10/2001', '15/10/2006', 'xyz' , 'Debit' , "-" , "5000" ,"7" , "19000"],
-    ['15/10/2001', '15/10/2006', 'xyz' , 'Credit' , "-" , "5000" ,"25" , "15500"],
-  ];
-  
-  const details = ['Transaction Date', 'Value Date', 'Particulars' , 'Transcation Type' , 'Sub-Type' , 'Outstandings' , 'days' , 'Int. Sbv Amount'];
-    return(
-      <Tab.Panel>
-        <div className='pt-5'>
-          <b className='mb-5'>Transaction Details</b>
-        <CommonTable columns={columns} data={data} />
-          <br/>
-          <hr/>
-          <b className='mt-5'>Interest Subvention Calculation Details </b>
-          <CommonTable columns ={details} data ={CalculationData}/>
+      {/* <BankAccountTable userId={router.query.beneficiaryId} /> */}
+      <div className="flex-1 flex flex-col lg:overflow-hidden">
+        <div className="flex h-full">
+          <main className="w-full bg-gray-100 h-full overflow-x-hidden overflow-y-auto mb-14">
+            <div className="w-full mx-auto mt-2">
+              <div className="flex flex-col w-full h-full text-gray-900 text-xl ">
+                <div className="px-2 md:px-5">
+                  <div>
+                    <div className="flex w-full">
+                      <div className="w-full block rounded-lg shadow-lg bg-white">
+                        <div className="text-left p-5">
+                          <div className="grid grid-cols-12 m-1">
+                            <div className="col-start-1 col-end-13 flex justify-center items-center">
+                              {PageTitle()}
+                            </div>
+                          </div>
+                          <HrTag />
+                          <div className="w-full">
+                            {SubHeading("Account Details")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading1} colsLength={12} colSpan={2} />
+                            <TableRow headings={beneficiaryDetailsContent} colsLength={12} colSpan={2} />
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("Loan Details")}
+                            <HrTag />
+                            <div className={`grid lg:grid-cols-${4} text-black gap-1 font-semibold text-xl text-left`}>
+                              {
+                                loandDetailsData.map((item) => {
+                                  return <>
+                                    {TwoColGrid(item.property, item.value)}
+                                  </>
+                                })
+                              }
+                            </div>
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("Transaction Details ")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading2} colsLength={12} colSpan={2} />
+                            <TableRow headings={beneficiaryDetailsContent2} colsLength={12} colSpan={2} />
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("Claim Details")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading3} colsLength={12} colSpan={2} />
+                            <TableRow headings={beneficiaryDetailsContent3} colsLength={12} colSpan={2} />
+                          </div>
+                          <div className="w-full py-5">
+                            {SubHeading("Interest Details")}
+                            <HrTag />
+                            <TableHeadings headings={beneficiaryDetailsHeading4} colsLength={4} colSpan={2} />
+                            <TableRow onClick={routeToAccountDetails} Link headings={beneficiaryDetailsContent4} colsLength={4} colSpan={2} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid lg:grid-cols-10 mt-6">
+                <div className="col-start-9 col-end-10 gap-2"></div>
+              </div>
+            </div>
+          </main>
         </div>
-      </Tab.Panel>
-    )
-}
-// Function to render the second tab content
-function renderTabSecondContent() {
-  const formFields = [
-    { name: 'Application ID', label: 'Application ID', type: 'text' },
-    { name: 'Scheme Name', label: 'Scheme Name ', type: 'text' },
-    { name: 'Loan Limit', label: 'Loan Limit', type: 'number' },
-    {name : 'Convergence with other Scheme' , label :'Convergence with other scheme' , type:'select',
-      options: [
-        {label :'yes' , value :'yes'},
-        {label :'no' , value: 'no'}
-      ]
-  },
-  {name : 'Asset Classification' , label :'Asset Classification' , type:'select',
-  options: [
-    {label :'NPA' , value :'NPA'},
-    {label :'std' , value: 'Std'},
-    {label :'Restructured' , value: 'Restructured'},
-  ]
-},
-    { name: 'Date of NPA', label: 'Date of NPA', type: 'date' },
-    { name: 'Sanction Date', label: 'Sanction Date', type: 'date' },
-    { name: 'Installment type', label: 'Installment Type', type: 'text' },
-    { name: 'Repayment Start Date', label: 'Repayment Start Date', type: 'date' },
-    { name: 'First Disbursement Date', label: 'First Disbursement Date', type: 'date' },
-    {name : 'Claim Type' , label :'Claim Type' , type:'select',
-    options: [
-      {label :'Subvention' , value :'Subvention'},
-      {label :'Subsidy' , value: 'Subsidy'},
-    ]
-  },
-  { name: 'Restructured/Rephasement Date', label: 'Restructured/Rephasement Date', type: 'date' },
-
-    
-    // You can add more form fields here as needed
-  ];
-  const handleFormSubmit = (formData) => {
-    // Do something with the form data, e.g., submit it to a server
-    console.log(formData);
-  };
-  return (
-    <Tab.Panel>
-      <div className='pt-5'>
-       <DefaultForm fields={formFields} onSubmit={handleFormSubmit} title={"Update"}/>
       </div>
-    </Tab.Panel>
-  );
+    </div>
+  )
+
+
+
+
+
 }
 
-// Function to render the first tab content
-function renderTabFirstContent() {
-  const formFields = [
-    { name: 'Bank Name', label: 'Bank Name', type: 'text' },
-    { name: 'Branch Name', label: 'Branch Name ', type: 'text' },
-    { name: 'Account No.', label: 'Account No.', type: 'number' },
-    { name: 'IFSC', label: 'IFSC', type: 'number' },
-    { name: 'Account Opening Date', label: 'Account Opening Date', type: 'date' },
-    {name : 'Claim Period' , label :'Claim Period' , type:'select',
-      options: [
-        {label :'10days' , value :'10days'},
-        {label :'15days' , value: '15dyas'},
-        {label :'30days' , value :'30days'},
-      ]
-  }
-    // You can add more form fields here as needed
-  ];
-  const handleFormSubmit = (formData) => {
-    // Do something with the form data, e.g., submit it to a server
-    console.log(formData);
-  };
-  return (
-    <Tab.Panel>
-      <div className="active pt-5">
-        <DefaultForm fields={formFields} onSubmit={handleFormSubmit} title={"Update"}/>
-      </div>
-    </Tab.Panel>
-  );
-}
-
-// Function to render the tab titles
-function renderTabTitles() {
-  return (
-    <Tab.List className="mt-3 flex flex-wrap border-b border-white-light dark:border-[#191e3a]">
-      {tabTitles.map((item) => {
-        return (
-          <Tab as={Fragment}>
-            {({ selected }) => (
-              <button className={buttonClassName(selected)}>
-                {item}
-              </button>
-            )}
-          </Tab>
-        );
-      })}
-    </Tab.List>
-  );
-}
-
-export default Index;
+export default Index
