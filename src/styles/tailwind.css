@@ -843,3 +843,19 @@ line-height: 22px;
   .rounded-circle {
     border-radius: 9999px; /* A very large value to make the button perfectly circular */
   }
+
+  /* Custom CSS to style the select element */
+.custom-select {
+    position: relative;
+  }
+  
+  /* Styling for the drop arrow */
+  .custom-select:after {
+    content: '\25BC'; /* Unicode code for down-arrow symbol */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevent the arrow from being clickable */
+  }
+  
