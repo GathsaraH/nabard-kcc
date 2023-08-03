@@ -24,6 +24,7 @@ const Index = () => {
     state: "",
     district: "",
     subDistrict: "",
+    Village : "",
     pincode: "",
     ename: "",
     userId: "",
@@ -45,6 +46,7 @@ const Index = () => {
   const [stateList, setStateList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
   const [subDistrictList, setSubDistrictList] = useState([]);
+  const [VillageList, setVillageList] = useState([]);
   const [designationList, setDesignationList] = useState([]);
   const [bankType, setBankType] = useState(0);
   const InputObject = {
@@ -551,7 +553,7 @@ const Index = () => {
                                     renderInput={(params) => (
                                       <TextField
                                         {...params}
-                                        label={t("state")}
+                                        label={t("State")}
                                         required
                                       />
                                     )}
@@ -559,24 +561,65 @@ const Index = () => {
                                 </div>
 
                                 <div className="font-semibold font-montserrat mt-3">
-                                  <TextField
-                                    id="outlined-basic"
-                                    label={t("SubDistrict")}
-                                    name="SubDistrict"
-                                    inputProps={{ maxLength: 4 }}
-                                    onChange={(evnt) =>
+                                  <Autocomplete
+                                    id="country-select-demo"
+                                    size="small"
+                                    options={subDistrictList}
+                                    name="Sub District"
+                                    onChange={(e, option) => {
                                       onChangeInputSelect(
                                         index,
-                                        "SubDistrict",
-                                        evnt.target.value.trim()
-                                      )
-                                    }
-                                    value={data.subDistrict}
-                                    required
-
-                                    variant="outlined"
+                                        "Sub District",
+                                        option
+                                      );
+                                    }}
+                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    autoHighlight
+                                    renderOption={(props, option) => (
+                                      <Box component="li" {...props}>
+                                        <span className="common-Font-Family">
+                                          {option.label}
+                                        </span>
+                                      </Box>
+                                    )}
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        label={t("Sub District")}
+                                        required
+                                      />
+                                    )}
+                                  />
+                                </div>
+                              <div className="font-semibold font-montserrat mt-3">
+                                <Autocomplete
+                                    id="country-select-demo"
                                     size="small"
-                                    className="w-full"
+                                    options={VillageList}
+                                    name="Villages"
+                                    onChange={(e, option) => {
+                                      onChangeInputSelect(
+                                        index,
+                                        "Village",
+                                        option
+                                      );
+                                    }}
+                                    popupIcon = {<MdKeyboardArrowDown color={ColorConstants.lightDark} size={25}/>}
+                                    autoHighlight
+                                    renderOption={(props, option) => (
+                                      <Box component="li" {...props}>
+                                        <span className="common-Font-Family">
+                                          {option.label}
+                                        </span>
+                                      </Box>
+                                    )}
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        label={t("Village")}
+                                        required
+                                      />
+                                    )}
                                   />
                                 </div>
                               </div>
@@ -673,7 +716,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("EmployeeName")}
+                                    label={t("Employee Name")}
                                     name="ename"
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
@@ -715,7 +758,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("UserId")}
+                                    label={t("User Id")}
                                     name="userId"
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
@@ -824,7 +867,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("EmailID")}
+                                    label={t("Email ID")}
                                     name="email"
                                     onChange={(evnt) =>
                                       onChangeInputSelect(
@@ -866,7 +909,7 @@ const Index = () => {
                                 <div className="font-semibold font-montserrat">
                                   <TextField
                                     id="outlined-basic"
-                                    label={t("ContactNumber")}
+                                    label={t("Contact Number")}
                                     inputProps={{ maxLength: 10 }}
                                     name="cnumber"
                                     onChange={(evnt) => {

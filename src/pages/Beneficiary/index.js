@@ -58,7 +58,6 @@ const Index = () => {
     {
       headerName: 'Actions',
       field: 'actions',
-      // cellRenderer: () => <CustomCellRenderer userId={router.query.id} />,
       cellRenderer: (params) => <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data} />,
       suppressMenu: true,
     },
