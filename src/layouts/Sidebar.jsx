@@ -73,26 +73,15 @@ const sidebarMenuOptions = [
         title: 'Users',
         icon: <FiUsers size={25} />,
         subMenu: [
-            {
-                title: 'List',
-                link: '/admin/users/list',
-            },
+           
             {
                 title: 'Banks',
-                link: '/components/accordions',
+                link: '/users/Banks',
             },
             {
-                title: 'NABARD',
-                link: '/components/accordions',
-            },
-            {
-                title: 'Central/State Government',
-                link: '/components/accordions',
-            },
-            {
-                title: 'Agency',
-                link: '/components/accordions',
-            },
+                title: 'Stakeholders',
+                link: '/users/Stakeholders',
+            }
         ],
     },
     {
