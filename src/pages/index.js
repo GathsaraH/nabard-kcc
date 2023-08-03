@@ -9,7 +9,7 @@ import Image from "next/image";
 import loginBG from "../assets/images/b3.svg";
 import nextCircle from "../assets/images/nextCircle.svg";
 import loadingSvg from "../assets/images/Loading.svg";
-import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
+import { AiOutlineMail, AiOutlineLock ,AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 import Loader from "src/components/Loader/Loader";
 import { CheckIfEmailExists, loginApi } from "src/services/Auth/AuthApi";
 import { useAuthToken } from "src/hooks/Auth/useAuthToken";
@@ -22,6 +22,12 @@ const Index = () => {
   const [loading, setloading] = useState(false);
   const [errors, setErrors] = useState({});
   const [passwordNotGenerated, setPasswordNotGenerated] = useState(false);
+  const [ PasswordVisible, setPasswordVisible] = useState(false);
+
+  const passwordVisible = () => {
+    setPasswordVisible(!PasswordVisible);
+  }
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -185,6 +191,7 @@ const Index = () => {
       className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center"
       style={{ backgroundImage: `url(${loginBG.src})` }}
     >
+    {console.log(passwordVisible)}
       {loading && <Loader />}
       <div className="logo-container">
         {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
@@ -233,7 +240,7 @@ const Index = () => {
                     label="Password"
                     data-testid="Password"
                     id="password"
-                    type="password"
+                    type={PasswordVisible ? "text" : "password"}
                     placeholder="Enter Password"
                     onChange={handleInputChange}
                     onClick={submitForm}
@@ -241,6 +248,10 @@ const Index = () => {
                     icon={
                       <AiOutlineLock size={24} className="mb-2 text-gray-500" />
                     }
+                    secondIcon = {
+                      PasswordVisible ? <AiFillEye size={24} className="mb-2 text-gray-500" /> : <AiFillEyeInvisible size={24} className="mb-2 text-gray-500" />
+                    }
+                    onClickSecondIcon = {passwordVisible}
                   />
                 </div>
               )}
