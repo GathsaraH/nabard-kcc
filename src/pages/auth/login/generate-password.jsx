@@ -40,6 +40,31 @@ const GeneratePassword = () => {
     const router = useRouter();
     const [email, setemail] = useState("")
 
+
+
+    function infoBox() {
+        return   <Tippy
+                            trigger="mouseenter focus"
+                            placement="bottom"
+                            content={
+                                <div className="panel p-2 w-full">
+                                    <h2 className="text-xl text-black font-semibold">
+                                        Steps to generate password
+                                    </h2>
+                                    <div className="p-3 text-black">
+                                        <p>1. Select the desired mode.</p>
+                                        <p>2. Request an OTP using your chosen method.</p>
+                                        <p>3. Generate a password.</p>
+                                    </div>
+                                </div>
+                            }
+                        >
+                            <button className="ml-2" type="button" data-trigger="mouseenter">
+                                <InfoSvg />
+                            </button>
+                        </Tippy>
+    }
+
     const handleModal = (item) => {
         setpasswordChangedModal(item)
     }
@@ -182,14 +207,14 @@ const GeneratePassword = () => {
 
         return (
             <div className="flex-1 p-5">
-                <h2 className="font-bold text-lg">
+                <h2 className="font-bold text-md">
                     {!preferredOtpMethod.length > 0
                         ? 'Please select your preferred verification method:'
                         : `You will receive an OTP on your ${preferredOtpMethod}.`}
                 </h2>
                 <br />
                 <div className='flex justify-evenly' >
-                    <CardContainer width="w-1/2 sm:w-1/3" shadow={"shadow-lg"}>
+                    <CardContainer width="w-[100px] sm:w-[150px]" shadow={"shadow-lg"}>
                         <div className="mb-2">
                             <label className="mt-1 inline-flex cursor-pointer">
                                 <input
@@ -204,7 +229,7 @@ const GeneratePassword = () => {
                             </label>
                         </div>
                     </CardContainer>
-                    <CardContainer width="w-1/2 sm:w-1/3" shadow={"shadow-lg"}>
+                    <CardContainer width="w-[100px] sm:w-[150px]" shadow={"shadow-lg"}>
                         <div className="mb-2">
                             <label className="mt-1 inline-flex cursor-pointer">
                                 <input
@@ -235,8 +260,8 @@ const GeneratePassword = () => {
     */
     function SecondStep() {
         return (
-            <div className="flex flex-col items-center p-5 text-center">
-                <h4 className="mb-3 font-bold text-lg">
+            <div className="flex flex-col items-center mt-4 text-center">
+                <h4 className="mb-3 font-bold text-md">
                     Please enter One Time Password (OTP) that has been sent to your{' '}
                     {preferredOtpMethod}
                 </h4>
@@ -247,7 +272,7 @@ const GeneratePassword = () => {
                     inputErrors.otp && <p className="text-red-500 text-sm mt-1">{inputErrors.otp}</p>
                 }
                 <br />
-                <DefaultButtonComponent className="mb-5" title="Resend OTP" />
+                {/* <DefaultButtonComponent className="mb-5s" title="Resend OTP" /> */}
                 <h5 className="mb-3 font-bold text-md">OTP will expire in</h5>
                 <TimerComponent time={300} />
             </div>
@@ -411,30 +436,12 @@ const GeneratePassword = () => {
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
                 <Image src="../../../assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
             </div>
-            <div className={`${styles.boxContainer}  panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}>
+            {/* <div className={`${styles.boxContainer}  panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}> */}
+            <div className={`${styles.boxContainer}  panel m-6 w-[350px] sm:w-[50rem] shadow-2xl rounded-2xl`}>
                 <div className='flex justify-center'>
-                    <h2 className="signText font-bold">
+                    <h2 className={`${styles.signText} `}>
                         Generate Password
-                        <Tippy
-                            trigger="mouseenter focus"
-                            placement="bottom"
-                            content={
-                                <div className="panel p-3 w-full">
-                                    <h2 className="text-xl text-black font-semibold">
-                                        Steps to generate password
-                                    </h2>
-                                    <div className="p-3 text-black">
-                                        <p>1. Select the desired mode.</p>
-                                        <p>2. Request an OTP using your chosen method.</p>
-                                        <p>3. Generate a password.</p>
-                                    </div>
-                                </div>
-                            }
-                        >
-                            <button className="ml-2" type="button" data-trigger="mouseenter">
-                                <InfoSvg className="mt-5" />
-                            </button>
-                        </Tippy>
+                      {infoBox()}
                     </h2>
                 </div>
                 <br />
@@ -449,14 +456,14 @@ const GeneratePassword = () => {
                                     : activeTab === 3
                                         ? 'w-[81%] bg-primary-light'
                                         : ''
-                                }   w-[15%] h-2 absolute ltr:left-0 rtl:right-0 top-[40px] m-auto -z-[1] transition-[width]`}
+                                }   w-[15%] h-1.5 absolute ltr:left-0 rtl:right-0 top-[25px] sm:top-[30px] m-auto -z-[1] transition-[width]`}
                         ></div>
                         <ul className="mb-5 grid grid-cols-3">
                             <li className="mx-auto">
                                 <button
                                     type="button"
                                     className={`${activeTab === 1 || activeTab === 2 || activeTab === 3 ? '!bg-primary text-white' : ''
-                                        }   ${activeTab === 2 || activeTab === 3 ? "!bg-primary-light" : ""} bg-white  flex justify-center items-center w-20 h-20 rounded-full`}
+                                        }   ${activeTab === 2 || activeTab === 3 ? "!bg-primary-light" : ""} bg-white  flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16  rounded-full`}
                                 >
                                     <GiEarthAmerica color={'white'} size={38} />
                                 </button>
@@ -473,7 +480,7 @@ const GeneratePassword = () => {
                                     className={`${activeTab === 2 || activeTab === 3
                                         ? '!bg-primary text-white '
                                         : 'bg-[#EEEEEE]'
-                                        } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
+                                        } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16 rounded-full`}
                                 >
                                     <OtpSvg color={activeTab === 2 || activeTab === 3 ? 'white' : '#888EA8'} />
                                     {/* <Image src={mobileOTp.src} alt="logo" width={30} height={30} /> */}
@@ -491,7 +498,7 @@ const GeneratePassword = () => {
                                     className={`${activeTab === 3
                                         ? ' !bg-primary text-white'
                                         : 'bg-[#EEEEEE]'
-                                        }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-20 h-20 rounded-full`}
+                                        }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16 rounded-full`}
                                 >
                                     <GeneratePasswordSvg
                                         color={activeTab === 3 ? 'white' : '#888EA8'}
@@ -522,7 +529,7 @@ const GeneratePassword = () => {
                         />
                         <DefaultButtonComponent
                             icon={<AiOutlineRight />}
-                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-20"}`}
+                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-10"}`}
                             title={
                                 activeTab === 1
                                     ? 'Send OTP'

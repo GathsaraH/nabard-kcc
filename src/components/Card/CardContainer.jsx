@@ -12,7 +12,7 @@ import React from 'react';
 const CardContainer = ({ children, width, shadow }) => {
   return (
     // Card container with dynamic classes based on provided props
-    <div className={`bg-white rounded-xl ${shadow ? shadow : "shadow-md"} overflow-hidden p-5 ${width}`}>
+    <div className={`bg-white rounded-xl ${shadow ? shadow : "shadow-md"} overflow-hidden p-3 ${width}`}>
       {/* Render the children inside the card */}
       {children}
     </div>
