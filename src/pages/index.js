@@ -196,7 +196,7 @@ const Index = () => {
         />
       </div>
       {/* <div className="loginBox-Container panel m-6 w-full max-w-lg sm:w-[550px] shadow-2xl min-h-[200px]  rounded-2xl"> */}
-      <div className="loginBox-Container panel m-6 w-full max-w-lg w-[258px] sm:w-[550px] shadow-2xl min-h-[200px]  rounded-2xl">
+      <div className="loginBox-Container panel m-6 w-full max-w-lg w-[258px] sm:w-[550px] shadow-xl min-h-[200px] h-[25rem]  rounded-2xl">
         <div className="flex flex-col justify-between h-full">
           {" "}
           {/* Use flex column with justify-between to push content to bottom */}

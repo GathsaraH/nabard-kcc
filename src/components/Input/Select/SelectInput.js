@@ -35,7 +35,7 @@ const SelectInput = ({
 
   return (
     <div className={className} style={{ width, height }}>
-      <Box sx={{ minWidth: 200 }}>
+      <Box sx={{ minWidth:140 }}>
         <TextField
           label={label}
           name={name}

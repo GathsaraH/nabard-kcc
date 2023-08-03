@@ -43,7 +43,7 @@ const GeneratePassword = () => {
 
 
     function infoBox() {
-        return   <Tippy
+        return <Tippy
                             trigger="mouseenter focus"
                             placement="bottom"
                             content={
@@ -468,7 +468,7 @@ const GeneratePassword = () => {
                                     <GiEarthAmerica color={'white'} size={38} />
                                 </button>
                                 <span
-                                    className={`${activeTab === 1 ? 'text-primary ' : ''
+                                    className={`${activeTab === 1 ? 'text-primary  ' : ''
                                         }text-center block mt-2`}
                                 >
                                     Select method
@@ -480,7 +480,7 @@ const GeneratePassword = () => {
                                     className={`${activeTab === 2 || activeTab === 3
                                         ? '!bg-primary text-white '
                                         : 'bg-[#EEEEEE]'
-                                        } ${activeTab === 3 ? "!bg-primary-light" : " "}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16 rounded-full`}
+                                        }  ${activeTab === 1 ? "!bg-gray-light" : ""} ${activeTab === 3 ? "!bg-primary-light" : ""}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16 rounded-full`}
                                 >
                                     <OtpSvg color={activeTab === 2 || activeTab === 3 ? 'white' : '#888EA8'} />
                                     {/* <Image src={mobileOTp.src} alt="logo" width={30} height={30} /> */}
@@ -498,7 +498,7 @@ const GeneratePassword = () => {
                                     className={`${activeTab === 3
                                         ? ' !bg-primary text-white'
                                         : 'bg-[#EEEEEE]'
-                                        }   bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16 rounded-full`}
+                                        }  ${activeTab === 1 || activeTab === 2 ? "!bg-gray-light" : ""}  bg-white dark:bg-[#253b5c] dark:border-[#1b2e4b] flex justify-center items-center w-14 h-14 sm:w-16 sm:h-16 rounded-full`}
                                 >
                                     <GeneratePasswordSvg
                                         color={activeTab === 3 ? 'white' : '#888EA8'}
@@ -529,7 +529,7 @@ const GeneratePassword = () => {
                         />
                         <DefaultButtonComponent
                             icon={<AiOutlineRight />}
-                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-10"}`}
+                            className={`${activeTab !== 1 ? `ltr:ml-auto rtl:mr-auto` : "mt-5"}`}
                             title={
                                 activeTab === 1
                                     ? 'Send OTP'

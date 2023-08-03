@@ -12,6 +12,15 @@ import "ag-grid-enterprise";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import MenuItemComponent from "src/components/Input/Others/MenuItemComponent";
+import { makeStyles } from "@mui/styles";
+
+
+const useStyles = makeStyles(() => ({
+  textField: {
+    width: '150px',
+    // height: '30px',
+  },
+}));
 
 const dateOptions = [
   { value: "1", label: "01-12-2012" },
@@ -24,6 +33,7 @@ const headerOptions = [
 ];
 
 const Index = () => {
+  const classes = useStyles();
   const { t } = useTranslation();
   const router = useRouter();
   // eslint-disable-next-line no-unused-vars
@@ -151,14 +161,15 @@ const Index = () => {
   };
 
   return (
-    <div className="bg-white p-4">
+    <div className="bg-white p-2">
       <div className="flex flex-wrap gap-1 mb-4">
-        <div className="px-1">
+        <div className="px-2">
           <TextField
             label={t("Search user")}
             name="search"
             variant="outlined"
             size="small"
+            className={classes.textField}
             onChange={handleInputChange}
           />
         </div>
@@ -168,6 +179,7 @@ const Index = () => {
             name={"date"}
             label="Date"
             options={dateOptions}
+            className={classes.textField}
             onChange={handleInputChange}
           />
         </div>
@@ -178,6 +190,7 @@ const Index = () => {
             name="startDate"
             variant="outlined"
             size="small"
+            className={classes.textField}
             onChange={handleInputChange}
           />
           {/* <DatePickerInput label={'Start Date'} name="startDate" onChange={handleInputChange} /> */}
@@ -188,17 +201,17 @@ const Index = () => {
             id="outlined-basic"
             label={t("End Date")}
             name="endDate"
+            className={classes.textField}
             variant="outlined"
             size="small"
             onChange={handleInputChange}
           />
         </div>
 
-        <div className="px-10"></div>
         <div className="px-2">
           <SelectInput
             name={"headerColumn"}
-            label="Select Header column"
+            label="Header"
             options={headerOptions}
             onChange={handleInputChange}
           />
