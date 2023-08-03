@@ -67,7 +67,7 @@ const OtpComponent = ({ onChange, error, setError }) => {
           id={`otp-${index}`}
           type="text"
           maxLength={1}
-          className={`w-12 h-12 text-3xl text-center border ${error && !digit ? 'border-red-400' : 'border-gray-400'} rounded-md mx-1`}
+          className={`w-[2.4rem] h-[2.4rem] text-2xl text-center border ${error && !digit ? 'border-red-400' : 'border-gray-400'} rounded-md mx-1`}
           value={digit}
           onChange={(event) => handleOtpChange(index, event.target.value)}
           onKeyDown={(event) => handleOtpKeyPress(index, event)}

@@ -11,8 +11,8 @@ import React, { Fragment } from 'react';
  * @param {boolean} hideCloseButton - Determines whether the close button is visible or hidden.
  * @param {string} classname - The additional classname to be applied to the modal panel (optional).
  */
-const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButton, classname }) => {
-  const panelClassName = `panel my-8  overflow-hidden rounded-2xl border-0 p-0 text-black dark:text-white-dark ${classname ? classname : "w-1/2"}`;
+const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButton, classname, responsiveWidth }) => {
+  const panelClassName = `panel my-8 mb-80 overflow-hidden rounded-2xl border-0 p-0 text-black dark:text-white-dark ${!responsiveWidth ? classname ? classname : "w-1/2" : ""} `;
 
   return (
     <>
@@ -58,7 +58,7 @@ const ModalContainer = ({ showModal, handleModal, children, title, hideCloseButt
                         height="20"
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="currentColor"
+                        stroke="#006600"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"

@@ -721,13 +721,11 @@ pre.hljs {
 /* writing custom css */
 
 .logoTitle {
-
     position: absolute;
     width: 347px;
     height: 97px;
     left: calc(50% - 347px/2 - 0.5px);
     top: 173px;
-
     font-family: 'Nunito';
     font-style: normal;
     font-weight: 800;
@@ -737,7 +735,6 @@ pre.hljs {
     display: flex;
     align-items: center;
     text-transform: uppercase;
-
     /* White */
     color: #FFFFFF;
 
@@ -746,11 +743,15 @@ pre.hljs {
 
 .logo-container {
     position: absolute;
-    top: 90px;
-    /* Adjust this value to control the vertical position */
+    top: calc(20% - 100px);
     left: 50%;
     transform: translateX(-50%);
 }
+/* .logo-container {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+} */
 
 @layer utilities {
     .bg-svg-background {
@@ -767,14 +768,14 @@ pre.hljs {
 
 .loginBox-Container {
     position: absolute;
-    height: 430px;
+    /* height: 430px; */
 }
 
 .signText {
 font-family: 'Nunito';
 font-style: normal;
-font-weight: 700;
-font-size: 36px;
+font-weight: 600;
+font-size: 32px;
 line-height: 49px;
 color: #000000;
 }
@@ -843,19 +844,31 @@ line-height: 22px;
   .rounded-circle {
     border-radius: 9999px; /* A very large value to make the button perfectly circular */
   }
+  
+  .bold-header .ag-header-cell-label {
+    font-weight: bold;
+    /* font-size: 1.0rem; */
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
 
-  /* Custom CSS to style the select element */
-.custom-select {
-    position: relative;
+
+
+
+/* Responsive font size for smaller screens */
+@media only screen and (max-width: 768px) {
+  .signText {
+    font-size: 28px;
+    line-height: 40px;
   }
-  
-  /* Styling for the drop arrow */
-  .custom-select:after {
-    content: '\25BC'; /* Unicode code for down-arrow symbol */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none; /* Prevent the arrow from being clickable */
+}
+
+/* Additional responsive font size for even smaller screens */
+@media only screen and (max-width: 480px) {
+  .signText {
+    font-size: 24px;
+    line-height: 36px;
   }
-  
+}

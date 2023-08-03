@@ -5,6 +5,7 @@ import TableRow from 'src/components/Table/PageTable/TableRow'
 import TableHeadings from 'src/components/Table/PageTable/TableHeadings'
 import HrTag from 'src/components/Hr/HrTag'
 import { useRouter } from 'next/router'
+import TableComponent from 'src/components/Table/PageTable/TableComponent'
 
 
 const beneficiaryDetailsHeading1 = ['Beneficiary ID', 'Beneficiary Type', 'Beneficiary Name', 'Scheme'];
@@ -71,21 +72,17 @@ const Index = () => {
                           <div className="w-full">
                             {SubHeading("Beneficiary Details")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading1} colsLength={8} colSpan={2} />
-                            <TableRow headings={beneficiaryDetailsContent} colsLength={8} colSpan={2} />
-
+                            <TableComponent headings={beneficiaryDetailsHeading1} contents={beneficiaryDetailsContent} colsLength={4} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("If Group/Company")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading2} colsLength={6} colSpan={2} />
-                            <TableRow headings={beneficiaryDetailsContent2} colsLength={6} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading2} contents={beneficiaryDetailsContent2} colsLength={4} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("If Individual")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading3} colsLength={6} colSpan={2} />
-                            <TableRow headings={beneficiaryDetailsContent3} colsLength={6} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading3} contents={beneficiaryDetailsContent3} colsLength={4} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("Address")}
@@ -95,8 +92,7 @@ const Index = () => {
                           <div className="w-full py-5">
                             {SubHeading("Bank Account Details")}
                             <HrTag />
-                            <TableHeadings headings={beneficiaryDetailsHeading4} colsLength={10} colSpan={2} />
-                            <TableRow onClick={routeToAccountDetails} Link headings={beneficiaryDetailsContent4} colsLength={10} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading4} contents={beneficiaryDetailsContent4} colsLength={6} colSpan={2} Link={true} onClick={routeToAccountDetails} />
                           </div>
                         </div>
                       </div>

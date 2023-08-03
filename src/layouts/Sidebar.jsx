@@ -14,6 +14,7 @@ import { BsFileEarmarkRichtextFill } from "react-icons/bs";
 import { FaHandHoldingUsd, FaUserLock } from "react-icons/fa";
 import leftSidebarToggle from "../assets/icons/toggleSidebarLeft.svg"
 import Image from 'next/image';
+import {FaFileSignature} from "react-icons/fa";
 
 const sidebarMenuOptions = [
     {
@@ -41,22 +42,32 @@ const sidebarMenuOptions = [
         ],
     },
     {
-        title: 'Schemes',
-        icon: <BsFileEarmarkRichtextFill size={25} />,
+        title: 'Claim Management',
+        icon: <FaFileSignature size={25} />,
         subMenu: [
             {
-                title: 'Central Government',
-                link: '/components/tabs',
+                title: 'Claim Regular',
+                link: '/Claim/Regular',
             },
             {
-                title: 'State Government',
-                link: '/components/accordions',
+                title: 'Claim Additional',
+                link: '/Claim/Additional',
             },
             {
-                title: 'Central Government and sponsored schemes',
-                link: '/components/accordions',
+                title: 'Consolidated Claim - Regular',
+                link: '/Claim/Consolidated-Claim-Regular',
+            },
+            {
+                title: 'Consolidated Claim - Additional ',
+                link: '/Claim/Consolidated-Claim-Additional',
             },
         ],
+    },
+    {
+        title: 'Schemes',
+        icon: <BsFileEarmarkRichtextFill size={25} />,
+        link: '/schemes/list',
+
     },
     {
         title: 'Users',
