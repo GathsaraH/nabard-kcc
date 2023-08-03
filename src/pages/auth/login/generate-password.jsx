@@ -407,14 +407,13 @@ const GeneratePassword = () => {
 
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(${loginBG.src})` }}>
-
-            <div className=" mb-10">
+            <div className="logo-container">
                 {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
                 <Image src="../../../assets/images/NABNextLogo.svg" alt="logo" width={250} height={250} />
             </div>
-            <div className={`${styles.boxContainer} panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}>
+            <div className={`${styles.boxContainer}  panel m-6 w-[350px] sm:w-1/2 shadow-2xl rounded-2xl`}>
                 <div className='flex justify-center'>
-                    <h2 className="mb-3 text-2xl font-bold">
+                    <h2 className="signText font-bold">
                         Generate Password
                         <Tippy
                             trigger="mouseenter focus"
