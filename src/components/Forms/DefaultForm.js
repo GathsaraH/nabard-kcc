@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { BsArrowRight } from "react-icons/bs";
 import { HrTag } from "src/constants/ResponsiveClassName";
+import CardContainer from "../Card/CardContainer";
 
 
 /**
@@ -16,15 +17,16 @@ import { HrTag } from "src/constants/ResponsiveClassName";
  * @param {string} title - The title of the form.
  * @returns {JSX.Element} - JSX representation of the form component.
  */
-const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) => {
+const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , onClick , hierarchyType}) => {
   const initialFormData = {};
   const initialErrors = {};
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
+  const initialLevel = hierarchyType === 'Stakeholder' ? 'Ministry' : 'Head Office';
   const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
     {
-      level: "Head Office",
-      data: { },
+      level: ` ${initialLevel}`,
+      data: {},
       inputErrors: { level2: "", level3: "", level4: "" },
     },
   ]);
@@ -32,31 +34,44 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
     // Handle the case when "fields" is not an array (you can show an error message or return null).
     return null;
   }
-
-
   fields.forEach((field) => {
     initialFormData[field.name] = "";
     initialErrors[field.name] = "";
   });
+  console.log("inputFieldHierarchy.lengthAdd" , JSON.stringify(inputFieldHierarchy));
 
   
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    // const { name, value } = e.target;
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   [name]: value,
+    // }));
+    // onChange((prevData) => ({
+    //   ...prevData,
+    //   [name]: value,
+    // }));
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: newValue,
     }));
-    onChange((prevData) => ({
-      ...prevData,
-      [name]: value,
+
+    // Clear the error message for the field
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '',
     }));
+
+    onChange && onChange(name, newValue);
   };
 
   const validateField = (name, value) => {
     const field = fields.find((f) => f.name === name);
 
-    if (field?.required && !value.trim()) {
+    if (field?.required && (!value || !value.trim())) {
       return `${field.label} is required.`;
     }
 
@@ -115,14 +130,8 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
   });
  
   const handleAddInputFieldHierarchy = () => {
-    // setInputFieldHierarchy((prevHierarchy) => [
-    //   ...prevHierarchy,
-    //   {
-    //     level: "Head Office",
-    //     data: { level2: "", level3: "", level4: "" },
-    //     inputErrors: { level2: "", level3: "", level4: "" },
-    //   },
-    // ]);
+    console.log("inputFieldHierarchy.lengthAdd" , JSON.stringify(inputFieldHierarchy));
+
     setInputFieldHierarchy((prevHierarchy) => {
       // Check if all levels (level2, level3, level4) are already present in the data object
       const allLevelsPresent =
@@ -159,11 +168,40 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
   };
 
   const handleRemoveInputFieldsHierarchy = () => {
-    if (inputFieldHierarchy.length > 1) {
-      setInputFieldHierarchy((prevHierarchy) => prevHierarchy.pop());
-    }
-  };
-
+    console.log("inputFieldHierarchyRemove" , inputFieldHierarchy);
+    setInputFieldHierarchy((prevHierarchy) => {
+      const firstLevelData = prevHierarchy[0].data; // Preserve level 1 data
+      const updatedHierarchy = [
+        {
+          level: prevHierarchy[0].level,
+          data: {}, // Clear data for other levels
+          inputErrors: { level2: '', level3: '', level4: '' }, // Clear errors for other levels
+        },
+      ];
+      return updatedHierarchy;
+    });
+    // if (inputFieldHierarchy.length > 1) {
+    //   // Create a new hierarchy array without the last item
+    //   const updatedHierarchy = inputFieldHierarchy.slice(0, -1);
+  
+    //   setInputFieldHierarchy(updatedHierarchy);
+    // }
+    // if (inputFieldHierarchy.length > 1) {
+    //   setInputFieldHierarchy((prevHierarchy) => {
+    //     const updatedHierarchy = { ...prevHierarchy[0].data };
+    //     delete updatedHierarchy["level4"];
+    //     delete updatedHierarchy["level3"];
+    //     delete updatedHierarchy["level2"];
+  
+    //     return [
+    //       {
+    //         ...prevHierarchy[0],
+    //         data: updatedHierarchy,
+    //       },
+    //     ];
+    //   });
+    // }
+  };  
   const handleInputChange = (index, name, value) => {
     setInputFieldHierarchy((prevHierarchy) =>
       prevHierarchy.map((item, i) =>
@@ -172,16 +210,13 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
     );
   };
   
-  const showBankHierarchy = headings.includes('Bank Hierarchy');
-
-
+  const shouldShowHierarchy = headings.includes('Bank Hierarchy') || headings.includes('Stakeholder Hierarchy');
   return (
     <form onSubmit={handleSubmit}>
-    {console.log(JSON.stringify(inputFieldHierarchy))}
       {headings.map((heading) => (
         <div key={heading.name}>
-          <div className="grid lg:grid-cols-2 m-3">
-            <span className="mr-5 m-2 m-sm-10 text-primary font-bold">
+          <div className="grid lg:grid-cols-2 mt-2 ml-3">
+            <span className="mr-5 text-primary font-bold">
               {heading}
             </span>
           </div>
@@ -190,7 +225,6 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
                 <Grid item xs={12} sm={4} key={field.name}>
-                  <label htmlFor={field.name}>{field.label}:</label>
                   <input
                     type="file"
                     id={field.name}
@@ -202,7 +236,29 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
                     <p style={{ color: "red" }}>{errors[field.name]}</p>
                   )}
                 </Grid>
-              ) : (
+              ) : 
+              field.type === "checkbox" ? (
+                <Grid item xs={12} sm={4} key={field.name}>
+                  <CardContainer shadow={"shadow-lg"}>
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={field.name}
+                      name={field.name}
+                      checked={formData[field.name]}
+                      onChange={handleChange}
+                      className="form-checkbox h-5 w-5 text-primary border-gray-300 rounded"
+                    />
+                    <label htmlFor={field.name} className="ml-2">{field.label}</label>
+                  </div>
+                  </CardContainer>
+                  {errors[field.name] && (
+                    <p className="text-base text-danger mt-1">{errors[field.name]}</p>
+                  )}
+                </Grid>
+              )
+              :
+              (
                 <Grid item xs={12} sm={4} key={field.name}>
                   <label className="text-lg" htmlFor={field.name}>{field.label}</label>
                   {field.type === "select" ? (
@@ -248,22 +304,19 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
                 </Grid>
               ),
             )}
-
             <HrTag />
-           
-
-              
           </Grid>
         </div>
       ))}
-      {showBankHierarchy && (
+      {shouldShowHierarchy && (
         <div>
           <Grid container px={4} py={4} columns={12} spacing={3}>
           {
               inputFieldHierarchy.map((item, index) => (
                 <div
+                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
-                  className="grid lg:grid-cols-12 m-5 mt-6 gap-5"
+                  className="grid lg:grid-cols-12 m-2 gap-5"
                 >
                   <div className="col-start-1 col-end-6 xl:w-auto">
                     <input
@@ -406,6 +459,9 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
       )}
       {children && children}
       <div className="flex justify-end p-4">
+      <button type="button" >
+          <span className="btn btn-lg mt-5 mr-4" style={{backgroundColor:'#EEE' , color:'#696969'}} onClick={onClick} >Cancel</span>
+        </button>
         <button type="submit" >
           <span className="btn btn-lg mt-5 btn-primary" >{title} <BsArrowRight className="ml-2" /></span>
         </button>
