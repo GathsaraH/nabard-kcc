@@ -15,6 +15,7 @@ import { FaHandHoldingUsd, FaUserLock } from "react-icons/fa";
 import leftSidebarToggle from "../assets/icons/toggleSidebarLeft.svg"
 import Image from 'next/image';
 import {FaFileSignature} from "react-icons/fa";
+import {LuSettings} from "react-icons/lu";
 
 const sidebarMenuOptions = [
     {
@@ -102,6 +103,11 @@ const sidebarMenuOptions = [
                 link: '/admin/administrative-tools/roles-and-permissions/permissions',
             },
         ],
+    },
+    {
+        title: 'Settings',
+        link: '/Settings/admin',
+        icon: <LuSettings size={25} />,
     },
 ];
 

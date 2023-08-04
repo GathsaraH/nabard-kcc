@@ -5,8 +5,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { BsArrowRight } from "react-icons/bs";
 import { HrTag } from "src/constants/ResponsiveClassName";
-import CardContainer from "../Card/CardContainer";
-
+import UploadImageSvg from "src/assets/svg/UploadImageSvg";
+import UploadImgPng from "src/assets/images/uploadImage.png";
+import Image from "next/image";
+import ImageUploading, { ImageListType } from 'react-images-uploading';
 
 /**
  * A customizable form component.
@@ -23,13 +25,29 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const initialLevel = hierarchyType === 'Stakeholder' ? 'Ministry' : 'Head Office';
-  const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
-    {
-      level: ` ${initialLevel}`,
-      data: {},
-      inputErrors: { level2: "", level3: "", level4: "" },
-    },
-  ]);
+  const [inputFieldHierarchy, setInputFieldHierarchy] = useState({
+    level: ` ${initialLevel}`,
+    data: {},
+    inputErrors: { level2: "", level3: "", level4: "" },
+  });
+  const [file, setFile] = useState("");
+
+  function uploadSingleFile(e) {
+    const { name, value } = e.target;
+    e.preventDefault();
+    setFile(URL.createObjectURL(e.target.files[0]));
+    onChange((prevData) => ({
+      ...prevData,
+      [name]: URL.createObjectURL(e.target.files[0]),
+    }));
+  }
+
+  function uploadFile(e) {
+    e.preventDefault();
+    console.log(file);
+  }
+
+
   if (!Array.isArray(fields)) {
     // Handle the case when "fields" is not an array (you can show an error message or return null).
     return null;
@@ -40,7 +58,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
   });
   console.log("inputFieldHierarchy.lengthAdd" , JSON.stringify(inputFieldHierarchy));
 
-  
+
 
   const handleChange = (e) => {
     // const { name, value } = e.target;
@@ -128,88 +146,64 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
       (field) => field.heading === heading,
     );
   });
- 
-  const handleAddInputFieldHierarchy = () => {
-    console.log("inputFieldHierarchy.lengthAdd" , JSON.stringify(inputFieldHierarchy));
 
+  const handleAddInputFieldHierarchy = () => {
     setInputFieldHierarchy((prevHierarchy) => {
       // Check if all levels (level2, level3, level4) are already present in the data object
       const allLevelsPresent =
-        prevHierarchy[0].data.hasOwnProperty("level2") &&
-        prevHierarchy[0].data.hasOwnProperty("level3") &&
-        prevHierarchy[0].data.hasOwnProperty("level4");
-  
+        prevHierarchy.data.hasOwnProperty("level2") &&
+        prevHierarchy.data.hasOwnProperty("level3") &&
+        prevHierarchy.data.hasOwnProperty("level4");
+
       // If all levels are already present, return the previous hierarchy without any changes
       if (allLevelsPresent) {
         return prevHierarchy;
       }
-  
+
       // Determine the next level to add (level2, level3, or level4)
       const nextLevel =
-        prevHierarchy[0].data.hasOwnProperty("level2")
-          ? prevHierarchy[0].data.hasOwnProperty("level3")
+        prevHierarchy.data.hasOwnProperty("level2")
+          ? prevHierarchy.data.hasOwnProperty("level3")
             ? "level4"
             : "level3"
           : "level2";
-  
-      // Update the data object of the first item in the hierarchy with the new level
-      const updatedHierarchy = [
-        {
-          ...prevHierarchy[0],
-          data: {
-            ...prevHierarchy[0].data,
-            [nextLevel]: "",
-          },
+
+      // Update the data object with the new level
+      const updatedHierarchy = {
+        ...prevHierarchy,
+        data: {
+          ...prevHierarchy.data,
+          [nextLevel]: "",
         },
-      ];
-  
+      };
+
       return updatedHierarchy;
     });
   };
 
+
   const handleRemoveInputFieldsHierarchy = () => {
-    console.log("inputFieldHierarchyRemove" , inputFieldHierarchy);
     setInputFieldHierarchy((prevHierarchy) => {
-      const firstLevelData = prevHierarchy[0].data; // Preserve level 1 data
-      const updatedHierarchy = [
-        {
-          level: prevHierarchy[0].level,
-          data: {}, // Clear data for other levels
-          inputErrors: { level2: '', level3: '', level4: '' }, // Clear errors for other levels
-        },
-      ];
+      const updatedHierarchy = { ...prevHierarchy };
+      const lastLevel = Object.keys(updatedHierarchy.data).pop(); // Get the last level (level2, level3, or level4)
+
+      // Delete the last level data and errors
+      delete updatedHierarchy.data[lastLevel];
+      updatedHierarchy.inputErrors[lastLevel] = "";
+
       return updatedHierarchy;
     });
-    // if (inputFieldHierarchy.length > 1) {
-    //   // Create a new hierarchy array without the last item
-    //   const updatedHierarchy = inputFieldHierarchy.slice(0, -1);
-  
-    //   setInputFieldHierarchy(updatedHierarchy);
-    // }
-    // if (inputFieldHierarchy.length > 1) {
-    //   setInputFieldHierarchy((prevHierarchy) => {
-    //     const updatedHierarchy = { ...prevHierarchy[0].data };
-    //     delete updatedHierarchy["level4"];
-    //     delete updatedHierarchy["level3"];
-    //     delete updatedHierarchy["level2"];
-  
-    //     return [
-    //       {
-    //         ...prevHierarchy[0],
-    //         data: updatedHierarchy,
-    //       },
-    //     ];
-    //   });
-    // }
-  };  
-  const handleInputChange = (index, name, value) => {
-    setInputFieldHierarchy((prevHierarchy) =>
-      prevHierarchy.map((item, i) =>
-        i === index ? { ...item, data: { ...item.data, [name]: value } } : item,
-      ),
-    );
   };
-  
+
+  const handleInputChange = (name, value) => {
+    setInputFieldHierarchy((prevHierarchy) => ({
+      ...prevHierarchy,
+      data: {
+        ...prevHierarchy.data,
+        [name]: value,
+      },
+    }));
+  };
   const shouldShowHierarchy = headings.includes('Bank Hierarchy') || headings.includes('Stakeholder Hierarchy');
   return (
     <form onSubmit={handleSubmit}>
@@ -224,8 +218,9 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
           <Grid container px={4} py={4} columns={12} spacing={3}>
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
-                <Grid item xs={12} sm={4} key={field.name}>
-                  <input
+                <Grid item xs={12} sm={5} key={field.name}>
+                  <label htmlFor={field.name}>{field.label}:</label>
+                  {/* <input
                     type="file"
                     id={field.name}
                     name={field.name}
@@ -234,7 +229,22 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                   />
                   {errors[field.name] && (
                     <p style={{ color: "red" }}>{errors[field.name]}</p>
-                  )}
+                  )} */}
+                  {/* <div className='bg-[#F5F5F5] w-400 h-100 p-20'>
+                    asdasd
+                  </div> */}
+                  <input
+                    type="file"
+                    name={field.name}
+                    className="form-control"
+                    onChange={uploadSingleFile}
+                  />
+                <div className="p-5" >
+                {
+                    file ? <Image width={200} height={200} src={file} alt="upload image" /> : <Image src={UploadImgPng} alt="upload image" />
+                  }
+                </div>
+
                 </Grid>
               ) : 
               field.type === "checkbox" ? (
@@ -281,11 +291,12 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                   ) : field.type === "textarea" ? (
                     <textarea
                       id={field.name}
+                      rows={5}
                       name={field.name}
                       placeholder={field.placeholder}
                       value={formData[field.name]}
                       onChange={handleChange}
-                      className="form-input"
+                      className="form-input col-md-offset-6"
                     />
                   ) : (
                     <input
@@ -305,17 +316,17 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
               ),
             )}
             <HrTag />
+
+
+
           </Grid>
         </div>
       ))}
       {shouldShowHierarchy && (
         <div>
           <Grid container px={4} py={4} columns={12} spacing={3}>
-          {
-              inputFieldHierarchy.map((item, index) => (
                 <div
                   // eslint-disable-next-line react/no-array-index-key
-                  key={index}
                   className="grid lg:grid-cols-12 m-2 gap-5"
                 >
                   <div className="col-start-1 col-end-6 xl:w-auto">
@@ -324,7 +335,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                       className="form-control block w-full px-4 py-2 text-base font-montserrat font-medium text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded"
                       id="exampleFormControlInput3"
                       placeholder="Level 1"
-                      value={item.level}
+                      value={inputFieldHierarchy.level}
                       disabled
                     />
                   </div>
@@ -351,7 +362,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                   </div>
                   <div className="col-start-8 col-end-9"></div>
 
-                  {inputFieldHierarchy[0].data.hasOwnProperty("level2") && (
+                  {inputFieldHierarchy.data.hasOwnProperty("level2") && (
                     <div className="col-start-2 col-end-7 xl:w-auto">
                       <TextField
                         id="outlined-basic"
@@ -360,7 +371,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         onChange={(evnt) =>
                           handleInputChange(index, "level2", evnt.target.value)
                         }
-                        value={item.data.level2}
+                        value={inputFieldHierarchy.data.level2}
                         required
                         InputProps={{
                           style: {
@@ -372,20 +383,20 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         InputLabelProps={{
                           className: "common-Font-Family",
                         }}
-                        error={item.inputErrors.level2}
+                        error={inputFieldHierarchy.inputErrors.level2}
                         variant="outlined"
                         size="small"
                         className="w-full"
                       />
-                      {item.inputErrors.level2 && (
+                      {inputFieldHierarchy.inputErrors.level2 && (
                         <span className="errorMessageStyle">
-                          {item.inputErrors.level2}
+                          {inputFieldHierarchy.inputErrors.level2}
                         </span>
                       )}
                     </div>
                   )}
 
-                  {inputFieldHierarchy[0].data.hasOwnProperty("level3") && (
+                  {inputFieldHierarchy.data.hasOwnProperty("level3") && (
                     <div className="col-start-3 col-end-8 xl:w-auto">
                       <TextField
                         id="outlined-basic"
@@ -394,7 +405,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         onChange={(evnt) =>
                           handleInputChange(index, "level3", evnt.target.value)
                         }
-                        value={item.data.level3}
+                        value={inputFieldHierarchy.data.level3}
                         required
                         InputProps={{
                           style: {
@@ -406,20 +417,20 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         InputLabelProps={{
                           className: "common-Font-Family",
                         }}
-                        error={item.inputErrors.level3}
+                        error={inputFieldHierarchy.inputErrors.level3}
                         variant="outlined"
                         size="small"
                         className="w-full"
                       />
-                      {item.inputErrors.level3 && (
+                      {inputFieldHierarchy.inputErrors.level3 && (
                         <span className="errorMessageStyle">
-                          {item.inputErrors.level3}
+                          {inputFieldHierarchy.inputErrors.level3}
                         </span>
                       )}
                     </div>
                   )}
 
-                  {inputFieldHierarchy[0].data.hasOwnProperty("level4") && (
+                  {inputFieldHierarchy.data.hasOwnProperty("level4") && (
                     <div className="col-start-4 col-end-9 xl:w-auto">
                       <TextField
                         id="outlined-basic"
@@ -428,7 +439,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         onChange={(evnt) =>
                           handleInputChange(index, "level4", evnt.target.value)
                         }
-                        value={item.data.level4}
+                        value={inputFieldHierarchy.data.level4}
                         required
                         InputProps={{
                           style: {
@@ -440,23 +451,24 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         InputLabelProps={{
                           className: "common-Font-Family",
                         }}
-                        error={item.inputErrors.level4}
+                        error={inputFieldHierarchy.inputErrors.level4}
                         variant="outlined"
                         size="small"
                         className="w-full"
                       />
-                      {item.inputErrors.level4 && (
+                      {inputFieldHierarchy.inputErrors.level4 && (
                         <span className="errorMessageStyle">
-                          {item.inputErrors.level4}
+                          {inputFieldHierarchy.inputErrors.level4}
                         </span>
                       )}
                     </div>
                   )}
                 </div>
-              ))}
+
           </Grid>
         </div>
       )}
+
       {children && children}
       <div className="flex justify-end p-4">
       <button type="button" >
