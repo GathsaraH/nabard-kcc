@@ -5,7 +5,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { BsArrowRight } from "react-icons/bs";
 import { HrTag } from "src/constants/ResponsiveClassName";
-
+import UploadImageSvg from "src/assets/svg/UploadImageSvg";
+import UploadImgPng from "src/assets/images/uploadImage.png";
+import Image from "next/image";
+import ImageUploading, { ImageListType } from 'react-images-uploading';
 
 /**
  * A customizable form component.
@@ -24,10 +27,28 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
   const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
     {
       level: "Head Office",
-      data: { },
+      data: {},
       inputErrors: { level2: "", level3: "", level4: "" },
     },
   ]);
+  const [file, setFile] = useState("");
+
+  function uploadSingleFile(e) {
+    const { name, value } = e.target;
+    e.preventDefault();
+    setFile(URL.createObjectURL(e.target.files[0]));
+    onChange((prevData) => ({
+      ...prevData,
+      [name]: URL.createObjectURL(e.target.files[0]),
+    }));
+  }
+
+  function uploadFile(e) {
+    e.preventDefault();
+    console.log(file);
+  }
+
+
   if (!Array.isArray(fields)) {
     // Handle the case when "fields" is not an array (you can show an error message or return null).
     return null;
@@ -39,7 +60,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
     initialErrors[field.name] = "";
   });
 
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,7 +134,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
       (field) => field.heading === heading,
     );
   });
- 
+
   const handleAddInputFieldHierarchy = () => {
     // setInputFieldHierarchy((prevHierarchy) => [
     //   ...prevHierarchy,
@@ -129,12 +150,12 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
         prevHierarchy[0].data.hasOwnProperty("level2") &&
         prevHierarchy[0].data.hasOwnProperty("level3") &&
         prevHierarchy[0].data.hasOwnProperty("level4");
-  
+
       // If all levels are already present, return the previous hierarchy without any changes
       if (allLevelsPresent) {
         return prevHierarchy;
       }
-  
+
       // Determine the next level to add (level2, level3, or level4)
       const nextLevel =
         prevHierarchy[0].data.hasOwnProperty("level2")
@@ -142,7 +163,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
             ? "level4"
             : "level3"
           : "level2";
-  
+
       // Update the data object of the first item in the hierarchy with the new level
       const updatedHierarchy = [
         {
@@ -153,7 +174,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
           },
         },
       ];
-  
+
       return updatedHierarchy;
     });
   };
@@ -171,13 +192,12 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
       ),
     );
   };
-  
+
   const showBankHierarchy = headings.includes('Bank Hierarchy');
 
 
   return (
     <form onSubmit={handleSubmit}>
-    {console.log(JSON.stringify(inputFieldHierarchy))}
       {headings.map((heading) => (
         <div key={heading.name}>
           <div className="grid lg:grid-cols-2 m-3">
@@ -189,9 +209,9 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
           <Grid container px={4} py={4} columns={12} spacing={3}>
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
-                <Grid item xs={12} sm={4} key={field.name}>
+                <Grid item xs={12} sm={5} key={field.name}>
                   <label htmlFor={field.name}>{field.label}:</label>
-                  <input
+                  {/* <input
                     type="file"
                     id={field.name}
                     name={field.name}
@@ -200,7 +220,22 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
                   />
                   {errors[field.name] && (
                     <p style={{ color: "red" }}>{errors[field.name]}</p>
-                  )}
+                  )} */}
+                  {/* <div className='bg-[#F5F5F5] w-400 h-100 p-20'>
+                    asdasd
+                  </div> */}
+                  <input
+                    type="file"
+                    name={field.name}
+                    className="form-control"
+                    onChange={uploadSingleFile}
+                  />
+                <div className="p-5" >
+                {
+                    file ? <Image width={200} height={200} src={file} alt="upload image" /> : <Image src={UploadImgPng} alt="upload image" />
+                  }
+                </div>
+
                 </Grid>
               ) : (
                 <Grid item xs={12} sm={4} key={field.name}>
@@ -225,11 +260,12 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
                   ) : field.type === "textarea" ? (
                     <textarea
                       id={field.name}
+                      rows={5}
                       name={field.name}
                       placeholder={field.placeholder}
                       value={formData[field.name]}
                       onChange={handleChange}
-                      className="form-input"
+                      className="form-input col-md-offset-6"
                     />
                   ) : (
                     <input
@@ -250,16 +286,16 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
             )}
 
             <HrTag />
-           
 
-              
+
+
           </Grid>
         </div>
       ))}
       {showBankHierarchy && (
         <div>
           <Grid container px={4} py={4} columns={12} spacing={3}>
-          {
+            {
               inputFieldHierarchy.map((item, index) => (
                 <div
                   key={index}
@@ -401,9 +437,11 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children }) 
                   )}
                 </div>
               ))}
+
           </Grid>
         </div>
       )}
+
       {children && children}
       <div className="flex justify-end p-4">
         <button type="submit" >
