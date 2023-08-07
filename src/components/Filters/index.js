@@ -16,7 +16,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton }) => {
                         required
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '200px' }} // Set maximum width for small screens
+                        
                     />
                 </div>
 
@@ -27,7 +27,6 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton }) => {
                         required
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
                     />
                 </div>
 
@@ -38,7 +37,6 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton }) => {
                         required
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
                     />
                 </div>
 
@@ -49,7 +47,6 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton }) => {
                         required
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
                     />
                 </div>
 
@@ -60,7 +57,6 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton }) => {
                         required
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
                     />
                 </div>
                 <div className="px-2">

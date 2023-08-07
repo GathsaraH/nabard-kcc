@@ -5,86 +5,9 @@ import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import DefaultForm from 'src/components/Forms/DefaultForm';
 const Index = () => {
+//    const [selectAllChecked, setSelectAllChecked] = useState(false);
    // Define InputFields with form field details
   const InputFields = [
-    {
-      name: 'Type',
-      label: 'Type',
-      type: 'select',
-      required: false,
-      heading: 'Agency Details', // Heading for the first new field
-      options: [
-        { label: '', value: '' },
-        { label: 'Central Government', value: 'Central Government' },
-        { label: 'State Government', value: 'State Government' },
-      ],
-    },
-    {
-      name: 'Name',
-      label: 'Name',
-      type: 'text',
-      required: false,
-      heading: 'Agency Details', // Heading for the second new field
-    },
-    {
-      name: 'Address',
-      label: 'Address',
-      type: 'textarea',
-      required: true,
-      heading: 'Address Details',
-    },
-    {
-      name: 'State',
-      label: 'State',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: 'S1', value: 's1' },
-        { label: 's2', value: 's2' },
-      ],
-    },
-    {
-      name: 'District',
-      label: 'District',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-      ],
-    },
-    {
-      name: 'SubDistrict',
-      label: 'Sub District',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: 'Sub1', value: 'Sub1' },
-        { label: 'Sub2', value: 'Sub2' },
-      ],
-    },
-    {
-      name: 'Village',
-      label: 'Village',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: 'V1', value: 'V1' },
-        { label: 'V2', value: 'V2' },
-      ],
-    },
-    {
-      name: 'Pincode',
-      label: 'Pincode',
-      type: 'text',
-      required: true,
-      heading: 'Address Details',
-
-    },
     {
       name: 'EmployeeName',
       label: 'Employee Name',
@@ -104,7 +27,7 @@ const Index = () => {
       label: 'Designation',
       type: 'select', // This indicates it's a select input
       required: true,
-      heading: ' Admin Details',
+      heading: 'Admin Details',
       options: [
         { label: 'D1', value: 'D1' },
         { label: 'D2', value: 'D2' },
@@ -124,48 +47,79 @@ const Index = () => {
       required: true,
       heading: 'Admin Details',
     },
-
     {
-      name: 'All India',
-      label: 'All Inida',
+        name: 'All India',
+        label: 'All Inida',
+        type: 'checkbox',
+        required: true,
+        heading: 'Area of Opeartion',
+      },
+      {
+        name: 'State',
+        label: 'State',
+        type: 'checkbox',
+        required: true,
+        heading: 'Area of Opeartion',
+      },
+      {
+        name: 'SelectInput',
+        label: 'State',
+        type: 'select',
+        required: true,
+        heading: 'Area of Opeartion',
+        options: [
+          { label: 'Option 1', value: 'option1' },
+          { label: 'Option 2', value: 'option2' },
+          { label: 'Option 3', value: 'option3' },
+        ],
+      },
+    {
+      name: 'Assignment',
+      label: 'Assignment',
       type: 'checkbox',
       required: true,
-      heading: 'Area of Opeartion',
+      heading: 'Admin Actitivity Role',
     },
     {
-      name: 'State',
-      label: 'State',
+      name: 'ChangeofRole',
+      label: 'Change of Role',
       type: 'checkbox',
       required: true,
-      heading: 'Area of Opeartion',
+      heading: 'Admin Actitivity Role',
     },
     {
-      name: 'SelectInput',
-      label: 'State',
-      type: 'select',
-      required: true,
-      heading: 'Area of Opeartion',
-      options: [
-        { label: 'Option 1', value: 'option1' },
-        { label: 'Option 2', value: 'option2' },
-        { label: 'Option 3', value: 'option3' },
-      ],
-    },
+        name: 'AddEmployee',
+        label: 'Add Employee',
+        type: 'checkbox',
+        required: true,
+        heading: 'Admin Actitivity Role',
+      },
+      {
+        name: 'DeleteEmployee',
+        label: 'Delete Employee',
+        type: 'checkbox',
+        required: true,
+        heading: 'Admin Actitivity Role',
+      },
+      {
+        name: 'Monitoring',
+        label: 'Monitoring',
+        type: 'checkbox',
+        required: true,
+        heading: 'Admin Actitivity Role',
+      },
   ]
   // Define form section headings
   const formHeadings = [
-    'Agency Details',
-    'Address Details',
     'Admin Details',
-    'Area of Opeartion'
+    'Area of Opeartion',
+    'Admin Actitivity Role'
     // Add more headings as needed
   ];
 
   const { t } = useTranslation();
   const router = useRouter();
-  const [formData, setFormData] = useState({});
-
- 
+  const [formData, setFormData] = useState({}); 
   // Function to handle form submission
   const handleSubmit = (formData) => {
     // Process the form data when the form is submitted
@@ -173,13 +127,16 @@ const Index = () => {
   };
    // Function to handle form cancellation
   const handleCancel = () => {
-    router.back();
+    router.push('/users/Stakeholders');
   };
   const handleFormChange = (updatedData) => {
     setFormData(updatedData);
+     // Update Select All checkbox based on the checked states of other checkboxes
+     const isAllChecked = InputFields.filter((field) => field.name !== 'AllIndia').every(
+        (field) => field.checked || field.name === 'State' // Only consider the 'State' checkbox for now
+      );
+      setSelectAllChecked(isAllChecked);
   };
-  
-
   return (
     <div>
       <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
@@ -202,19 +159,21 @@ const Index = () => {
                         </button>
                         <div className="col-start-5 col-end-8">
                           <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
-                            {t("Add Nodal Agency")}
+                            {t("Add Stake Holder User")}
                           </span>
                         </div>
 
                       </div>
+                      {/* // */}
                     <DefaultForm
                       fields={InputFields}
                       onSubmit={handleSubmit}
                       onClick={handleCancel}
                       onChange = {handleFormChange}
-                      title="Create"
+                      title="Save"
                       headings={formHeadings}
                     />
+
                   </div>
                 </div>
               </div>

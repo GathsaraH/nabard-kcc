@@ -4,8 +4,14 @@ import { useRouter } from 'next/router';
 import CommonFilters from 'src/components/Filters';
 import StatusRenderer from 'src/components/StatusRenderer';
 import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
+import IconButton from 'src/components/Button/IconButtonComponent';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { MdArrowBackIos } from 'react-icons/md';
+import Tippy from '@tippyjs/react';
+import { useTranslation } from 'react-i18next';
 const Index = () => {
         const router = useRouter();
+        const {t} = useTranslation();
         const [ministry, setMinistry] = useState(true);
     const buttonClassName = (selected) => {
         return `${selected ? 'bg-primary text-white !outline-none' : ''
@@ -50,6 +56,34 @@ const Index = () => {
                 ),
               },
           ];
+          const headingSection = () => {
+            const handleAddStakeUser = () =>{
+               router.push('/users/Stakeholders/Add');
+            }
+            return (
+              <>
+                <div className="flex justify-between items-center">
+                  <button
+                    onClick={() => router.back()} // Assuming 'router' is defined elsewhere in the component
+                    type="button"
+                    className="flex items-center p-3 rounded text-sm w-24"
+                  >
+                    <span className="common-Font-Family ml-4">
+                      <Tippy content="back">
+                        <MdArrowBackIos size={20} />
+                      </Tippy>
+                    </span>
+                  </button>
+                  <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
+                    {t("RB Enterprise")}
+                  </span>
+                  <div className="px-2">
+                <IconButton label="Add Stakeholder User" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={handleAddStakeUser} />
+                </div>
+                </div>
+              </>
+            );
+          };
     const renderTabTitles = () =>{
             return(
                 <>
@@ -80,7 +114,7 @@ const Index = () => {
     }
     const renderTabSecondContent = () => {
        const AddIAgency = () =>{
-        router.push('/Organizations/Stakeholders/Hierarchy/Add/AddImplementingAgency');
+        // router.push('/Organizations/Stakeholders/Hierarchy/Add/AddImplementingAgency');
        }
         return(
             <Tab.Panel>
@@ -93,7 +127,7 @@ const Index = () => {
     }
     const renderTabThirdContent = () => {
         const AddNodalAgency = () => {
-            router.push('/Organizations/Stakeholders/Hierarchy/Add/NodalAgency')
+            // router.push('/Organizations/Stakeholders/Hierarchy/Add/NodalAgency')
         }
         return(
             <Tab.Panel>
@@ -106,7 +140,7 @@ const Index = () => {
     }
     const renderTabFourthContent = () => {
         const AddPMU = () =>{
-            router.push('/Organizations/Stakeholders/Hierarchy/Add/PMU');
+            // router.push('/Organizations/Stakeholders/Hierarchy/Add/PMU');
         }
         return(
             <Tab.Panel>
@@ -121,6 +155,7 @@ const Index = () => {
     <div>
         <Tab.Group>
             {/* tabs headings here  */}
+            {headingSection()}
             {renderTabTitles()}
             <Tab.Panels>
                 {renderTabFirstContent()}

@@ -5,15 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const TableWithCheckBox = ({ rowData, columnDefs, pagination }) => {
-
-  const defaultColDef = useMemo(() => {
-    return {
-      flex: 1 }
-  }, []); 
-
-
-
-  return (
+ return (
     <div className='w-full' style={{height:'100vh'}}>
          <div className="ag-theme-alpine" style={{ height: '100%' }}>
       <AgGridReact
