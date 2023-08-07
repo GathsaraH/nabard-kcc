@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const TableWithCheckBox = ({ rowData, columnDefs, pagination }) => {
+
+  const defaultColDef = useMemo(() => {
+    return {
+      flex: 1 }
+  }, []); 
+
+
+
   return (
     <div className='w-full' style={{height:'100vh'}}>
          <div className="ag-theme-alpine" style={{ height: '100%' }}>
@@ -14,6 +22,7 @@ const TableWithCheckBox = ({ rowData, columnDefs, pagination }) => {
         defaultColDef={{
           sortable: true,
           filter: true,
+          flex: 1,
         }}
         rowSelection="multiple"
         pagination={pagination} // Enable pagination

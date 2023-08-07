@@ -1,12 +1,10 @@
-import React, { useState, useCallback, useMemo, useRef } from "react";
+import React, { useState, useMemo} from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import { TextField } from "@mui/material";
 import SelectInput from "src/components/Input/Select/SelectInput";
 import IconButton from "src/components/Button/IconButtonComponent";
 import { AiOutlinePlus } from "react-icons/ai";
-
-import { createRoot } from "react-dom/client";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-enterprise";
 import "ag-grid-community/styles/ag-grid.css";
@@ -44,6 +42,7 @@ const Index = () => {
     endDate: "",
     headerColumn: "",
   });
+  // eslint-disable-next-line no-unused-vars
   const [rowData, setRowData] = useState([
     {
       Zone: "Baroda",
@@ -105,6 +104,7 @@ const Index = () => {
     },
   ]);
 
+  // eslint-disable-next-line no-unused-vars
   const [columnDefs, setColumnDefs] = useState([
     {
       field: "Zone",
