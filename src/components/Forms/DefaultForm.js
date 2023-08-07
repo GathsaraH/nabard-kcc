@@ -9,6 +9,7 @@ import UploadImageSvg from "src/assets/svg/UploadImageSvg";
 import UploadImgPng from "src/assets/images/uploadImage.png";
 import Image from "next/image";
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+import CardContainer from "../Card/CardContainer";
 
 /**
  * A customizable form component.
