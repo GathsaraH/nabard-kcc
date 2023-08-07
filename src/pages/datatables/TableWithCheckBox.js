@@ -5,16 +5,9 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const TableWithCheckBox = ({ rowData, columnDefs, pagination }) => {
-
-  const defaultColDef = useMemo(() => {
-    return {
-      flex: 1 }
-  }, []); 
-
-
-
-  return (
-    <div className="ag-theme-alpine" style={{ height: '100vh' }}>
+ return (
+    <div className='w-full' style={{height:'100vh'}}>
+         <div className="ag-theme-alpine" style={{ height: '100%' }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={columnDefs}
@@ -28,6 +21,8 @@ const TableWithCheckBox = ({ rowData, columnDefs, pagination }) => {
         paginationPageSize={10} // Number of rows per page
       />
     </div>
+    </div>
+   
   );
 };
 

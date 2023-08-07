@@ -1,13 +1,10 @@
 import React, { Fragment } from 'react'
 import { Tab } from '@headlessui/react';
 import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
-import IconButton from 'src/components/Button/IconButtonComponent';
-import { TextField } from '@mui/material';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+import CommonFilters from 'src/components/Filters';
 const Index = () => {
-        const {t} = useTranslation();
         const router = useRouter();
         
     const buttonClassName = (selected) => {
@@ -58,7 +55,7 @@ const Index = () => {
                             <Tab key={item.id} as={Fragment}>
                                 {({selected}) => (
                                     <button className={buttonClassName(selected)}>
-                                        <b style={{fontSize:'20px'}}>{item.value}</b>
+                                        <span>{item.value}</span>
                                     </button>
                                 )}
                             </Tab>
@@ -84,67 +81,8 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                <div className="flex flex-wrap gap-1 mb-4">
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Search user")}
-            name="Search User"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Date")}
-            name="Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Start Date")}
-            name="Start Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("End Date")}
-            name="End Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Select Header column")}
-            name="select header column"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-        <div className="px-2">
-        <IconButton label="Add Zone" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={AddZone} />
-        </div>
-      </div>
+                <CommonFilters onClick={AddZone} addButtonLabel="Add Zone" icon={<AiOutlinePlus/>}/>
                     <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
-                    <p>Zone content</p>
                 </div>
             </Tab.Panel>
         )
@@ -156,66 +94,8 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                    <p>Region content</p>
-                    <div className="flex flex-wrap gap-1 mb-4">
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Search user")}
-            name="Search User"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
+                <CommonFilters onClick={AddRegion} addButtonLabel="Add Region" icon={<AiOutlinePlus/>}/>
 
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Date")}
-            name="Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Start Date")}
-            name="Start Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("End Date")}
-            name="End Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Select Header column")}
-            name="select header column"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-        <div className="px-2">
-        <IconButton label="Add Region" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={AddRegion} />
-        </div>
-      </div>
       <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
                 </div>
             </Tab.Panel>
@@ -228,66 +108,8 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                  
-                    <div className="flex flex-wrap gap-1 mb-4">
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Search user")}
-            name="Search User"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Date")}
-            name="Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Start Date")}
-            name="Start Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("End Date")}
-            name="End Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Select Header column")}
-            name="select header column"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-        <div className="px-2">
-        <IconButton label="Add Cluster" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={AddCluster} />
-        </div>
-      </div>
+                <CommonFilters onClick={AddCluster} addButtonLabel="Add Cluster" icon={<AiOutlinePlus/>}/>
+                
       <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
                 </div>
             </Tab.Panel>
@@ -300,66 +122,7 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                    <p>Branch content</p>
-                    <div className="flex flex-wrap gap-1 mb-4">
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Search user")}
-            name="Search User"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Date")}
-            name="Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Start Date")}
-            name="Start Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("End Date")}
-            name="End Date"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("Select Header column")}
-            name="select header column"
-            required
-            variant="outlined"
-            size="small"
-          />
-        </div>
-        <div className="px-2">
-        <IconButton label="Add Branch" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={AddBranch} />
-        </div>
-      </div>
+                <CommonFilters onClick={AddBranch} addButtonLabel="Add Branch" icon={<AiOutlinePlus/>}/>
       <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true}/>
                 </div>
             </Tab.Panel>

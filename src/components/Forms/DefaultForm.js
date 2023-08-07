@@ -81,22 +81,22 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
   };
 
   const validateField = (name, value) => {
-    const field = fields.find((f) => f.name === name);
+  const field = fields.find((f) => f.name === name);
 
-    if (field?.required && (!value || !value.trim())) {
-      return `${field.label} is required.`;
-    }
+  if (field?.required && (!value || (typeof value === 'string' && value.trim() === ''))) {
+    return `${field.label} is required.`;
+  }
 
-    if (field?.minLength && value.length < field.minLength) {
-      return `${field.label} must be at least ${field.minLength} characters long.`;
-    }
+  if (field?.minLength && typeof value === 'string' && value.length < field.minLength) {
+    return `${field.label} must be at least ${field.minLength} characters long.`;
+  }
 
-    if (field?.maxLength && value.length > field.maxLength) {
-      return `${field.label} must not exceed ${field.maxLength} characters.`;
-    }
+  if (field?.maxLength && typeof value === 'string' && value.length > field.maxLength) {
+    return `${field.label} must not exceed ${field.maxLength} characters.`;
+  }
 
-    return "";
-  };
+  return "";
+};
 
   const validateForm = () => {
     let formIsValid = true;

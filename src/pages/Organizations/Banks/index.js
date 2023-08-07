@@ -1,19 +1,12 @@
 import { useRouter } from 'next/router'
 import React , {useState} from 'react'
 import { AiOutlinePlus } from 'react-icons/ai';
-import IconButton from 'src/components/Button/IconButtonComponent'
 import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
-import { useTranslation } from "react-i18next";
 import 'flatpickr/dist/flatpickr.css';
-import { TextField } from '@mui/material';
-// import CustomCellRenderer from 'src/components/CustomCellRenderer';
 import StatusRenderer from 'src/components/StatusRenderer';
 import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
 import CommonFilters from 'src/components/Filters';
 const Index = () => {
-  const [filterData, setfilterData] = useState({ "search": "", "date": "", "startDate": "", "endDate": "", "headerColumn": "" })
-  
-  const { t } = useTranslation();
   const rowData = [
     { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
     { id: 2, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },

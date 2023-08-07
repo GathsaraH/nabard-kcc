@@ -47,20 +47,12 @@ const sidebarMenuOptions = [
         icon: <FaFileSignature size={25} />,
         subMenu: [
             {
-                title: 'Claim Regular',
+                title: 'Claim',
                 link: '/Claim/Regular',
             },
             {
-                title: 'Claim Additional',
-                link: '/Claim/Additional',
-            },
-            {
-                title: 'Consolidated Claim - Regular',
+                title: 'Consolidated Claim',
                 link: '/Claim/Consolidated-Claim-Regular',
-            },
-            {
-                title: 'Consolidated Claim - Additional ',
-                link: '/Claim/Consolidated-Claim-Additional',
             },
         ],
     },

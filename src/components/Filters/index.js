@@ -65,7 +65,6 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
                     />
                 </div>
                 <div >

@@ -8,6 +8,7 @@ import StatusRenderer from 'src/components/StatusRenderer';
 import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
 import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
+import IconButton from 'src/components/Button/IconButtonComponent';
 
 const Index = () => {
   const { t } = useTranslation();
@@ -53,9 +54,12 @@ const Index = () => {
   ];
 
   const headingSection = () => {
+    const handleAddBankUser = () =>{
+       router.push('/users/Banks/Add');
+    }
     return (
       <>
-        <div className="grid lg:grid-cols-12 flex items-center">
+        <div className="flex justify-between items-center">
           <button
             onClick={() => router.back()} // Assuming 'router' is defined elsewhere in the component
             type="button"
@@ -70,6 +74,9 @@ const Index = () => {
           <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
             {t("RB Enterprise")}
           </span>
+          <div className="px-2">
+        <IconButton label="Add Bank User" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={handleAddBankUser} />
+        </div>
         </div>
       </>
     );
@@ -83,7 +90,7 @@ const Index = () => {
             <Tab key={item.id} as={Fragment}>
               {({ selected }) => (
                 <button className={buttonClassName(selected)}>
-                  <b style={{ fontSize: '20px' }}>{item.value}</b>
+                  <span>{item.value}</span>
                 </button>
               )}
             </Tab>

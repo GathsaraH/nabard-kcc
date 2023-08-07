@@ -5,123 +5,41 @@ import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import DefaultForm from 'src/components/Forms/DefaultForm';
 const Index = () => {
+   const [selectAllChecked, setSelectAllChecked] = useState(false);
    // Define InputFields with form field details
   const InputFields = [
     {
-      name: 'BankType',
-      label: 'Type of Bank',
+      name: 'PostingPlace',
+      label: 'Posting Place',
       type: 'select',
-      required: true,
-      heading: 'Bank Details', // Heading for the first new field
+      required: false,
+      heading: 'Place of Posting Details', // Heading for the first new field
       options: [
-        { label: 'Public Sector', value: 'Public Sector' },
-        { label: 'Local Area Banks', value: 'Local Area Banks' },
+        { label: '', value: '' },
+        { label: 'P1', value: 'P1' },
+        { label: 'P2', value: 'P2' },
       ],
-    },
-    {
-      name: 'BankName',
-      label: 'Bank Name',
-      type: 'select',
-      required: true,
-      heading: 'Bank Details', // Heading for the second new field
-      options: [
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-      ],
-    },
-    {
-      name: 'ShortName',
-      label: 'Short Name',
-      type: 'text',
-      required: true,
-      heading: 'Bank Details', // Heading for the third new field
-    },
-    {
-      name: 'fileField',
-      label: 'Upload Image',
-      type: 'file',
-      required: true,
-      heading: 'Bank Logo'
-    },
-    {
-      name: 'Address',
-      label: 'Address',
-      type: 'textarea',
-      required: true,
-      heading: 'Address Details',
-    },
-    {
-      name: 'State',
-      label: 'State',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: 'S1', value: 's1' },
-        { label: 's2', value: 's2' },
-      ],
-    },
-    {
-      name: 'District',
-      label: 'District',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-      ],
-    },
-    {
-      name: 'SubDistrict',
-      label: 'Sub District',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: 'Sub1', value: 'Sub1' },
-        { label: 'Sub2', value: 'Sub2' },
-      ],
-    },
-    {
-      name: 'Village',
-      label: 'Village',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Address Details',
-      options: [
-        { label: 'V1', value: 'V1' },
-        { label: 'V2', value: 'V2' },
-      ],
-    },
-    {
-      name: 'Pincode',
-      label: 'Pincode',
-      type: 'text',
-      required: true,
-      heading: 'Address Details',
-
     },
     {
       name: 'EmployeeName',
       label: 'Employee Name',
       type: 'text',
       required: true,
-      heading: 'Super Admin Details',
+      heading: 'Employee Detail',
     },
     {
       name: 'UserID',
       label: 'User ID',
       type: 'text',
       required: true,
-      heading: 'Super Admin Details',
+      heading: 'Employee Detail',
     },
     {
       name: 'Designation',
       label: 'Designation',
       type: 'select', // This indicates it's a select input
       required: true,
-      heading: 'Super Admin Details',
+      heading: 'Employee Detail',
       options: [
         { label: 'D1', value: 'D1' },
         { label: 'D2', value: 'D2' },
@@ -132,37 +50,62 @@ const Index = () => {
       label: 'Email ID',
       type: 'email',
       required: true,
-      heading: 'Super Admin Details',
+      heading: 'Employee Detail',
     },
     {
       name: 'ContactNumber',
       label: 'Contact Number',
       type: 'text',
       required: true,
-      heading: 'Super Admin Details',
+      heading: 'Employee Detail',
     },
-
+    {
+      name: 'Assignment',
+      label: 'Assignment',
+      type: 'checkbox',
+      required: true,
+      heading: 'Admin Actitivity Role',
+    },
+    {
+      name: 'ChangeofRole',
+      label: 'Change of Role',
+      type: 'checkbox',
+      required: true,
+      heading: 'Admin Actitivity Role',
+    },
+    {
+        name: 'AddEmployee',
+        label: 'Add Employee',
+        type: 'checkbox',
+        required: true,
+        heading: 'Admin Actitivity Role',
+      },
+      {
+        name: 'DeleteEmployee',
+        label: 'Delete Employee',
+        type: 'checkbox',
+        required: true,
+        heading: 'Admin Actitivity Role',
+      },
+      {
+        name: 'Monitoring',
+        label: 'Monitoring',
+        type: 'checkbox',
+        required: true,
+        heading: 'Admin Actitivity Role',
+      },
   ]
   // Define form section headings
   const formHeadings = [
-    'Bank Details',
-    'Bank Logo',
-    'Address Details',
-    'Super Admin Details',
-    'Bank Hierarchy'
+    'Place of Posting Details',
+    'Employee Detail',
+    'Admin Actitivity Role'
     // Add more headings as needed
   ];
 
   const { t } = useTranslation();
   const router = useRouter();
- // State for managing form hierarchy levels
-  const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
-    {
-      level: 'Head Office',
-      data: { level2: '', level3: '', level4: '' },
-      inputErrors: { level2: '', level3: '', level4: '' },
-    },
-  ]);
+  const [formData, setFormData] = useState({}); 
   // Function to handle form submission
   const handleSubmit = (formData) => {
     // Process the form data when the form is submitted
@@ -170,7 +113,15 @@ const Index = () => {
   };
    // Function to handle form cancellation
   const handleCancel = () => {
-    router.push('/Organizations/Banks');
+    router.push('/users/Banks');
+  };
+  const handleFormChange = (updatedData) => {
+    setFormData(updatedData);
+     // Update Select All checkbox based on the checked states of other checkboxes
+     const isAllChecked = InputFields.filter((field) => field.name !== 'AllIndia').every(
+        (field) => field.checked || field.name === 'State' // Only consider the 'State' checkbox for now
+      );
+      setSelectAllChecked(isAllChecked);
   };
   return (
     <div>
@@ -194,18 +145,29 @@ const Index = () => {
                         </button>
                         <div className="col-start-5 col-end-8">
                           <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
-                            {t("Add Bank Hierarchy")}
+                            {t("Add Bank User")}
                           </span>
                         </div>
 
                       </div>
-                    <DefaultForm fields={InputFields}
+                      {/* // */}
+                      <div className="grid lg:grid-cols-10 text-center items-center bg-black-light mb-4">
+                        <div className="col-start-4 col-end-8">
+                          <span className="heading-Font-Family text-primary" style={{ fontWeight: '700' }}>
+                            {t("Bank Name : State Bank of India")}
+                          </span>
+                        </div>
+
+                      </div>
+                    <DefaultForm
+                      fields={InputFields}
                       onSubmit={handleSubmit}
                       onClick={handleCancel}
-                      title="Create"
+                      onChange = {handleFormChange}
+                      title="Save"
                       headings={formHeadings}
-                      inputFieldHierarchy={inputFieldHierarchy}
                     />
+
                   </div>
                 </div>
               </div>
