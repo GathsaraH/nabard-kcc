@@ -3,8 +3,10 @@ import React from 'react'
 import { HrTag } from 'src/constants/ResponsiveClassName'
 import { FaUsers } from 'react-icons/fa'
 import { BsCardList } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 
 const Index = () => {
+    const router = useRouter();
 
     const commonIconProps = {
         className: 'text-primary',
@@ -15,19 +17,28 @@ const Index = () => {
         {
             title: "Attributes Module",
             desc: "This module allows you to manage various attributes such as state, district, subdistrict, and more.",
-            icons: <BsCardList {...commonIconProps} />
+            icons: <BsCardList {...commonIconProps} />,
+            path: "/Settings/admin/attribute"
         },
         {
             title: "User Logs & Activity",
             desc: "With this module, you can view all user logs related to each task.",
-            icons: <FaUsers {...commonIconProps} />
+            icons: <FaUsers {...commonIconProps} />,
+            path: "/Settings/admin/attribute"
         },
         {
             title: "Members login & Security",
             desc: "Manage your members and their login security like reset password, change password, and more.",
-            icons: <FaUsers {...commonIconProps} />
+            icons: <FaUsers {...commonIconProps} />,
+            path: "/Settings/admin/attribute"
         }
     ];
+
+
+    const navigateTo = (path) => {
+        router.push(path)
+    }
+
 
     return (
         <div>
@@ -47,7 +58,7 @@ const Index = () => {
                                                         {item.icons}
                                                     </div>
                                                     <div className="flex-1 ltr:sm:pl-5 rtl:sm:pr-z text-center sm:text-left">
-                                                        <h5 className="text-[#3b3f5c] text-[15px] font-semibold mb-2 dark:text-white-light">{item.title}</h5>
+                                                       <button onClick={()=> navigateTo(item.path)} > <h5 className="text-[#3b3f5c] text-lg font-semibold mb-2 text-primary underline">{item.title}</h5></button>
                                                         <p className="font-semibold text-white-dark mt-4 sm:mt-8">
                                                             {item.desc}
                                                         </p>

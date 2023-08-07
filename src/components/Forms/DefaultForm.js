@@ -5,11 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { BsArrowRight } from "react-icons/bs";
 import { HrTag } from "src/constants/ResponsiveClassName";
-import UploadImageSvg from "src/assets/svg/UploadImageSvg";
-import UploadImgPng from "src/assets/images/uploadImage.png";
-import Image from "next/image";
-import ImageUploading, { ImageListType } from 'react-images-uploading';
 import CardContainer from "../Card/CardContainer";
+import ImageUploader from "../Input/ImageUploader/ImageUploader";
 
 /**
  * A customizable form component.
@@ -34,7 +31,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
   const [file, setFile] = useState("");
 
   function uploadSingleFile(e) {
-    const { name, value } = e.target;
+    const { name } = e.target;
     e.preventDefault();
     setFile(URL.createObjectURL(e.target.files[0]));
     onChange((prevData) => ({
@@ -43,10 +40,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
     }));
   }
 
-  function uploadFile(e) {
-    e.preventDefault();
-    console.log(file);
-  }
+ 
 
 
   if (!Array.isArray(fields)) {
@@ -57,7 +51,6 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
     initialFormData[field.name] = "";
     initialErrors[field.name] = "";
   });
-  console.log("inputFieldHierarchy.lengthAdd" , JSON.stringify(inputFieldHierarchy));
 
 
 
@@ -121,15 +114,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
     return formIsValid;
   };
 
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    // eslint-disable-next-line prefer-destructuring
-    const file = files[0]; // Get the first file selected (you can handle multiple files if needed)
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: file,
-    }));
-  };
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -206,6 +191,8 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
     }));
   };
   const shouldShowHierarchy = headings.includes('Bank Hierarchy') || headings.includes('Stakeholder Hierarchy');
+
+  
   return (
     <form onSubmit={handleSubmit}>
       {headings.map((heading) => (
@@ -220,32 +207,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
                 <Grid item xs={12} sm={5} key={field.name}>
-                  <label htmlFor={field.name}>{field.label}</label>
-                  <input
-                    type="file"
-                    name={field.name}
-                    className="form-control"
-                    onChange={uploadSingleFile}
-                    style={{ display: 'none' }} 
-                  />
-                <div className="p-5" >
-                {
-                  
-                    file ? <Image width={200} height={200} src={file} alt="upload image" /> : <><Image src={UploadImgPng} alt="upload image" />
-                    <label htmlFor={field.name} className="text-primary cursor-pointer" onClick={() => uploadSingleFile(field)} >
-                    </label>
-                    <input
-                    type="file"
-                    name={field.name}
-                    id={field.name} // Assign the same ID as htmlFor
-                    className="hidden"
-                    onChange={uploadSingleFile}
-                  />
-                  </>}
-                  
-                    
-                </div>
-
+                <ImageUploader file={file} onChange={uploadSingleFile} />
                 </Grid>
               ) : 
               field.type === "checkbox" ? (
@@ -484,3 +446,6 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
 };
 
 export default DefaultForm;
+
+
+// add an arrow icon on dropdown or select
