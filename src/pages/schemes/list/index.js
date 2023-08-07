@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
@@ -42,19 +42,17 @@ const Index = () => {
     {
       headerCheckboxSelection: true,
       checkboxSelection: true,
-      width: 20,
       suppressMenu: true,
     },
-    { headerName: 'Organization', field: 'id', suppressMenu: true, width: '100%', minWidth: 200 },
-    { headerName: 'Organization Type', field: 'organizationType', suppressMenu: true, width: '100%', minWidth: 200 },
-    { headerName: 'Scheme', field: 'scheme', suppressMenu: true, width: '100%', minWidth: 200 },
-    { headerName: 'Benefit Type', field: 'benefitType', suppressMenu: true, width: '100%', minWidth: 200 },
-    { headerName: 'Effective Date', field: 'effectiveDate', suppressMenu: true, width: '100%', minWidth: 200 },
+    { headerName: 'Organization', field: 'id', suppressMenu: true,},
+    { headerName: 'Organization Type', field: 'organizationType', suppressMenu: true,},
+    { headerName: 'Scheme', field: 'scheme', suppressMenu: true,},
+    { headerName: 'Benefit Type', field: 'benefitType', suppressMenu: true,},
+    { headerName: 'Effective Date', field: 'effectiveDate', suppressMenu: true,},
     {
       headerName: 'Status',
       field: 'Status',
       suppressMenu: true,
-      width: 150,
       cellRenderer: () => <StatusRenderer value="Active" />,
     },
     {
@@ -77,6 +75,7 @@ const Index = () => {
     setfilterData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  
 
   return (
     <div className='bg-white p-4'>

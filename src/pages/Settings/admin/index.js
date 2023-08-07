@@ -9,8 +9,8 @@ const Index = () => {
     const commonIconProps = {
         className: 'text-primary',
         size: 35,
-      };
-      
+    };
+
     const settingsArray = [
         {
             title: "Attributes Module",
@@ -29,34 +29,37 @@ const Index = () => {
         }
     ];
 
-
     return (
         <div>
             <div className='bg-white p-4'>
-                <span className='text-xl text-primary font-bold' >General</span>
+                <span className='text-xl text-primary font-bold'>General</span>
                 <HrTag />
-                <div className='p-5' >
-                <Grid container spacing={2}>
-                    {
-                        settingsArray.map((item, index) => {
-                            return (<Grid key={item.title} item xs={3} sm={3} md={3} lg={3}>
-                                <Card elevation={3} style={{ height: '150px' }} >
-                                    <CardContent>
-                                        <div className="flex items-center"> {/* Flex container to place icon and title horizontally */}
-                                            {item.icons}
-                                            <span className="text-xl font-semibold ml-2 text-primary">{item.title}</span>
-                                        </div>
-                                        <br />
-                                        <div className="ml-10">
-                                            <span className="text-md font-normal">{item.desc}</span>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </Grid>)
-                        })
-                    }
-
-                </Grid>
+                <div className='p-5'>
+                    <Grid container spacing={2}>
+                        {
+                            settingsArray.map((item) => {
+                                return (
+                                    <Grid key={item.title} item xs={12} sm={6} md={4} lg={4}>
+                                        <Card elevation={2} style={{ height: '100%' }}>
+                                            <CardContent >
+                                                <div className="flex items-center flex-col sm:flex-row">
+                                                    <div className="mb-4 sm:mb-20">
+                                                        {item.icons}
+                                                    </div>
+                                                    <div className="flex-1 ltr:sm:pl-5 rtl:sm:pr-z text-center sm:text-left">
+                                                        <h5 className="text-[#3b3f5c] text-[15px] font-semibold mb-2 dark:text-white-light">{item.title}</h5>
+                                                        <p className="font-semibold text-white-dark mt-4 sm:mt-8">
+                                                            {item.desc}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                )
+                            })
+                        }
+                    </Grid>
                 </div>
             </div>
         </div>
