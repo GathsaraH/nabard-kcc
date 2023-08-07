@@ -1,11 +1,28 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { ShowErrorAlert } from 'src/Alerts/AlertComponent';
 import { UrlConstants } from 'src/constants/UrlConstants';
 
 const { BASE_URL } = UrlConstants;
 
+
+const getBearerToken = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const authToken = Cookies.get('authToken');
+
+  // Implement the logic to get the bearer token dynamically, e.g. from local storage, cookies, or another API call.
+  // Replace the following line with the logic to fetch the actual token.
+  const bearerToken = authToken;
+
+  return bearerToken;
+};
+
+
+
+
 const headers = {
   'Content-Type': 'application/json',
+  Authorization: `Bearer ${getBearerToken()}`,
   // Add any other headers you might need, e.g. Authorization, etc.
 };
 

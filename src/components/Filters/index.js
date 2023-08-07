@@ -3,72 +3,77 @@ import IconButton from '../Button/IconButtonComponent'
 import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton }) => {
+const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,onChange}) => {
     const { t } = useTranslation();
 
     return (
         <div>
-            <div className="flex flex-wrap gap-1 mb-4">
-                <div className="px-2">
+            <div className="flex flex-wrap gap-2 mb-2">
+                <div >
                     <TextField
                         label={t("Search user")}
-                        name="Search User"
-                        required
+                        name={"search"}
+                        value={value.search}
+                        onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '200px' }} // Set maximum width for small screens
+                        style={{ width: '100%', minWidth: '150px' }} // Set maximum width for small screens
                     />
                 </div>
 
-                <div className="px-2">
+                <div >
                     <TextField
                         label={t("Date")}
-                        name="Date"
-                        required
+                        name={"date"}
+                        value={value.date}
+                        onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '150px' }} // Set maximum width for small screens
                     />
                 </div>
 
-                <div className="px-2">
+                <div >
                     <TextField
                         label={t("Start Date")}
-                        name="Start Date"
-                        required
+                        name={"startDate"}
+                        value={value.startDate}
+                        onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '150px' }} // Set maximum width for small screens
                     />
                 </div>
 
-                <div className="px-2">
+                <div >
                     <TextField
                         label={t("End Date")}
-                        name="End Date"
-                        required
+                        name={"endDate"}
+                        value={value.endDate}
+                        onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '150px' }} // Set maximum width for small screens
                     />
                 </div>
 
-                <div className="px-2">
+                <div >
                     <TextField
                         label={t("Select Header column")}
-                        name="select header column"
-                        required
+                        name={"headerColumn"}
+                        value={value.headerColumn}
+                        onChange={onChange}
                         variant="outlined"
                         size="small"
                         style={{ width: '100%', maxWidth: '300px' }} // Set maximum width for small screens
                     />
                 </div>
-                <div className="px-2">
+                <div >
                     {!hideIconButton && (
                         <div className="px-2">
                             <IconButton
                                 label={addButtonLabel}
-                                className="btn-outline-primary"
+                                className="btn-outline-primary w-[200px]"
                                 icon={icon}
                                 onClick={onClick}
                             />

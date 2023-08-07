@@ -19,4 +19,19 @@ export const UrlConstants = {
 
     // API endpoint to generate password first time
     GENERATE_PASSWORD: '/nab-user/create-password',
+
+    // API endpoint to get all state
+    GET_ALL_STATE: '/states',
+
+    // API endpoint to get all district by state id
+    GET_DISTRICT_BY_STATE_ID: '/states',
+
+
+    // API endpoint to get all sub district by district id
+    GET_SUB_DISTRICT_BY_DISTRICT_ID: '/districts',
+
+
+    // API endpoint to get all village by sub district id
+    GET_VILLAGES_BY_SUB_DISTRICT: '/sub-districts',
+
   };
