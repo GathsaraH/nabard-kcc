@@ -13,7 +13,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                     <TextField
                         label={t("Search user")}
                         name={"search"}
-                        value={value.search}
+                        value={value?.search || ''}
                         onChange={onChange}
                         variant="outlined"
                         size="small"
@@ -25,7 +25,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                     <TextField
                         label={t("Date")}
                         name={"date"}
-                        value={value.date}
+                        value={value?.date || ""}
                         onChange={onChange}
                         variant="outlined"
                         size="small"
@@ -37,7 +37,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                     <TextField
                         label={t("Start Date")}
                         name={"startDate"}
-                        value={value.startDate}
+                        value={value?.startDate || ""}
                         onChange={onChange}
                         variant="outlined"
                         size="small"
@@ -49,7 +49,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                     <TextField
                         label={t("End Date")}
                         name={"endDate"}
-                        value={value.endDate}
+                        value={value?.endDate || ""}
                         onChange={onChange}
                         variant="outlined"
                         size="small"
@@ -61,7 +61,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                     <TextField
                         label={t("Select Header column")}
                         name={"headerColumn"}
-                        value={value.headerColumn}
+                        value={value?.headerColumn || ""}
                         onChange={onChange}
                         variant="outlined"
                         size="small"
