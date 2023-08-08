@@ -53,9 +53,9 @@ const Index = () => {
     {
       name: 'State',
       label: 'State',
-      type: 'select', // This indicates it's a select input
+      type: 'select',
       required: true,
-      heading: 'Address Details',
+      heading: 'Address Details', // Adjust the heading
       options: [
         { label: 'S1', value: 's1' },
         { label: 's2', value: 's2' },
@@ -64,9 +64,9 @@ const Index = () => {
     {
       name: 'District',
       label: 'District',
-      type: 'select', // This indicates it's a select input
+      type: 'select',
       required: true,
-      heading: 'Address Details',
+      heading: 'Address Details', // Adjust the heading
       options: [
         { label: '1', value: '1' },
         { label: '2', value: '2' },
@@ -75,9 +75,9 @@ const Index = () => {
     {
       name: 'SubDistrict',
       label: 'Sub District',
-      type: 'select', // This indicates it's a select input
+      type: 'select',
       required: true,
-      heading: 'Address Details',
+      heading: 'Address Details', // Adjust the heading
       options: [
         { label: 'Sub1', value: 'Sub1' },
         { label: 'Sub2', value: 'Sub2' },
@@ -86,9 +86,9 @@ const Index = () => {
     {
       name: 'Village',
       label: 'Village',
-      type: 'select', // This indicates it's a select input
+      type: 'select',
       required: true,
-      heading: 'Address Details',
+      heading: 'Address Details', // Adjust the heading
       options: [
         { label: 'V1', value: 'V1' },
         { label: 'V2', value: 'V2' },
@@ -99,8 +99,7 @@ const Index = () => {
       label: 'Pincode',
       type: 'text',
       required: true,
-      heading: 'Address Details',
-
+      heading: 'Address Details', // Adjust the heading
     },
     {
       name: 'EmployeeName',

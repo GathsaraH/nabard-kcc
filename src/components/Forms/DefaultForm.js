@@ -1,5 +1,5 @@
 // components/CommonForm.js
-import { Grid, IconButton, TextField } from "@mui/material";
+import { Grid, IconButton, TextField , Select, MenuItem, TextareaAutosize, InputLabel, FormControl } from "@mui/material";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -7,6 +7,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { HrTag } from "src/constants/ResponsiveClassName";
 import CardContainer from "../Card/CardContainer";
 import ImageUploader from "../Input/ImageUploader/ImageUploader";
+import { AiOutlineDown } from "react-icons/ai";
 
 /**
  * A customizable form component.
@@ -17,6 +18,8 @@ import ImageUploader from "../Input/ImageUploader/ImageUploader";
  * @param {string} title - The title of the form.
  * @returns {JSX.Element} - JSX representation of the form component.
  */
+
+
 const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , onClick , hierarchyType}) => {
   const initialFormData = {};
   const initialErrors = {};
@@ -29,6 +32,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
     inputErrors: { level2: "", level3: "", level4: "" },
   });
   const [file, setFile] = useState("");
+  // const classes = useStyles();
 
   function uploadSingleFile(e) {
     const { name } = e.target;
@@ -192,7 +196,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
   };
   const shouldShowHierarchy = headings.includes('Bank Hierarchy') || headings.includes('Stakeholder Hierarchy');
 
-  
+ 
   return (
     <form onSubmit={handleSubmit}>
       {headings.map((heading) => (
@@ -233,44 +237,56 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
               :
               (
                 <Grid item xs={12} sm={4} key={field.name}>
-                  <label className="text-lg" htmlFor={field.name}>{field.label}</label>
                   {field.type === "select" ? (
                     <>
-                      <select
-                        id={field.name}
-                        name={field.name}
-                        value={formData[field.name]}
-                        onChange={handleChange}
-                        className="form-input"
-                        placeholder={`Enter + ${field.name}`}
-                      >
-                        {field.options.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
+      <FormControl fullWidth variant="outlined" className="from-input">
+                  <InputLabel htmlFor={field.name} className="input">{field.label}</InputLabel>
+                  <Select
+                    id={field.name}
+                    name={field.name}
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                    label={field.label}
+                    style={{ height: '40px' }}
+                    IconComponent={AiOutlineDown}
+                  >
+                    {field.options.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
                     </>
                   ) : field.type === "textarea" ? (
-                    <textarea
-                      id={field.name}
-                      rows={5}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      value={formData[field.name]}
-                      onChange={handleChange}
-                      className="form-input col-md-offset-6"
-                    />
+                    <TextareaAutosize
+                    id={field.name}
+                    label={field.label}
+                    minRows={3}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                    className="form-input col-md-offset-6"
+                  />
                   ) : (
-                    <input
-                      type={field.type}
-                      id={field.name}
-                      placeholder={field.placeholder}
-                      name={field.name}
-                      value={formData[field.name]}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
+                    <TextField
+                    type={field.type}
+                    id={field.name}
+                    label={field.label}
+                    placeholder={field.placeholder}
+                    name={field.name}
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                    variant="outlined"
+                    className="form-input"
+                    InputProps={{
+                      style: {
+                        padding: '10.5px 14px', // Adjust padding values as needed
+                        height: '40px', // Set the desired height
+                      },
+                    }}
+                  />
                   )}
                   {errors[field.name] && (
                     <p className="text-base text-danger mt-1" >{errors[field.name]}</p>
