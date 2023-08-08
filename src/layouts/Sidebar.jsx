@@ -7,7 +7,7 @@ import AnimateHeight from 'react-animate-height';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { RiHome5Line } from "react-icons/ri";
-import { BiSolidDashboard } from "react-icons/bi";
+import { BiHelpCircle, BiSolidDashboard } from "react-icons/bi";
 import { GoOrganization } from "react-icons/go";
 import {FiUsers } from "react-icons/fi";
 import { BsFileEarmarkRichtextFill } from "react-icons/bs";
@@ -29,18 +29,9 @@ const sidebarMenuOptions = [
         icon: <BiSolidDashboard size={25} />,
     },
     {
-        title: 'Organizations',
-        icon: <GoOrganization size={25} />,
-        subMenu: [
-            {
-                title: 'Banks',
-                link: '/Organizations/Banks',
-            },
-            {
-                title: 'Stakeholders',
-                link: '/Organizations/Stakeholders',
-            },
-        ],
+        title: 'Beneficiaries',
+        link: '/Beneficiary',
+        icon: <FaHandHoldingUsd size={25} />,
     },
     {
         title: 'Claim Management',
@@ -57,10 +48,18 @@ const sidebarMenuOptions = [
         ],
     },
     {
-        title: 'Schemes',
-        icon: <BsFileEarmarkRichtextFill size={25} />,
-        link: '/schemes/list',
-
+        title: 'Organizations',
+        icon: <GoOrganization size={25} />,
+        subMenu: [
+            {
+                title: 'Banks',
+                link: '/Organizations/Banks',
+            },
+            {
+                title: 'Stakeholders',
+                link: '/Organizations/Stakeholders',
+            },
+        ],
     },
     {
         title: 'Users',
@@ -78,9 +77,10 @@ const sidebarMenuOptions = [
         ],
     },
     {
-        title: 'Beneficiaries',
-        link: '/Beneficiary',
-        icon: <FaHandHoldingUsd size={25} />,
+        title: 'Schemes',
+        icon: <BsFileEarmarkRichtextFill size={25} />,
+        link: '/schemes/list',
+
     },
     {
         title: 'Roles & Permissions',
@@ -101,6 +101,14 @@ const sidebarMenuOptions = [
         link: '/Settings/admin',
         icon: <LuSettings size={25} />,
     },
+    {
+        title: 'Help Desk',
+        link: '/HelpDesk',
+        icon: <BiHelpCircle size={25} />,
+    },
+
+    
+  
 ];
 
 
