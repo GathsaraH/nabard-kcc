@@ -119,7 +119,7 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                   <CommonFilters addButtonLabel="Add Implementing Agency" onClick={AddIAgency}/>
+                   <CommonFilters addButtonLabel="Add Implementing Agency" onClick={AddIAgency} icon={<AiOutlinePlus/>}/>
                     <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
                 </div>
             </Tab.Panel>
@@ -132,7 +132,7 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                    <CommonFilters addButtonLabel="Add Nodal Agency" onClick={AddNodalAgency}/>
+                    <CommonFilters addButtonLabel="Add Nodal Agency" onClick={AddNodalAgency} icon={<AiOutlinePlus/>}/>
       <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
                 </div>
             </Tab.Panel>
@@ -145,7 +145,7 @@ const Index = () => {
         return(
             <Tab.Panel>
                 <div className='active pt-5'>
-                <CommonFilters addButtonLabel="Add PMU" onClick={AddPMU}/>
+                <CommonFilters addButtonLabel="Add PMU" onClick={AddPMU} icon={<AiOutlinePlus/>}/>
       <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
                 </div>
             </Tab.Panel>

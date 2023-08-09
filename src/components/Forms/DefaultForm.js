@@ -25,11 +25,11 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
   const initialErrors = {};
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
-  const initialLevel = hierarchyType === 'Stakeholder' ? 'Ministry' : 'Head Office';
+  const initialLevel = hierarchyType === 'Stakeholder' ?'Ministry':'Head Office';
   const [inputFieldHierarchy, setInputFieldHierarchy] = useState({
     level: ` ${initialLevel}`,
     data: {},
-    inputErrors: { level2: "", level3: "", level4: "" },
+    inputErrors: { level2: "", level3: "", level4: "" , level5 :"" },
   });
   const [file, setFile] = useState("");
   // const classes = useStyles();
@@ -143,20 +143,23 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
       const allLevelsPresent =
         prevHierarchy.data.hasOwnProperty("level2") &&
         prevHierarchy.data.hasOwnProperty("level3") &&
-        prevHierarchy.data.hasOwnProperty("level4");
+        prevHierarchy.data.hasOwnProperty("level4") &&
+        prevHierarchy.data.hasOwnProperty("level5");
 
       // If all levels are already present, return the previous hierarchy without any changes
       if (allLevelsPresent) {
         return prevHierarchy;
       }
 
-      // Determine the next level to add (level2, level3, or level4)
+      // Determine the next level to add (level2, level3, level4 or level5)
       const nextLevel =
         prevHierarchy.data.hasOwnProperty("level2")
           ? prevHierarchy.data.hasOwnProperty("level3")
-            ? "level4"
+          ?prevHierarchy.data.hasOwnProperty("level4")
+            ? "level5"
+            :"level4"
             : "level3"
-          : "level2";
+          : "level2"
 
       // Update the data object with the new level
       const updatedHierarchy = {
@@ -247,7 +250,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                     value={formData[field.name]}
                     onChange={handleChange}
                     label={field.label}
-                    style={{ height: '40px' }}
+                    // style={{ height: '40px' }}
                     IconComponent={AiOutlineDown}
                   >
                     {field.options.map((option) => (
@@ -259,16 +262,28 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                 </FormControl>
                     </>
                   ) : field.type === "textarea" ? (
+                    <FormControl fullWidth>
+      <InputLabel >{field.label}</InputLabel>
                     <TextareaAutosize
                     id={field.name}
-                    label={field.label}
+                    // label={field.label}
                     minRows={3}
                     name={field.name}
                     placeholder={field.placeholder}
                     value={formData[field.name]}
                     onChange={handleChange}
                     className="form-input col-md-offset-6"
+                    sx={{
+                      padding: '10.5px 14px',
+                      fontSize: '0.875rem',
+                      fontFamily: 'Montserrat',
+                      fontWeight: 500,
+                      border: '1px solid #ced4da',
+                      borderRadius: '4px',
+                      resize: 'vertical',
+                    }}
                   />
+                  </FormControl>
                   ) : (
                     <TextField
                     type={field.type}
@@ -283,7 +298,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                     InputProps={{
                       style: {
                         padding: '10.5px 14px', // Adjust padding values as needed
-                        height: '40px', // Set the desired height
+                        height: '55px', // Set the desired height
                       },
                     }}
                   />
@@ -442,6 +457,45 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                       )}
                     </div>
                   )}
+                  {hierarchyType !== "Stakeholder" && (
+                      <>
+                      {inputFieldHierarchy.data.hasOwnProperty("level5") && (
+                    <div className="col-start-4 col-end-9 xl:w-auto">
+                      <TextField
+                        id="outlined-basic"
+                        label="Level 5"
+                        name="level5"
+                        onChange={(evnt) =>
+                          handleInputChange(index, "level5", evnt.target.value)
+                        }
+                        value={inputFieldHierarchy.data.level5}
+                        required
+                        InputProps={{
+                          style: {
+                            fontSize: "0.875rem",
+                            fontFamily: "Montserrat",
+                            fontWeight: "500",
+                          },
+                        }}
+                        InputLabelProps={{
+                          className: "common-Font-Family",
+                        }}
+                        error={inputFieldHierarchy.inputErrors.level4}
+                        variant="outlined"
+                        size="small"
+                        className="w-full"
+                      />
+                      {inputFieldHierarchy.inputErrors.level5 && (
+                        <span className="errorMessageStyle">
+                          {inputFieldHierarchy.inputErrors.level5}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                      </>
+                  )
+                  
+      }
                 </div>
 
           </Grid>

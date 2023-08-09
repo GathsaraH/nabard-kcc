@@ -4,15 +4,27 @@ import { AiOutlineArrowDown } from 'react-icons/ai';
 import CommonFilters from 'src/components/Filters'
 import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
 import StatusRenderer from 'src/components/StatusRenderer';
-import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
-
+// import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
+import MUIDataTable from "mui-datatables";
 const Index = () => {
       const router = useRouter();
-    const handleRowClicked = (id) => {
+    const handleRowClicked = (rowData) => {
         // Assuming the row data contains an "id" property
-            router.push(`/users/Banks/View/${id}/`)
+        if(rowData.id){
+            router.push(`/users/Banks/View/${rowData.id}/`)
+        }
       };
-      const rowData = [
+      const options = {
+        print: false,
+        onChangePage(currentPage) {
+          console.log({ currentPage });
+        },
+        onChangeRowsPerPage(numberOfRows) {
+          console.log({ numberOfRows });
+        }
+      };
+      
+      const data = [
         { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
         { id: 2, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
         { id: 3, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
@@ -24,33 +36,38 @@ const Index = () => {
         { id: 9, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
         { id: 10, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
       ];
-        const columnDefs = [
+        const columns = [
+          { label: 'Sr No.', name: 'id'},
+          { label: 'Bank Type', name: 'BankType'},
+          { label: 'Organization Name', name: 'OrganizationName' },
+          { label: 'Email Id', name: 'EmailId' },
+          { label: 'Mobile No', name: 'MobileNo' },
           {
-            headerCheckboxSelection: true,
-            checkboxSelection: true,
-            width: 40,
-            suppressMenu: true,
+            label: 'Status', name: 'Status',
+            // cellRenderer: (Status) => (
+            //   <StatusRenderer value={Status.value} />
+            // ),
+            options: {
+              filter: true,
+              customBodyRender: (value) => {
+                return (
+                  <StatusRenderer value={value} />
+                );
+              }
+            }
           },
-          { headerName: 'Sr No.', field: 'id', suppressMenu: true},
-          { headerName: 'Bank Type', field: 'BankType', suppressMenu: true },
-          { headerName: 'Organization Name', field: 'OrganizationName', suppressMenu: true },
-          { headerName: 'Email Id', field: 'EmailId', suppressMenu: true },
-          { headerName: 'Mobile No', field: 'MobileNo', suppressMenu: true },
           {
-            headerName: 'Status', field: 'Status', suppressMenu: true,
-            cellRenderer: (Status) => (
-              <StatusRenderer value={Status.value} />
-            ),
-          },
-          {
-            headerName: 'Actions',
-            field: 'actions',
-            cellRenderer: (params) => (
-              <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data}/>
-            ),
-            width: 100,
-            suppressMenu: true, // Remove default filter options from this column
-            cellStyle: { textAlign: 'center' },
+            label: 'Actions',
+            name: 'actions',
+            // cellRenderer: (params) => (
+            //   <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data}/>
+            // ),
+            options:{
+            customBodyRender: (value, tableMeta) => {
+              const rowData = data[tableMeta.rowIndex];
+              return <MenuItemComponent viewOnclick={handleRowClicked} rowData={rowData} />;
+            }
+          }
           },
         ];
         const col = ['id', 'BankType', 'OrganizationName', 'EmailId', 'MobileNo', 'Status'];
@@ -90,7 +107,8 @@ const Index = () => {
   return (
     <div>
             <CommonFilters onClick={() => exportTable('print')} addButtonLabel="Export" icon={<AiOutlineArrowDown/>}/>
-            <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} onRowClick={handleRowClicked}/>
+      <MUIDataTable options={options} data={data} columns={columns} />
+            {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} onRowClick={handleRowClicked}/> */}
     </div>
   )
 }
