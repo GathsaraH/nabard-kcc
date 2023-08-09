@@ -2,15 +2,16 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai';
 import IconButton from 'src/components/Button/IconButtonComponent'
-import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
+// import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
 import { useTranslation } from "react-i18next";
 import 'flatpickr/dist/flatpickr.css';
 import { TextField } from '@mui/material';
 import StatusRenderer from 'src/components/StatusRenderer';
 import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
+import MUIDataTable from 'mui-datatables';
 const Index = () => {
   const { t } = useTranslation();
-  const rowData = [
+  const data = [
     { id: 1, Type: 'Central', Name: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
     { id: 2, Type: 'state level', Name: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
     { id: 3, Type: 'state level', Name: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
@@ -26,37 +27,55 @@ const Index = () => {
   const AddStakeholderHierarchy = () => {
     router.push('/Organizations/Stakeholders/Hierarchy/Add');
   }
-  const handleRowClicked = (id) => {
-    // Assuming the row data contains an "id" property
-        router.push(`/Organizations/Stakeholders/Hierarchy/View/${id}/`)
+  const options = {
+    print: false,
+    onChangePage(currentPage) {
+      console.log({ currentPage });
+    },
+    onChangeRowsPerPage(numberOfRows) {
+      console.log({ numberOfRows });
+    }
   };
-  const columnDefs = [
+  
+  const handleRowClicked = (rowData) => {
+    // Assuming the row data contains an "id" property
+    if(rowData.id){
+        router.push(`/Organizations/Stakeholders/Hierarchy/View/${rowData.id}/`)
+    }
+  };
+  const columns = [
+    { label: 'Sr No.', name: 'id'},
+    { label: 'Type', name: 'Type'},
+    { label: 'Name', name: 'Name'},
+    { label: 'Mobile No', name: 'MobileNo'},
+    { label: 'Email Id', name: 'EmailId'},
     {
-      headerCheckboxSelection: true,
-      checkboxSelection: true,
-      width: 40,
-      suppressMenu: true,
+      label: 'Status', name: 'Status',
+      // cellRenderer: () => (
+      //   <StatusRenderer value="Inactive" />
+      // ),
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          return (
+            <StatusRenderer value={value} />
+          );
+        }
+      }
     },
-    { headerName: 'Sr No.', field: 'id', suppressMenu: true },
-    { headerName: 'Type', field: 'Type', suppressMenu: true },
-    { headerName: 'Name', field: 'Name', suppressMenu: true },
-    { headerName: 'Mobile No', field: 'MobileNo', suppressMenu: true },
-    { headerName: 'Email Id', field: 'EmailId', suppressMenu: true },
     {
-      headerName: 'Status', field: 'Status', suppressMenu: true,
-      cellRenderer: () => (
-        <StatusRenderer value="Inactive" />
-      ),
-    },
-    {
-      headerName: 'Actions',
-      field: 'actions',
-      cellRenderer: (params) => (
-        <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data}/>
-      ),
-      width: 100,
-      suppressMenu: true, // Remove default filter options from this column
-      cellStyle: { textAlign: 'center' },
+      label: 'Actions',
+      name: 'actions',
+      // cellRenderer: (params) => (
+      //   <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data}/>
+      // ),
+      options:{
+        filter:false,
+        customBodyRender: (value, tableMeta) => {
+          const rowData = data[tableMeta.rowIndex];
+          return <MenuItemComponent viewOnclick={handleRowClicked} rowData={rowData} />;
+        }
+      }
     },
   ];
 
@@ -123,7 +142,9 @@ const Index = () => {
         <IconButton label="Add Stakeholder Hierarchy" className="btn-outline-primary" icon={<AiOutlinePlus />} onClick={AddStakeholderHierarchy} />
         </div>
       </div>
-      <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+      <MUIDataTable options={options} data={data} columns={columns} />
+
+      {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} /> */}
     </div>
   )
 }

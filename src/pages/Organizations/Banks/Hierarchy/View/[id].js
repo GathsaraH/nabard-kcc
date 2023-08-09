@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
 import { Tab } from '@headlessui/react';
-import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
+// import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import CommonFilters from 'src/components/Filters';
+import MUIDataTable from "mui-datatables";
 const Index = () => {
         const router = useRouter();
         
@@ -21,7 +22,7 @@ const Index = () => {
          ]
 
          // row data and columndefs 
-         const rowData = [
+         const data = [
             { id: 1, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
             { id: 2, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
             { id: 3, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
@@ -33,19 +34,22 @@ const Index = () => {
             { id: 9, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
             { id: 10, Zone: 'ZoneTwo', ZoneId: 'ZONENEW2', District: 'Indore', Pincode: '452001'},
           ];
-          const columnDefs = [
-            {
-              headerCheckboxSelection: true,
-              checkboxSelection: true,
-              width: 40,
-              suppressMenu: true,
-            },
-            { headerName: 'Sr No.', field: 'id', suppressMenu: true },
-            { headerName: 'Zone', field: 'Zone', suppressMenu: true },
-            { headerName: 'Zone ID', field: 'ZoneId', suppressMenu: true },
-            { headerName: 'District', field: 'District', suppressMenu: true },
-            { headerName: 'Pincode', field: 'Pincode', suppressMenu: true },
+          const columns = [
+            { label: 'Sr No.', name: 'id'},
+            { label: 'Zone', name: 'Zone' },
+            { label: 'Zone ID', name: 'ZoneId' },
+            { label: 'District', name: 'District'},
+            { label: 'Pincode', name: 'Pincode' },
           ];
+          const options = {
+            print: false,
+            onChangePage(currentPage) {
+              console.log({ currentPage });
+            },
+            onChangeRowsPerPage(numberOfRows) {
+              console.log({ numberOfRows });
+            }
+          };
     const renderTabTitles = () =>{
             return(
                 <>
@@ -82,7 +86,8 @@ const Index = () => {
             <Tab.Panel>
                 <div className='active pt-5'>
                 <CommonFilters onClick={AddZone} addButtonLabel="Add Zone" icon={<AiOutlinePlus/>}/>
-                    <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+                    {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} /> */}
+                    <MUIDataTable options={options} data={data} columns={columns} />
                 </div>
             </Tab.Panel>
         )
@@ -95,8 +100,7 @@ const Index = () => {
             <Tab.Panel>
                 <div className='active pt-5'>
                 <CommonFilters onClick={AddRegion} addButtonLabel="Add Region" icon={<AiOutlinePlus/>}/>
-
-      <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+      <MUIDataTable options={options} data={data} columns={columns}/>
                 </div>
             </Tab.Panel>
         )
@@ -109,8 +113,10 @@ const Index = () => {
             <Tab.Panel>
                 <div className='active pt-5'>
                 <CommonFilters onClick={AddCluster} addButtonLabel="Add Cluster" icon={<AiOutlinePlus/>}/>
+                <MUIDataTable options={options} data={data} columns={columns}/>
+
                 
-      <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+      {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} /> */}
                 </div>
             </Tab.Panel>
         )
@@ -123,7 +129,9 @@ const Index = () => {
             <Tab.Panel>
                 <div className='active pt-5'>
                 <CommonFilters onClick={AddBranch} addButtonLabel="Add Branch" icon={<AiOutlinePlus/>}/>
-      <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true}/>
+                <MUIDataTable options={options} data={data} columns={columns}/>
+     
+      {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true}/> */}
                 </div>
             </Tab.Panel>
         )

@@ -19,8 +19,8 @@ const Index = () => {
       ]
     },
     {
-      name: 'RegionID',
-      label: 'Region ID',
+      name: 'Region',
+      label: 'Region',
       type: 'text',
       required: true,
       heading: 'Cluster Details', // Heading for the second new field

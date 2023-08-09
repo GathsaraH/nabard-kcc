@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import StatusRenderer from 'src/components/StatusRenderer';
 import { TextField } from '@mui/material';
-import TableWithCheckBox from '../datatables/TableWithCheckBox';
+// import TableWithCheckBox from '../datatables/TableWithCheckBox';
 import SelectInput from 'src/components/Input/Select/SelectInput';
 import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
+import MUIDataTable from "mui-datatables";
 
-const rowData = [
+const data = [
   { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', Status: 'Inactive' },
   { id: 2, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', Status: 'Active' },
 ];
@@ -30,36 +31,53 @@ const Index = () => {
   // eslint-disable-next-line no-unused-vars
   const [filterData, setfilterData] = useState({ "search": "", "date": "", "startDate": "", "endDate": "", "headerColumn": "" })
 
-  const handleRowClicked = (id) => {
+  const handleRowClicked = (rowData) => {
     // Assuming the row data contains an "id" property
-    router.push(`/Beneficiary/${id}/`)
+    if(rowData.id){
+    router.push(`/Beneficiary/${rowData.id}/`)
+    }
   };
 
-
-  const columnDefs = [
-    {
-      headerCheckboxSelection: true,
-      checkboxSelection: true,
-      width: 50,
-      suppressMenu: true,
+  const options = {
+    print: false,
+    onChangePage(currentPage) {
+      console.log({ currentPage });
     },
-    { headerName: 'Beneficiary ID', field: 'id', suppressMenu: true, width: '100%', minWidth: 200 },
-    { headerName: 'Beneficiary Name', field: 'BankType', suppressMenu: true, width: '100%', minWidth: 250 },
-    { headerName: 'Scheme Name', field: 'OrganizationName', suppressMenu: true, width: '100%', minWidth: 250 },
-    { headerName: 'Scheme Type', field: 'EmailId', suppressMenu: true, width: '100%', minWidth: 250 },
+    onChangeRowsPerPage(numberOfRows) {
+      console.log({ numberOfRows });
+    }
+  };
+  const columns = [
+    { label: 'Beneficiary ID', name: 'id', width: '100%', minWidth: 200 },
+    { label: 'Beneficiary Name', name: 'BankType', width: '100%', minWidth: 250 },
+    { label: 'Scheme Name', name: 'OrganizationName', width: '100%', minWidth: 250 },
+    { label: 'Scheme Type', name: 'EmailId', width: '100%', minWidth: 250 },
     {
-      headerName: 'Status',
-      field: 'Status',
+      label: 'Status',
+      name: 'Status',
       suppressMenu: true,
       width: '100%',
       minWidth: 250,
-      cellRenderer: () => <StatusRenderer value="Active" />,
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          return (
+            <StatusRenderer value={value} />
+          );
+        }
+      }
+      // cellRenderer: () => <StatusRenderer value="Active" />,
     },
     {
-      headerName: 'Actions',
-      field: 'actions',
-      cellRenderer: (params) => <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data} />,
-      suppressMenu: true,
+      label: 'Actions',
+      name: 'actions',
+      options:{
+        customBodyRender: (value, tableMeta) => {
+          const rowData = data[tableMeta.rowIndex];
+          return <MenuItemComponent viewOnclick={handleRowClicked} rowData={rowData} />;
+        }
+      }
+      // cellRenderer: (params) => <MenuItemComponent viewOnclick={handleRowClicked} rowData={params.data} />,
     },
   ];
 
@@ -124,7 +142,9 @@ const Index = () => {
           <IconButton label="Export" className="" icon={<AiOutlinePlus />} onClick={AddBankHierarchy} />
         </div> */}
       </div>
-      <TableWithCheckBox width={'300'} rowData={rowData} columnDefs={columnDefs} pagination={true} />
+      <MUIDataTable options={options} data={data} columns={columns} />
+
+      {/* <TableWithCheckBox width={'300'} rowData={rowData} columnDefs={columnDefs} pagination={true} /> */}
     </div>
   )
 }

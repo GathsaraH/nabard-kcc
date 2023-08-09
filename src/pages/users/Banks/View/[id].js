@@ -5,10 +5,11 @@ import Tippy from '@tippyjs/react';
 import { useTranslation } from 'react-i18next';
 import CommonFilters from 'src/components/Filters';
 import StatusRenderer from 'src/components/StatusRenderer';
-import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
+// import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox';
 import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
 import IconButton from 'src/components/Button/IconButtonComponent';
+import MUIDataTable from "mui-datatables";
 
 const Index = () => {
   const { t } = useTranslation();
@@ -28,31 +29,43 @@ const Index = () => {
   ];
 
   // Row data and column defs
-  const rowData = [
+  const data = [
     { id: 1, UserID: '141501', Posting: 'Head office Admin', EmployeeName: 'Andrew Marcel', EmailId: 'abc@xyz.com', MobileNo: '8401274121', status: 'Active' },
     { id: 2, UserID: '141501', Posting: 'Head office Admin', EmployeeName: 'Andrew Marcel', EmailId: 'abc@xyz.com', MobileNo: '8401274121', status: 'Inactive' },
   ];
-  const columnDefs = [
+  const columns = [
+ 
+    { label: 'Sr No.', name: 'id' },
+    { label: 'UserID', name: 'UserID' },
+    { label: 'Posting', name: 'Posting' },
+    { label: 'Employee Name', name: 'EmployeeName' },
+    { label: 'EmailId', name: 'EmailId' },
+    { label: 'MobileNo', name: 'MobileNo' },
     {
-      headerCheckboxSelection: true,
-      checkboxSelection: true,
-      width: 40,
-      suppressMenu: true,
-    },
-    { headerName: 'Sr No.', field: 'id', suppressMenu: true },
-    { headerName: 'UserID', field: 'UserID', suppressMenu: true },
-    { headerName: 'Posting', field: 'Posting', suppressMenu: true },
-    { headerName: 'Employee Name', field: 'EmployeeName', suppressMenu: true },
-    { headerName: 'EmailId', field: 'EmailId', suppressMenu: true },
-    { headerName: 'MobileNo', field: 'MobileNo', suppressMenu: true },
-    {
-      headerName: 'Status', field: 'status', suppressMenu: true,
-      cellRenderer: (params) => (
-        <StatusRenderer value={params.value} />
-      ),
+      label: 'Status', name: 'status',
+      // cellRenderer: (params) => (
+      //   <StatusRenderer value={params.value} />
+      // ),
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          return (
+            <StatusRenderer value={value} />
+          );
+        }
+      }
     },
   ];
 
+  const options = {
+    print: false,
+    onChangePage(currentPage) {
+      console.log({ currentPage });
+    },
+    onChangeRowsPerPage(numberOfRows) {
+      console.log({ numberOfRows });
+    }
+  };
   const headingSection = () => {
     const handleAddBankUser = () =>{
        router.push('/users/Banks/Add');
@@ -104,7 +117,8 @@ const Index = () => {
     <Tab.Panel>
       <div className="active pt-5">
         <CommonFilters icon={<AiOutlinePlus/>} addButtonLabel={`Add  ${tabTitle}`} />
-        <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} />
+      <MUIDataTable options={options} data={data} columns={columns} />
+        {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} /> */}
         <p>{content}</p>
       </div>
     </Tab.Panel>

@@ -13,21 +13,21 @@ const Index = () => {
       label: 'Employee Name',
       type: 'text',
       required: true,
-      heading: 'Admin Details',
+      heading: 'User Details',
     },
     {
       name: 'UserID',
       label: 'User ID',
       type: 'text',
       required: true,
-      heading: 'Admin Details',
+      heading: 'User Details',
     },
     {
       name: 'Designation',
       label: 'Designation',
       type: 'select', // This indicates it's a select input
       required: true,
-      heading: 'Admin Details',
+      heading: 'User Details',
       options: [
         { label: 'D1', value: 'D1' },
         { label: 'D2', value: 'D2' },
@@ -38,14 +38,14 @@ const Index = () => {
       label: 'Email ID',
       type: 'email',
       required: true,
-      heading: 'Admin Details',
+      heading: 'User Details',
     },
     {
       name: 'ContactNumber',
       label: 'Contact Number',
       type: 'text',
       required: true,
-      heading: 'Admin Details',
+      heading: 'User Details',
     },
     {
         name: 'All India',
@@ -111,7 +111,7 @@ const Index = () => {
   ]
   // Define form section headings
   const formHeadings = [
-    'Admin Details',
+    'User Details',
     'Area of Opeartion',
     'Admin Actitivity Role'
     // Add more headings as needed

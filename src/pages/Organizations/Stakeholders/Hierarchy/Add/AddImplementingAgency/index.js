@@ -7,21 +7,28 @@ import DefaultForm from 'src/components/Forms/DefaultForm';
 const Index = () => {
    // Define InputFields with form field details
   const InputFields = [
-    {
-      name: 'Type',
-      label: 'Type',
-      type: 'select',
-      required: false,
-      heading: 'Agency Details', // Heading for the first new field
-      options: [
-        { label: '', value: '' },
-        { label: 'Central Government', value: 'Central Government' },
-        { label: 'State Government', value: 'State Government' },
-      ],
-    },
+    // {
+    //   name: 'Type',
+    //   label: 'Type',
+    //   type: 'select',
+    //   required: false,
+    //   heading: 'Agency Details', // Heading for the first new field
+    //   options: [
+    //     { label: '', value: '' },
+    //     { label: 'Central Government', value: 'Central Government' },
+    //     { label: 'State Government', value: 'State Government' },
+    //   ],
+    // },
     {
       name: 'Name',
       label: 'Name',
+      type: 'text',
+      required: false,
+      heading: 'Agency Details', // Heading for the second new field
+    },
+    {
+      name: 'Department',
+      label: 'Department',
       type: 'text',
       required: false,
       heading: 'Agency Details', // Heading for the second new field

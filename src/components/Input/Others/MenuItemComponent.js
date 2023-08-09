@@ -27,7 +27,7 @@ export default function MenuItemComponent({rowData,viewOnclick}) {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         transformOrigin={{ horizontal: "center" }}
       >
-        <MenuItem onClick={() => viewOnclick(rowData.id)}>View</MenuItem>
+        <MenuItem onClick={() => viewOnclick(rowData)}>View</MenuItem>
         <MenuItem onClick={handleClose}>Edit</MenuItem>
         <MenuItem onClick={handleClose}>Delete</MenuItem>
       </Menu>

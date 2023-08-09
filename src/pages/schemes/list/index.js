@@ -29,6 +29,7 @@ const Index = () => {
   };
 
   const options = {
+    print: false,
     onChangePage(currentPage) {
       console.log({ currentPage });
     },
@@ -37,9 +38,11 @@ const Index = () => {
     }
   };
 
-  const handleRowClicked = (id) => {
+  const handleRowClicked = (rowData) => {
     // Assuming the row data contains an "id" property
-    router.push(`/schemes/view/${id}/`)
+    if(rowData.id){
+    router.push(`/schemes/view/${rowData.id}/`)
+    }
   };
 
   const colums = [
@@ -65,11 +68,16 @@ const Index = () => {
       label: "Actions",
       options: {
         filter: false,
-        customBodyRender: (value) => {
-          return (
-            <MenuItemComponent viewOnclick={handleRowClicked} rowData={value} />
-          )
+        customBodyRender: (value, tableMeta) => {
+          const rowData = data[tableMeta.rowIndex];
+          return <MenuItemComponent viewOnclick={handleRowClicked} rowData={rowData} />;
         }
+        // customBodyRender: (tableMeta) => {
+        //   const rowData = data[tableMeta.rowIndex];
+        //   return (
+        //     <MenuItemComponent viewOnclick={handleRowClicked} rowData={rowData} />
+        //   )
+        // }
       }
     },
   ];
