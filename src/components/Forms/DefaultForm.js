@@ -8,6 +8,7 @@ import { HrTag } from "src/constants/ResponsiveClassName";
 import CardContainer from "../Card/CardContainer";
 import ImageUploader from "../Input/ImageUploader/ImageUploader";
 import { AiOutlineDown } from "react-icons/ai";
+import { getAllDistrictApi } from "src/services/Attributes/AttributeService";
 
 /**
  * A customizable form component.
@@ -20,7 +21,12 @@ import { AiOutlineDown } from "react-icons/ai";
  */
 
 
-const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , onClick , hierarchyType}) => {
+const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , onClick , hierarchyType ,states,
+  districts,
+  subDistricts,
+  villages}) => {
+    const [selectedState, setSelectedState] = useState(""); // State to hold selected state ID
+    const [fetchedDistricts, setFetchedDistricts] = useState([]); // State to hold fetched districts
   const initialFormData = {};
   const initialErrors = {};
   const [formData, setFormData] = useState(initialFormData);
@@ -59,6 +65,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
 
 
   const handleChange = (e) => {
+    console.log(e.target);
     // const { name, value } = e.target;
     // setFormData((prevData) => ({
     //   ...prevData,
@@ -70,6 +77,19 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
     // }));
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
+
+    // If the changed field is the state select input
+    if (name === "State") {
+      setSelectedState(value); // Update selected state ID
+      // Fetch districts based on the selected state ID
+      getAllDistrictApi(newValue)
+        .then((response) => {
+          setFetchedDistricts(response.dataList); // Update fetched districts
+        })
+        .catch((error) => {
+          console.error("Error fetching districts:", error);
+        });
+    }
     setFormData((prevData) => ({
       ...prevData,
       [name]: newValue,
@@ -244,7 +264,7 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                     <>
       <FormControl fullWidth variant="outlined" className="from-input">
                   <InputLabel htmlFor={field.name} className="input">{field.label}</InputLabel>
-                  <Select
+                  {/* <Select
                     id={field.name}
                     name={field.name}
                     value={formData[field.name]}
@@ -258,7 +278,46 @@ const DefaultForm = ({ fields, onSubmit, headings, title, onChange, children , o
                         {option.label}
                       </MenuItem>
                     ))}
-                  </Select>
+                  </Select> */}
+                  <Select
+                      id={field.name}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      label={field.label}
+                      IconComponent={AiOutlineDown}
+                    >
+                      {field.name === "State"
+                        ? states.map((state) => (
+                            <MenuItem key={state.value} value={state.value}>
+                              {state.label}
+                            </MenuItem>
+                          ))
+                        : field.name === "District"
+                        ? districts.map((district) => (
+                            <MenuItem key={district.value} value={district.value}>
+                              {district.label}
+                            </MenuItem>
+                          ))
+                        : field.name === "SubDistrict"
+                        ? subDistricts.map((subDistrict) => (
+                            <MenuItem key={subDistrict.value} value={subDistrict.value}>
+                              {subDistrict.label}
+                            </MenuItem>
+                          ))
+                        : field.name === "Village"
+                        ? villages.map((village) => (
+                            <MenuItem key={village.value} value={village.value}>
+                              {village.label}
+                            </MenuItem>
+                          ))
+                        : // Handle other select options if needed
+                          field.options.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                    </Select>
                 </FormControl>
                     </>
                   ) : field.type === "textarea" ? (

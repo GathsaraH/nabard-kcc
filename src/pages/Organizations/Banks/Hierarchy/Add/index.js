@@ -1,10 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import DefaultForm from 'src/components/Forms/DefaultForm';
+import {
+  getAllDistrictApi,
+  getAllStateApi,
+  getAllSubDistrictApi,
+  getAllVillageApi,
+} from "../../../../../services/Attributes/AttributeService";
 const Index = () => {
+  const [states, setStates] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [subDistricts, setSubDistricts] = useState([]);
+  const [villages, setVillages] = useState([]);
+  const [selectedData, setselectedData] = useState({
+    state: "",
+    district: "",
+    subDistict: "",
+    village: "",
+});
+  const getAllState = async () => {
+    try {
+        const data = await getAllStateApi();
+        setStates(data.data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+useEffect(() => {
+    getAllState();
+}, []);
+const getDistrictByStateId = async (stateId) => {
+  try {
+      const data = await getAllDistrictApi(stateId);
+      if(data.datalist){
+        setDistricts(data.datalist);
+      }
+  } catch (error) {
+      console.log(error);
+  }
+};
+useEffect(() => {
+  if (selectedData.state) {
+      getDistrictByStateId(selectedData.state);
+  }
+}, [selectedData.state]);
+  // useEffect(() => {
+  //   // Fetch state data
+  //   getAllStateApi()
+  //     .then(response => {
+  //       setStates(response.data); // Assuming the API response contains an array of state objects
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching state data:', error);
+  //     });
+
+  //   // Fetch district data
+
+  //   // getAllDistrictApi()
+  //   //   .then(response => {
+  //   //     setDistricts(response.data); // Assuming the API response contains an array of district objects
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.error('Error fetching district data:', error);
+  //   //   });
+
+  //   // Fetch subdistrict data
+  //   // getAllSubDistrictApi()
+  //   //   .then(response => {
+  //   //     setSubDistricts(response.data); // Assuming the API response contains an array of subdistrict objects
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.error('Error fetching subdistrict data:', error);
+  //   //   });
+
+  //   // Fetch village data
+  //   // getAllVillageApi()
+  //   //   .then(response => {
+  //   //     setVillages(response.data); // Assuming the API response contains an array of village objects
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.error('Error fetching village data:', error);
+  //   //   });
+  // }, []);
    // Define InputFields with form field details
   const InputFields = [
     {
@@ -204,6 +285,10 @@ const Index = () => {
                       title="Create"
                       headings={formHeadings}
                       inputFieldHierarchy={inputFieldHierarchy}
+                      states={states}
+                      districts={districts}
+                      subDistricts={subDistricts}
+                      villages={villages}
                     />
                   </div>
                 </div>
