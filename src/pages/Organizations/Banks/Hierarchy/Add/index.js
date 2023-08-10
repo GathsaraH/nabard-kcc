@@ -6,6 +6,11 @@ import { MdArrowBackIos } from 'react-icons/md';
 import DefaultForm from 'src/components/Forms/DefaultForm';
 import { getAllDistrictApi, getAllStateApi, getAllSubDistrictApi, getAllVillageApi } from 'src/services/Attributes/AttributeService';
 
+const noOptions = [{
+  label: 'No Data Available',
+  value: '',
+}]
+
 const DefaultInputFields = [
   {
     name: 'BankType',
@@ -67,10 +72,7 @@ const DefaultInputFields = [
     type: 'select',
     required: true,
     heading: 'Address Details', // Adjust the heading
-    options: [
-      { label: '1', value: '1' },
-      { label: '2', value: '2' },
-    ],
+    options: noOptions,
   },
   {
     name: 'SubDistrict',
@@ -78,10 +80,7 @@ const DefaultInputFields = [
     type: 'select',
     required: true,
     heading: 'Address Details', // Adjust the heading
-    options: [
-      { label: 'Sub1', value: 'Sub1' },
-      { label: 'Sub2', value: 'Sub2' },
-    ],
+    options: noOptions,
   },
   {
     name: 'Village',
@@ -89,10 +88,7 @@ const DefaultInputFields = [
     type: 'select',
     required: true,
     heading: 'Address Details', // Adjust the heading
-    options: [
-      { label: 'V1', value: 'V1' },
-      { label: 'V2', value: 'V2' },
-    ],
+    options: noOptions,
   },
   {
     name: 'Pincode',
@@ -179,6 +175,16 @@ const Index = () => {
     router.push('/Organizations/Banks');
   };
 
+  const noValuesFound = () => {
+    // const stateFieldIndex = inputFields.findIndex(field => field.name === 'District');
+    // const updatedInputFields = [...inputFields];
+    // updatedInputFields[stateFieldIndex].options = data.data.map(() => ({
+    //   label: "No data found",
+    //   value: ""
+    // }));
+    // setinputFields(updatedInputFields);
+  }
+
   const getAllState = async () => {
     try {
       const data = await getAllStateApi();
@@ -205,7 +211,7 @@ const Index = () => {
   const getDistrictByStateId = async (stateId) => {
     try {
       const data = await getAllDistrictApi(stateId);
-      if (data.data) {
+      if (data.data.length > 0) {
         const stateFieldIndex = inputFields.findIndex(field => field.name === 'District');
         if (stateFieldIndex !== -1) {
           const updatedInputFields = [...inputFields];
@@ -215,6 +221,8 @@ const Index = () => {
           }));
           setinputFields(updatedInputFields);
         }
+      } else {
+        noValuesFound()
       }
     } catch (error) {
       console.log(error);
@@ -266,23 +274,23 @@ const Index = () => {
   // Get All District By State Id
   useEffect(() => {
     if (formData.State) {
-      getDistrictByStateId(formData.state);
+      getDistrictByStateId(formData.State);
     }
   }, [formData.State]);
 
   // Get All Sub District By District Id
   useEffect(() => {
     if (formData.District) {
-      getSubDistrictByDistrictId(formData.district);
+      getSubDistrictByDistrictId(formData.District);
     }
   }, [formData.District]);
 
   // Get All Sub District By District Id
   useEffect(() => {
-    if (formData.SubDistict) {
-      getVillagesBySubDistrictId(formData.subDistict);
+    if (formData.SubDistrict) {
+      getVillagesBySubDistrictId(formData.SubDistrict);
     }
-  }, [formData.SubDistict]);
+  }, [formData.SubDistrict]);
 
 
   const handleFormChange = (updatedData) => {
@@ -291,7 +299,8 @@ const Index = () => {
 
   return (
     <div>
-      {console.log(formData)}
+      {/* {console.log(formData)} */}
+      {/* {console.log(inputFields)} */}
       <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
         <div className="flex w-full mx-auto ">
           <div className="flex flex-col w-full h-full text-gray-900 text-xl ">
