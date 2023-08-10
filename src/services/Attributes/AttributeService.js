@@ -43,7 +43,7 @@ export async function getAllDistrictApi(stateId) {
     if (response.dataList) {
         const convertedArray = response.dataList.map(item => {
             return {
-              value: item.id,
+              value: item.id, 
               label: item.name,
             };
           });

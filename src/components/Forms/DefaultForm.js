@@ -17,6 +17,7 @@ import { HrTag } from "src/constants/ResponsiveClassName";
 import CardContainer from "../Card/CardContainer";
 import ImageUploader from "../Input/ImageUploader/ImageUploader";
 import { AiOutlineDown } from "react-icons/ai";
+import { getAllDistrictApi } from "src/services/Attributes/AttributeService";
 
 /**
  * A customizable form component.
@@ -72,6 +73,7 @@ const DefaultForm = ({
   });
 
   const handleChange = (e) => {
+    console.log(e.target);
     // const { name, value } = e.target;
     // setFormData((prevData) => ({
     //   ...prevData,
