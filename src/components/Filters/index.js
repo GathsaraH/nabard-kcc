@@ -56,19 +56,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         style={{ width: '100%', maxWidth: '140px' }} // Set maximum width for small screens
                     />
                 </div>
-
-                <div >
-                    <TextField
-                        label={t("Select Header column")}
-                        name={"headerColumn"}
-                        value={value?.headerColumn || ""}
-                        onChange={onChange}
-                        variant="outlined"
-                        size="small"
-                        style={{ width: '100%', maxWidth: '150px' }} //
-                    />
-                </div>
-                <div >
+                <div className="ml-auto" >
                     {!hideIconButton && (
                         <div className="px-2">
                             <IconButton

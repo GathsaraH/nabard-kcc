@@ -5,7 +5,6 @@ import {
   TextField,
   Select,
   MenuItem,
-  TextareaAutosize,
   InputLabel,
   FormControl,
 } from "@mui/material";
@@ -17,7 +16,20 @@ import { HrTag } from "src/constants/ResponsiveClassName";
 import CardContainer from "../Card/CardContainer";
 import ImageUploader from "../Input/ImageUploader/ImageUploader";
 import { AiOutlineDown } from "react-icons/ai";
-import { getAllDistrictApi } from "src/services/Attributes/AttributeService";
+import { makeStyles } from "@mui/styles";
+
+
+
+const useStyles = makeStyles({
+  textField: {
+    width: '200px', // Adjust the width as needed
+    '& .MuiInputBase-input': {
+      height: '20px', // Adjust the height as needed
+    },
+  },
+});
+
+
 
 /**
  * A customizable form component.
@@ -39,6 +51,7 @@ const DefaultForm = ({
   onClick,
   hierarchyType,
 }) => {
+  const classes = useStyles();
   const initialFormData = {};
   const initialErrors = {};
   const [formData, setFormData] = useState(initialFormData);
@@ -52,6 +65,12 @@ const DefaultForm = ({
   });
   const [file, setFile] = useState("");
   // const classes = useStyles();
+
+
+
+
+
+
 
   function uploadSingleFile(e) {
     const { name } = e.target;
@@ -73,7 +92,6 @@ const DefaultForm = ({
   });
 
   const handleChange = (e) => {
-    console.log(e.target);
     // const { name, value } = e.target;
     // setFormData((prevData) => ({
     //   ...prevData,
@@ -273,7 +291,8 @@ const DefaultForm = ({
                         <InputLabel htmlFor={field.name} className="input">
                           {field.label}
                         </InputLabel>
-                        <Select
+                        <Select 
+                        className={classes.textField}
                           id={field.name}
                           name={field.name}
                           value={formData[field.name]}

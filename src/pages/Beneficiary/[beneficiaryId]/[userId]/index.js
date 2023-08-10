@@ -21,8 +21,8 @@ const beneficiaryDetailsContent3 = ['AIF', 'Sept 2023 Quarter', 'Interest Subven
 const beneficiaryDetailsHeading4 = ['Effective Date', 'Rate Of Interest'];
 const beneficiaryDetailsContent4 = ['23 Sept 2022', '9%',];
 
-const modalDetailsDataHeading = ['Transaction Date','Value Date','Particular','Transaction Type','Sub-Type','Outstanding','Days','Int.Sbv Amount']
-const modalDetailsDataContent = ['23 Aug 2023','22 Aug 2023','By Transfer','Credit','Customer Induced','-2,00,000','10','554.25']
+const modalDetailsDataHeading = ['Start Date','End Date','Value Dated Balance','Interest Subvention %','Interest Subvention Calculation',]
+const modalDetailsDataContent = ['23 Aug 2023','22 Aug 2023','By Transfer','Credit','Customer Induced']
 
 
 
@@ -109,8 +109,8 @@ const Index = () => {
   }
 
   function calculationModalContainer() {
-    return <ModalContainer responsiveWidth title="Interest Subvention Calculation Details" showModal={calculationModal} handleModal={handleModalChange} >
-<TableComponent headings={modalDetailsDataHeading} contents={modalDetailsDataContent} colsLength={10} colSpan={2} />
+    return <ModalContainer  title="Interest Subvention Calculation Details" showModal={calculationModal} handleModal={handleModalChange} >
+<TableComponent headings={modalDetailsDataHeading} contents={modalDetailsDataContent} colsLength={6} colSpan={2} />
     </ModalContainer>
 
   }

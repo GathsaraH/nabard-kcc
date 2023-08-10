@@ -77,12 +77,12 @@ const Index = () => {
                           <div className="w-full py-5">
                             {SubHeading("If Group/Company")}
                             <HrTag />
-                            <TableComponent headings={beneficiaryDetailsHeading2} contents={beneficiaryDetailsContent2} colsLength={4} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading2} contents={beneficiaryDetailsContent2} colsLength={3} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("If Individual")}
                             <HrTag />
-                            <TableComponent headings={beneficiaryDetailsHeading3} contents={beneficiaryDetailsContent3} colsLength={4} colSpan={2} />
+                            <TableComponent headings={beneficiaryDetailsHeading3} contents={beneficiaryDetailsContent3} colsLength={3} colSpan={2} />
                           </div>
                           <div className="w-full py-5">
                             {SubHeading("Address")}

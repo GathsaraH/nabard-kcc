@@ -15,7 +15,7 @@ const data = [
 const Index = () => {
   const router = useRouter();
   // eslint-disable-next-line no-unused-vars
-  const [filterData, setfilterData] = useState({ "search": "", "date": "", "startDate": "", "endDate": "", "headerColumn": "" })
+  const [filterData, setfilterData] = useState({ "search": "", "date": "", "startDate": "", "endDate": ""})
 
 
   const AddBankHierarchy = () => {
