@@ -17,7 +17,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', minWidth: '150px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '120px' }}
                     />
                 </div>
 
@@ -29,7 +29,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '150px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '120px' }} // Set maximum width for small screens
                     />
                 </div>
 
@@ -41,7 +41,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '150px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '140px' }} // Set maximum width for small screens
                     />
                 </div>
 
@@ -53,7 +53,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         onChange={onChange}
                         variant="outlined"
                         size="small"
-                        style={{ width: '100%', maxWidth: '150px' }} // Set maximum width for small screens
+                        style={{ width: '100%', maxWidth: '140px' }} // Set maximum width for small screens
                     />
                 </div>
 
@@ -65,6 +65,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         onChange={onChange}
                         variant="outlined"
                         size="small"
+                        style={{ width: '100%', maxWidth: '150px' }} //
                     />
                 </div>
                 <div >

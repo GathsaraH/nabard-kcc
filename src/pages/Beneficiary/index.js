@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import StatusRenderer from 'src/components/StatusRenderer';
-import { TextField } from '@mui/material';
 // import TableWithCheckBox from '../datatables/TableWithCheckBox';
-import SelectInput from 'src/components/Input/Select/SelectInput';
 import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
 import MUIDataTable from "mui-datatables";
+import CommonFilters from 'src/components/Filters';
+import { AiOutlinePlus } from 'react-icons/ai';
+
 
 const data = [
   { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', Status: 'Inactive' },
@@ -33,8 +34,8 @@ const Index = () => {
 
   const handleRowClicked = (rowData) => {
     // Assuming the row data contains an "id" property
-    if(rowData.id){
-    router.push(`/Beneficiary/${rowData.id}/`)
+    if (rowData.id) {
+      router.push(`/Beneficiary/${rowData.id}/`)
     }
   };
 
@@ -71,7 +72,7 @@ const Index = () => {
     {
       label: 'Actions',
       name: 'actions',
-      options:{
+      options: {
         customBodyRender: (value, tableMeta) => {
           const rowData = data[tableMeta.rowIndex];
           return <MenuItemComponent viewOnclick={handleRowClicked} rowData={rowData} />;
@@ -93,56 +94,14 @@ const Index = () => {
   };
 
 
+
   return (
     <div className='bg-white p-4'>
-      <div className="flex flex-wrap gap-1 mb-4">
-        <div className="px-1">
-          <TextField
-            label={t("Search user")}
-            name="search"
-            variant="outlined"
-            size="small"
-            onChange={handleInputChange}
-          />
-        </div>
+      <CommonFilters value={filterData} hideIconButton onChange={handleInputChange}  addButtonLabel="Add Scheme" icon={<AiOutlinePlus />} />
 
-        <div className="px-2">
-          <SelectInput name={"date"} label="Date" options={dateOptions} onChange={handleInputChange} />
-        </div>
-
-        <div className="px-2">
-          <TextField
-            label={t("Start Date")}
-            name="startDate"
-            variant="outlined"
-            size="small"
-            onChange={handleInputChange}
-          />
-          {/* <DatePickerInput label={'Start Date'} name="startDate" onChange={handleInputChange} /> */}
-        </div>
-
-        <div className="px-2">
-          <TextField
-            id="outlined-basic"
-            label={t("End Date")}
-            name="endDate"
-            variant="outlined"
-            size="small"
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="px-10">
-
-        </div>
-        <div className="px-2">
-          <SelectInput name={"headerColumn"} label="Select Header column" options={headerOptions} onChange={handleInputChange} />
-        </div>
-        {/* <div className="px-2">
-          <IconButton label="Export" className="" icon={<AiOutlinePlus />} onClick={AddBankHierarchy} />
-        </div> */}
+      <div className='mt-5' >
+        <MUIDataTable options={options} data={data} columns={columns} />
       </div>
-      <MUIDataTable options={options} data={data} columns={columns} />
 
       {/* <TableWithCheckBox width={'300'} rowData={rowData} columnDefs={columnDefs} pagination={true} /> */}
     </div>
