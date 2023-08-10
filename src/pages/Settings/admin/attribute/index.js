@@ -147,6 +147,7 @@ const Index = () => {
         try {
             const data = await getAllStateApi();
             setStateList(data.data);
+         
         } catch (error) {
             console.log(error);
         }
