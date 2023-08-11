@@ -109,7 +109,7 @@ const Index = () => {
   }
 
   function calculationModalContainer() {
-    return <ModalContainer  title="Interest Subvention Calculation Details" showModal={calculationModal} handleModal={handleModalChange} >
+    return <ModalContainer title="Interest Subvention Calculation Details" showModal={calculationModal} handleModal={handleModalChange} >
 <TableComponent headings={modalDetailsDataHeading} contents={modalDetailsDataContent} colsLength={6} colSpan={2} />
     </ModalContainer>
 

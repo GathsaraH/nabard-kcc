@@ -476,7 +476,7 @@ const Header = () => {
                                         </div>
                                     </li>
                                     <li>
-                                        <Link href="/users/profile" className="dark:hover:text-white">
+                                        <Link href="/Profile/2" className="dark:hover:text-white">
                                             <svg className="ltr:mr-2 rtl:ml-2 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
                                                 <path

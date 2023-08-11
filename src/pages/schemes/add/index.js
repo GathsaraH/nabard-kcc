@@ -1,34 +1,77 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import DefaultForm from 'src/components/Forms/DefaultForm';
 // import 'file-upload-with-preview/dist/file-upload-with-preview.min.css';
-import ImageUploading, { ImageListType } from 'react-images-uploading';
-import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { Grid } from '@mui/material';
-import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
 import { HrTag } from 'src/constants/ResponsiveClassName';
+import MuiTableComponet from 'src/components/Table/Mui/MuiTableComponet';
+import IconButton from 'src/components/Button/IconButtonComponent';
+import ModalContainer from 'src/components/Modal/ModalContainer';
+import SelectInput from 'src/components/Input/Select/SelectInput';
+
+const columns = [
+    { id: "benefit", label: "Benefit" },
+    { id: "benefitPercentage", label: "Benefit  %" },
+    {
+        id: "StartDate",
+        label: "Start date",
+        align: "right",
+        format: "population"
+    },
+    {
+        id: "endDate",
+        label: "End Date",
+        align: "right",
+        format: "population"
+    },
+    {
+        id: "action",
+        label: "Action",
+        align: "right",
+        format: "population"
+    }
+];
+
+const rows = [
+    {
+        id: 1,
+        benefit: "India",
+        benefitPercentage: "IN",
+        StartDate: 1324171354,
+        endDate: 3287263,
+        action: "asd",
+    },
+    {
+        id: 2,
+        benefit: "China",
+        benefitPercentage: "CN",
+        StartDate: 1403500365,
+        endDate: 9596961,
+        action: ""
+
+    },
+    {
+        id: 3,
+        benefit: "Italy",
+        benefitPercentage: "IT",
+        StartDate: 60483973,
+        endDate: 301340,
+        action: ""
+
+    }
+    // ... Add other rows ...
+];
 
 const Index = () => {
-    const [rowData] = useState([
-        { name: 'Toyota', type: 'Celica', value: 35000 },
-        { name: 'Ford', type: 'Mondeo', value: 32000 },
-    ]);
+    const [showAddModal, setshowAddModal] = useState(false)
 
-    const [columnDefs] = useState([
-        { field: 'name' },
-        { field: 'type' },
-        { field: 'value' },
-        {
-            headerName: 'Actions',
-            field: 'actions',
-            cellRenderer: (params) => (
-                <MenuItemComponent rowData={params.data} />
-            ),
-        },
-    ]);
+    const handleAddModalChange = () => {
+        setshowAddModal(!showAddModal)
+    }
 
+    // eslint-disable-next-line no-unused-vars
     const [schemeFormData, setSchemeFormData] = useState({})
 
     const handleChange = (data) => {
@@ -69,17 +112,25 @@ const Index = () => {
         console.log("success")
     }
 
-    const defaultColDef = useMemo(() => {
-        return {
-            flex: 1,
-        };
-    }, []);
 
 
     function SubHeading(item) {
         return <div className="mr-5 m-2 m-sm-10 text-primary font-bold">
             {item}
         </div>
+    }
+
+    function addBenefitsModal(){
+        return <>
+            <ModalContainer title="Benefits" showModal={showAddModal} handleModal={handleAddModalChange} >
+                <Grid container >
+                <Grid xs={12} sm={12} item>Types of benefits</Grid>
+                <Grid xs={12} sm={12} item>
+                   <SelectInput label="Type of Benefits" options={[{label:"1",value:"1"}]} />
+                </Grid>
+                </Grid>
+            </ModalContainer>
+        </>
     }
 
     return (
@@ -92,22 +143,22 @@ const Index = () => {
                                 <div className="flex w-full">
                                     <div className="w-full block rounded-lg shadow-lg bg-white">
                                         <DefaultForm onChange={handleChange} onSubmit={handleSubmit} fields={fields} headings={headings} title="Create" >
-                                            {/* <Grid item xs={12} sm={5} >
-                                                <div className='ml-5' >
-                                                    {SubHeading("Attributes")}
-                                                    <HrTag />
+                                            <Grid item xs={12} sm={5} >
+                                            <div className="ml-2 flex justify-between items-center mr-10">
+                                                    {SubHeading("Benefits")}
                                                     <br />
-                                                </div>
-                                                <div style={{ height: '15rem', width: '80%' }} className="ag-theme-alpine ml-5">
-                                                    <AgGridReact
-                                                        rowSelection="multiple"
-                                                        suppressRowClickSelection
-                                                        columnDefs={columnDefs}
-                                                        rowData={rowData}
-                                                        defaultColDef={defaultColDef}
+                                                    <IconButton
+                                                        label={'Add'}
+                                                        className="btn-outline-primary w-[100px]"
+                                                        // icon={icon}
+                                                        onClick={handleAddModalChange}
                                                     />
                                                 </div>
-                                            </Grid> */}
+                                                <HrTag />
+                                                <div style={{ height: '15rem', width: '100%' }} className="ag-theme-alpine ml-5">
+                                                    <MuiTableComponet rows={rows} columns={columns} />
+                                                </div>
+                                            </Grid>
                                         </DefaultForm>
                                     </div>
                                 </div>
@@ -116,6 +167,7 @@ const Index = () => {
                     </div>
                 </div>
             </main>
+           { addBenefitsModal()}
         </div>
 
     )
