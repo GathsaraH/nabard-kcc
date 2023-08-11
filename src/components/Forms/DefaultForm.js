@@ -170,8 +170,18 @@ const DefaultForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      onSubmit(formData);
+    // if (validateForm()) {
+    //   onSubmit(formData);
+    //   // setFormData(initialFormData);
+    //   setErrors(initialErrors);
+    // }
+     if (validateForm()) {
+      const formDataWithHierarchy = {
+        ...formData,
+        inputFieldHierarchy: inputFieldHierarchy.data,
+      };
+
+      onSubmit(formDataWithHierarchy);
       // setFormData(initialFormData);
       setErrors(initialErrors);
     }
