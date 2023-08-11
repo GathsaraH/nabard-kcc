@@ -22,10 +22,14 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   textField: {
-    width: '200px', // Adjust the width as needed
+    width: '240px',
     '& .MuiInputBase-input': {
-      height: '20px', // Adjust the height as needed
+      // height: '1rem', 
     },
+  },
+  select: {
+    width: '240px', 
+    // height: '3rem', 
   },
 });
 
@@ -246,11 +250,11 @@ const DefaultForm = ({
     <form onSubmit={handleSubmit}>
       {headings.map((heading) => (
         <div key={heading.name}>
-          <div className="grid lg:grid-cols-2 mt-2 ml-3">
+          <div className="grid lg:grid-cols-2 mt-2 ml-3 p-3">
             <span className="mr-5 text-primary font-bold">{heading}</span>
           </div>
           <HrTag />
-          <Grid container px={4} py={4} columns={12} spacing={3}>
+          <Grid container px={4} py={4} columns={12} spacing={2}>
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
                 <Grid item xs={12} sm={5} key={field.name}>
@@ -280,7 +284,7 @@ const DefaultForm = ({
                   )}
                 </Grid>
               ) : (
-                <Grid item xs={12} sm={4} key={field.name}>
+                <Grid item xs={12} sm={3} key={field.name}>
                   {field.type === "select" ? (
                     <>
                       <FormControl
@@ -292,7 +296,17 @@ const DefaultForm = ({
                           {field.label}
                         </InputLabel>
                         <Select 
-                        className={classes.textField}
+                       className={classes.select}
+                       InputLabelProps={{
+                      className: "common-Font-Family",
+                    }}
+                    InputProps={{
+                      style: {
+                        fontSize: "0.875rem",
+                        fontFamily: "Montserrat",
+                        fontWeight: "500",
+                      },
+                    }}  
                           id={field.name}
                           name={field.name}
                           value={formData[field.name]}
@@ -312,6 +326,7 @@ const DefaultForm = ({
                   ) : field.type === "textarea" ? (
                       <TextField
                         id={field.name}
+                        className={classes.textField}
                         multiline
                         rows={5}
                         name={field.name}
@@ -320,11 +335,11 @@ const DefaultForm = ({
                         placeholder={field.placeholder}
                         onChange={handleChange}
                         variant="outlined"
-                        className="form-input"
                       />
                   ) : (
                     <TextField
                       type={field.type}
+                      
                       id={field.name}
                       label={field.label}
                       placeholder={field.placeholder}
@@ -332,13 +347,14 @@ const DefaultForm = ({
                       value={formData[field.name]}
                       onChange={handleChange}
                       variant="outlined"
-                      className="form-input"
-                      InputProps={{
-                        style: {
-                          padding: "10.5px 14px", // Adjust padding values as needed
-                          height: "55px", // Set the desired height
-                        },
-                      }}
+                      className={classes.textField}
+                      // InputProps={{
+                      //   style: {
+                      //     padding: "10.5px 14px", // Adjust padding values as needed
+                      //     height: "55px", // Set the desired height
+                      //   },
+                      // }}
+                      
                     />
                   )}
                   {errors[field.name] && (

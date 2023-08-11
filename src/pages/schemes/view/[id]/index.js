@@ -32,6 +32,14 @@ const benefitsUnderSchemeData = [
 ]
 
 const Index = () => {
+  const pdfUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+
+
+    const openPdfInNewTab = (pdfUrl) => {
+    // Open the PDF in a new tab
+    window.open(pdfUrl, '_blank');
+  };
+
 
     function PageTitle() {
         return <div>
@@ -119,7 +127,7 @@ const Index = () => {
                                                         <HrTag />
                                                       <div className='flex flex-start' >
                                                          <div className='mt-2' >
-                                                         <PdfSvg/>
+                                                        <button onClick={() => openPdfInNewTab(pdfUrl)}> <PdfSvg/></button>
                                                          </div>
                                                         <span className="mr-5 m-2 m-sm-10  text-lg font-semibold">
                                                         AIF Notification.pdf 
