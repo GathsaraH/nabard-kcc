@@ -34,4 +34,14 @@ export const UrlConstants = {
     // API endpoint to get all village by sub district id
     GET_VILLAGES_BY_SUB_DISTRICT: '/sub-districts',
 
+    //  API endpoint to create or save bank hierarchy 
+    ADD_BANK : "/add/bank-masters" ,
+
+    // API endpoint to get all bank types 
+    GET_ALL_BANK_TYPE : "/bank-type-masters",
+
+       // API endpoint to get all bank names 
+       GET_ALL_BANK_NAME : "/bank-name-masters",
+
+       
   };
