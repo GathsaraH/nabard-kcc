@@ -27,7 +27,8 @@ const DefaultInput = ({
   error,
   icon,
   secondIcon,
-  onClickSecondIcon
+  onClickSecondIcon,
+  name
 }) => {
 
   return (
@@ -59,6 +60,7 @@ const DefaultInput = ({
       }
       <input
         id={id}
+        name={name}
         value={value}
         type={type === 'password' ? 'password' : type === 'email' ? 'email' : 'text'}
         className={`form-input pr-8 pl-10 text-lg ${error ? 'border-red-500' : ''}`}

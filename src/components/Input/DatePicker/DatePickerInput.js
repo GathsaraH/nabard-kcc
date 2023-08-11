@@ -8,10 +8,9 @@ import { Box } from "@mui/material";
 /**
  * A dynamic date picker component.
  *
- * @param {Object} props - The component props.
- * @param {string} props.label - The label for the date picker input.
- * @param {Date | null} props.value - The selected date value for the date picker.
- * @param {function(Date | null): void} props.onChange - The callback function that gets called when the date picker value changes.
+ * @param {string} label - The label for the date picker input.
+ * @param {Date | null} value - The selected date value for the date picker.
+ * @param {function(Date | null): void} onChange - The callback function that gets called when the date picker value changes.
  * @param {string} [props.className] - The optional className for the wrapper div.
  * @param {string} [props.width='100%'] - The width of the wrapper div.
  * @param {string} [props.height='100%'] - The height of the wrapper div.
@@ -23,7 +22,8 @@ const DatePickerInput = ({
   onChange,
   className,
   width = "100%",
-  height = "10px",
+  height = '20px', 
+
 }) => {
   return (
     <div className={className} style={{ width, height }}>
@@ -39,7 +39,7 @@ const DatePickerInput = ({
               variant="outlined"
               size="small"
               {...params}
-              inputProps={{ style: { height } }} // Set the height for the input element
+              inputProps={{ style: { height: '10px' } }}
             />
           )}
         />

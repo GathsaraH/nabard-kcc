@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { ColorConstants } from "src/constants/ColorConstants";
 import MenuItemComponent from "src/components/Input/Others/MenuItemComponent";
 
-const MuiTableComponet = ({ columns, rows }) => {
+const MuiTableComponet = ({ columns, rows,onView }) => {
   return (
     <Paper sx={{ width: '95%', overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -37,7 +37,7 @@ const MuiTableComponet = ({ columns, rows }) => {
                   const value = row[column.id];
                   return (
                     <TableCell key={column.id} align={column.align}>
-                    {column.id === 'action' ? <MenuItemComponent/> : value }
+                    {column.id === 'action' ? <MenuItemComponent viewOnclick={onView} /> : value }
                     </TableCell>
                   );
                 })}
