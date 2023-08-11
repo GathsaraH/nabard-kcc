@@ -1,7 +1,8 @@
 // Constants for URLs used in the application
 export const UrlConstants = {
     // Base URL for API requests
-    BASE_URL: 'http://115.166.142.18:8084/nab/api',
+    // BASE_URL: 'http://115.166.142.18:8084/nab/api',
+    BASE_URL: 'http://115.166.142.18:8084/nabnext/api',
   
     // API endpoint to check if an email exists in the system
     // Params: email (string) - The email to check for existence
@@ -34,4 +35,14 @@ export const UrlConstants = {
     // API endpoint to get all village by sub district id
     GET_VILLAGES_BY_SUB_DISTRICT: '/sub-districts',
 
+    //  API endpoint to create or save bank hierarchy 
+    ADD_BANK : "/add/bank-masters" ,
+
+    // API endpoint to get all bank types 
+    GET_ALL_BANK_TYPE : "/bank-type-masters",
+
+       // API endpoint to get all bank names 
+       GET_ALL_BANK_NAME : "/bank-name-masters",
+
+       
   };

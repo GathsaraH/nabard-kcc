@@ -400,7 +400,7 @@ const DefaultForm = ({
                     label="Level 2"
                     name="level2"
                     onChange={(evnt) =>
-                      handleInputChange(index, "level2", evnt.target.value)
+                      handleInputChange("level2", evnt.target.value)
                     }
                     value={inputFieldHierarchy.data.level2}
                     required
@@ -434,7 +434,7 @@ const DefaultForm = ({
                     label="Level 3"
                     name="level3"
                     onChange={(evnt) =>
-                      handleInputChange(index, "level3", evnt.target.value)
+                      handleInputChange( "level3", evnt.target.value)
                     }
                     value={inputFieldHierarchy.data.level3}
                     required
@@ -468,7 +468,7 @@ const DefaultForm = ({
                     label="Level 4"
                     name="level4"
                     onChange={(evnt) =>
-                      handleInputChange(index, "level4", evnt.target.value)
+                      handleInputChange( "level4", evnt.target.value)
                     }
                     value={inputFieldHierarchy.data.level4}
                     required
@@ -503,7 +503,7 @@ const DefaultForm = ({
                         label="Level 5"
                         name="level5"
                         onChange={(evnt) =>
-                          handleInputChange(index, "level5", evnt.target.value)
+                          handleInputChange( "level5", evnt.target.value)
                         }
                         value={inputFieldHierarchy.data.level5}
                         required

@@ -5,7 +5,7 @@ import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import DefaultForm from 'src/components/Forms/DefaultForm';
 import { getAllDistrictApi, getAllStateApi, getAllSubDistrictApi, getAllVillageApi } from 'src/services/Attributes/AttributeService';
-
+import { getAllBankTypeApi , getAllBankNameApi , addBankMastersApi } from 'src/services/Banks/BankService';
 const noOptions = [{
   label: 'No Data Available',
   value: '',
@@ -16,50 +16,52 @@ const DefaultInputFields = [
     name: 'BankType',
     label: 'Type of Bank',
     type: 'select',
-    required: true,
+    required:false,
     heading: 'Bank Details', // Heading for the first new field
-    options: [
-      { label: 'Public Sector', value: 'Public Sector' },
-      { label: 'Local Area Banks', value: 'Local Area Banks' },
-    ],
+    // options: [
+    //   { label: 'Public Sector', value: 'Public Sector' },
+    //   { label: 'Local Area Banks', value: 'Local Area Banks' },
+    // ],
+    options:noOptions
   },
   {
     name: 'BankName',
     label: 'Bank Name',
     type: 'select',
-    required: true,
+    required: false,
     heading: 'Bank Details', // Heading for the second new field
-    options: [
-      { label: '1', value: '1' },
-      { label: '2', value: '2' },
-    ],
+    options:noOptions
+    // options: [
+    //   { label: '1', value: '1' },
+    //   { label: '2', value: '2' },
+    // ],
   },
   {
     name: 'ShortName',
     label: 'Short Name',
     type: 'text',
-    required: true,
+    required: false,
     heading: 'Bank Details', // Heading for the third new field
   },
   {
     name: 'fileField',
     label: 'Upload Image',
     type: 'file',
-    required: true,
+    required: false,
     heading: 'Bank Logo'
   },
   {
     name: 'Address',
     label: 'Address',
     type: 'textarea',
-    required: true,
+    required: false,
     heading: 'Address Details',
   },
   {
     name: 'State',
     label: 'State',
     type: 'select',
-    required: true,
+    required: false,
     heading: 'Address Details', // Adjust the heading
     options: [
       { label: 'S1', value: 's1' },
@@ -105,21 +107,14 @@ const DefaultInputFields = [
     heading: 'Super Admin Details',
   },
   {
-    name: 'UserID',
-    label: 'User ID',
-    type: 'text',
-    required: true,
-    heading: 'Super Admin Details',
-  },
-  {
     name: 'Designation',
     label: 'Designation',
     type: 'select', // This indicates it's a select input
     required: true,
     heading: 'Super Admin Details',
     options: [
-      { label: 'D1', value: 'D1' },
-      { label: 'D2', value: 'D2' },
+      { label: 'D1', value: '1' },
+      { label: 'D2', value: '1' },
     ],
   },
   {
@@ -141,9 +136,13 @@ const DefaultInputFields = [
 const Index = () => {
   const [inputFields, setinputFields] = useState([...DefaultInputFields])
   const [stateList, setStateList] = useState([]);
-  const [districtList, setdistrictList] = useState([]);
-  const [subDistrictList, setsubDistrictList] = useState([]);
-  const [villageList, setvillageList] = useState([]);
+  const [bankType, setBankType] = useState([]);
+  const[bankName ,setBankName] = useState([]);
+  const [selectedBankTypeId, setSelectedBankTypeId] = useState(null);
+  const [selectedBankNameId, setSelectedBankNameId] = useState(null);
+  // const [districtList, setdistrictList] = useState([]);
+  // const [subDistrictList, setsubDistrictList] = useState([]);
+  // const [villageList, setvillageList] = useState([]);
   const [formData, setFormData] = useState({});
   // Define form section headings
   const formHeadings = [
@@ -166,10 +165,71 @@ const Index = () => {
     },
   ]);
   // Function to handle form submission
-  const handleSubmit = (formData) => {
-    // Process the form data when the form is submitted
-    console.log(formData);
+  // const handleSubmit = (formData) => {
+  //   // Process the form data when the form is submitted
+  //   console.log("formdata" , formData);
+  // };
+  const handleSubmit = async () => {
+    console.log("formdata" , formData)
+    console.log("selectedBankTypeId" , selectedBankTypeId);
+    console.log("selectedBankNameId" , selectedBankNameId);
+    // try {
+    //   // Prepare the request body using the formData
+    //   const bankData = {
+    //     nabUserDTO: {
+    //       firstName: formData.EmployeeName,
+    //       middleName:"",
+    //       lastName:"",
+    //       email:formData.EmailID,
+    //       mobileNo:formData.ContactNumber,
+    //       nabRoleID:formData.Designation,
+    //       // ... (other user details)
+    //     },
+    //     bankMasterDTO: {
+    //       email: "",
+    //       mobileNo:"",
+    //       shortName:formData.ShortName,
+    //       fileName:formData.fileField,
+    //       bankTypeMasterId:formData.bankType.id,
+    //       bankNameMasterId:formData.bankName.id
+    //     },
+    //     addressDTO:{
+    //       address:formData.Address,
+    //       pincode:formData.Pincode,
+    //       villageMasterId:formData.Village.id
+    //     },
+    //     bankHierarchyNameDTO:[{
+    //       name:"HO"  
+    //   },{
+    //    name:""
+    //    },{
+    //         name:""  
+    //    },{
+    //    name:""  
+    //    },{
+    //    name:""  
+    //    }]
+    //     // ... (other parts of the request body)
+    //   };
+  
+    //   // Call the addBankMastersApi with the prepared request body
+    //   const response = await addBankMastersApi(bankData);
+  
+    //   // Handle the API response here
+    //   console.log('API response:', response);
+    //   // You can extract the status and data from the response object
+    //   const { status, data } = response;
+    //   // Do further processing based on the status and data
+  
+    //   // If the API call is successful, you can navigate or perform other actions
+    //   if (status === 201) {
+    //     router.push('/Organizations/Banks'); // Redirect to a success page or another route
+    //   }
+    // } catch (error) {
+    //   console.error('API error:', error);
+    // }
   };
+  
   // Function to handle form cancellation
   const handleCancel = () => {
     router.push('/Organizations/Banks');
@@ -203,8 +263,48 @@ const Index = () => {
     }
   };
 
+  
+
+  
+  const getAllBankType = async () => {
+    try {
+      const data = await getAllBankTypeApi();
+      setBankType(data); // Assuming data is an array of objects
+      const BankFieldIndex = inputFields.findIndex(field => field.name === 'BankType');
+      if (BankFieldIndex !== -1) {
+        const updatedInputFields = [...inputFields];
+        updatedInputFields[BankFieldIndex].options = data.response.map(bank => ({
+          label: bank.name,
+          value: bank.name
+        }));
+        setinputFields(updatedInputFields);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllBankName = async () => {
+    try {
+      const data = await getAllBankNameApi();
+      setBankName(data); // Assuming data is an array of objects
+      const BankFieldIndex = inputFields.findIndex(field => field.name === 'BankName');
+      if (BankFieldIndex !== -1) {
+        const updatedInputFields = [...inputFields];
+        updatedInputFields[BankFieldIndex].options = data.response.map(bank => ({
+          label: bank.name,
+          value: bank.name
+        }));
+        setinputFields(updatedInputFields);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   useEffect(() => {
     getAllState();
+    getAllBankType();
+    getAllBankName();
   }, []);
 
   // Get All District By State Id
@@ -295,12 +395,21 @@ const Index = () => {
 
   const handleFormChange = (updatedData) => {
     setFormData(updatedData);
+      // Get selected bank type id
+      const selectedBankType = bankType.find(item => item.name === updatedData.BankType);
+      if (selectedBankType) {
+        setSelectedBankTypeId(selectedBankType.id);
+      }
+  
+      // Get selected bank name id
+      const selectedBank = bankName.find(item => item.name === updatedData.BankName);
+      if (selectedBank) {
+        setSelectedBankNameId(selectedBank.id);
+      }
   };
 
   return (
     <div>
-      {/* {console.log(formData)} */}
-      {/* {console.log(inputFields)} */}
       <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
         <div className="flex w-full mx-auto ">
           <div className="flex flex-col w-full h-full text-gray-900 text-xl ">
