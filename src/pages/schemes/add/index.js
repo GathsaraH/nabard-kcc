@@ -177,14 +177,14 @@ const fields = [
     },
     {
         name: "maximumCapAmountOfBenefits",
-        label: "Maximum CapAmount of Benefits; if any",
+        label: "Maximum CapAmount; if any",
         type: "text",
         required: true,
         heading: "Benefits under the Scheme",
     },
     {
         name: "maximumLoanTenureIncludingMorotorium",
-        label: "Maximum Loan Tenure; including Morotorium ( in months)",
+        label: "Maximum Loan Tenure(in months)",
         type: "text",
         required: true,
         heading: "Benefits under the Scheme",
@@ -309,7 +309,6 @@ const Index = () => {
     function addBenefitsModal() {
         return (
             <>
-                {console.log(benefitsFormData)}
                 <ModalContainer
                     responsiveWidth
                     className="mt-5 "
@@ -385,6 +384,7 @@ const Index = () => {
 
     return (
         <div>
+            {console.log(schemeFormData)}
             <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
                 <div className="flex w-full mx-auto px-6 py-8">
                     <div className="flex flex-col w-full h-full text-gray-900 text-xl ">

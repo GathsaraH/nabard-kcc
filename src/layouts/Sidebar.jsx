@@ -176,7 +176,7 @@ const Sidebar = () => {
           <div className="flex items-center">
             {menuOption.icon}
             <Link className="ml-5" href={menuOption.link}>
-              {t(menuOption.title)}
+            {menuOption.title}
             </Link>{" "}
             {/* Main */}
           </div>
@@ -185,17 +185,20 @@ const Sidebar = () => {
     }
 
     function ListItem(menuOption) {
-        const [isActive, setIsActive] = useState(false);
+      const [isActive, setIsActive] = useState(false);
 
-  useEffect(() => {
-    const linkMatches = router.pathname === menuOption.link;
-    console.log("router.pathname", router.pathname)
-    setIsActive(linkMatches);
-  }, [router.pathname, menuOption.link]);
+      useEffect(() => {
+        const linkMatches = router.pathname === menuOption.link;
+        setIsActive(linkMatches);
+      }, [router.pathname, menuOption.link]);
+
+      function goToPage() {
+        router.push(menuOption.link);
+      }
 
 
       return (
-       <li className={`mb-1 flex items-center py-3 px-7 font-extrabold  hover:text-white ${isActive ? "hover:bg-primary" : "hover:bg-svg-background"}`}>
+        <li className={`mb-1 flex items-center py-3 px-7 font-extrabold ${isActive}  hover:text-white ${isActive ? "hover:bg-primary" : "hover:bg-svg-background"}`}>
           <svg
             className="hidden h-5 w-4 flex-none"
             viewBox="0 0 24 24"
@@ -209,9 +212,9 @@ const Sidebar = () => {
           </svg>
           <div className="flex items-center">
             {menuOption.icon}
-            <Link className="ml-5" href={menuOption.link}>
-              {t(menuOption.title)} 
-            </Link>{" "}
+            <span className="ml-5" >
+            <button onClick={goToPage} >  {menuOption.title}</button>
+            </span>{" "}
             {/* main */}
           </div>
         </li>
@@ -220,32 +223,28 @@ const Sidebar = () => {
 
     return (
       <React.Fragment key={index}>
-        {console.log(`currentMenu${currentMenu}`)}
         {menuOption.subMenu ? (
           <li
-            className={`menu nav-item px-7 ${
-              currentMenu === menuOption.title
+            className={`menu nav-item px-7 ${currentMenu === menuOption.title
                 ? "active no-padding-x"
                 : "hover:bg-svg-background group"
-            }`}
+              }`}
           >
             <button
               type="button"
-              className={`${
-                currentMenu === menuOption.title ? "active" : ""
-              } nav-link group w-full`}
+              className={`${currentMenu === menuOption.title ? "active" : ""
+                } nav-link group w-full`}
               onClick={() => toggleMenu(menuOption.title)}
             >
               <div className="flex items-center">
                 <div
-                  className={`${
-                    currentMenu === menuOption.title ? "ml-4" : ""
-                  }`}
+                  className={`${currentMenu === menuOption.title ? "ml-4" : ""
+                    }`}
                 >
                   {menuOption.icon}
                 </div>
                 <li className="ml-5 py-2 font-extrabold  hover:text-white ">
-                  {t(menuOption.title)}
+                  {menuOption.title}
                 </li>
               </div>
               <div
@@ -295,13 +294,13 @@ const Sidebar = () => {
       </React.Fragment>
     );
   }
-
+//get current menu
   return (
     <div className={semidark ? "dark" : ""}>
+    {/* {console.log(`currentMenu`, currentMenu)} */} 
       <nav
-        className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${
-          semidark ? "text-white-dark" : ""
-        }`}
+        className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? "text-white-dark" : ""
+          }`}
       >
         <div className="h-full bg-white dark:bg-black">
           <div className="flex items-center justify-between px-4 py-3">

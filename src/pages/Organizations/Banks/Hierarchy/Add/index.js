@@ -299,7 +299,7 @@ const Index = () => {
 
   return (
     <div>
-      {/* {console.log(formData)} */}
+      {console.log(formData)}
       {/* {console.log(inputFields)} */}
       <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
         <div className="flex w-full mx-auto ">

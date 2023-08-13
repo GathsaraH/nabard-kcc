@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     },
   },
   select: {
-    width: '250px',
+    width: '240px',
     // height: '3rem', 
   },
 });
@@ -36,14 +36,13 @@ const useStyles = makeStyles({
 const textFieldSize = {
   style: {
     height: 40,
-    // width: 220
+    width: 200,
   },
 }
 const labelSize = {
   style: {
     fontSize: 14,
     margin: `-4px 0 0 10px`,
-    marginRight: 2
     // marginBottom: '10px'
   },
 }
@@ -269,14 +268,14 @@ const DefaultForm = ({
             <span className="mr-5 text-primary font-bold">{heading}</span>
           </div>
           <HrTag />
-          <Grid container px={4} py={4} columns={12} spacing={5}>
+          <Grid container px={4} py={4} columns={12} spacing={2}>
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
-                <Grid item xs={12} sm={6} key={field.name}>
+                <Grid item xs={12} sm={5} key={field.name}>
                   <ImageUploader file={file} onChange={uploadSingleFile} />
                 </Grid>
               ) : field.type === "checkbox" ? (
-                <Grid item xs={12} sm={3} key={field.name}>
+                <Grid item xs={12} sm={4} key={field.name}>
                   <CardContainer shadow={"shadow-lg"}>
                     <div className="flex items-center">
                       <input
@@ -299,7 +298,7 @@ const DefaultForm = ({
                   )}
                 </Grid>
               ) : (
-                <Grid item xs={12} sm={4} md={4} lg={4} xl={4} key={field.name}>
+                <Grid item xs={12} sm={3} key={field.name}>
                   {field.type === "select" ? (
                     <>
                       <FormControl
