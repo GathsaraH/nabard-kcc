@@ -138,8 +138,8 @@ const Index = () => {
   const [stateList, setStateList] = useState([]);
   const [bankType, setBankType] = useState([]);
   const[bankName ,setBankName] = useState([]);
-  const [selectedBankTypeId, setSelectedBankTypeId] = useState(null);
-  const [selectedBankNameId, setSelectedBankNameId] = useState(null);
+  // const [selectedBankTypeId, setSelectedBankTypeId] = useState('');
+  // const [selectedBankNameId, setSelectedBankNameId] = useState('');
   // const [districtList, setdistrictList] = useState([]);
   // const [subDistrictList, setsubDistrictList] = useState([]);
   // const [villageList, setvillageList] = useState([]);
@@ -160,8 +160,8 @@ const Index = () => {
   const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
     {
       level: 'Head Office',
-      data: { level2: '', level3: '', level4: '' },
-      inputErrors: { level2: '', level3: '', level4: '' },
+      data: { level2: '', level3: '', level4: '' , level5:'' },
+      inputErrors: { level2: '', level3: '', level4: '' , level5:"" },
     },
   ]);
   // Function to handle form submission
@@ -171,63 +171,75 @@ const Index = () => {
   // };
   const handleSubmit = async () => {
     console.log("formdata" , formData)
-    console.log("selectedBankTypeId" , selectedBankTypeId);
-    console.log("selectedBankNameId" , selectedBankNameId);
-    // try {
-    //   // Prepare the request body using the formData
-    //   const bankData = {
-    //     nabUserDTO: {
-    //       firstName: formData.EmployeeName,
-    //       middleName:"",
-    //       lastName:"",
-    //       email:formData.EmailID,
-    //       mobileNo:formData.ContactNumber,
-    //       nabRoleID:formData.Designation,
-    //       // ... (other user details)
-    //     },
-    //     bankMasterDTO: {
-    //       email: "",
-    //       mobileNo:"",
-    //       shortName:formData.ShortName,
-    //       fileName:formData.fileField,
-    //       bankTypeMasterId:formData.bankType.id,
-    //       bankNameMasterId:formData.bankName.id
-    //     },
-    //     addressDTO:{
-    //       address:formData.Address,
-    //       pincode:formData.Pincode,
-    //       villageMasterId:formData.Village.id
-    //     },
-    //     bankHierarchyNameDTO:[{
-    //       name:"HO"  
-    //   },{
-    //    name:""
-    //    },{
-    //         name:""  
-    //    },{
-    //    name:""  
-    //    },{
-    //    name:""  
-    //    }]
-    //     // ... (other parts of the request body)
-    //   };
+    try {
+      // Prepare the request body using the formData
+      const bankHierarchyNameDTO = inputFieldHierarchy.map(item => ({
+        name: item.level,
+        level2: item.data.level2 || '', // Use the values if available, otherwise ''
+        level3: item.data.level3 || '', // Use the values if available, otherwise ''
+        level4: item.data.level4 || '', // Use the values if available, otherwise ''
+      }));
+      const bankData = {
+        nabUserDTO: {
+          firstName: formData.EmployeeName,
+          middleName:"",
+          lastName:"",
+          email:formData.EmailID,
+          mobileNo:formData.ContactNumber,
+          nabRoleID:formData.Designation,
+          // ... (other user details)
+        },
+        bankMasterDTO: {
+          email: "",
+          mobileNo:"",
+          shortName:formData.ShortName,
+          fileName:"",
+          bankTypeMasterId:formData.BankType,
+          bankNameMasterId:formData.BankName
+        },
+        addressDTO:{
+          address:formData.Address,
+          pincode:formData.Pincode,
+          villageMasterId:formData.Village
+        },
+      //   bankHierarchyNameDTO:[{
+      //     name:inputFieldHierarchy.level 
+      // },{
+      //  name:""
+      //  },{
+      //       name:""  
+      //  },{
+      //  name:""  
+      //  },{
+      //  name:""  
+      //  }]
+      // bankHierarchyNameDTO: inputFieldHierarchy.map(item => ({
+      //   name: item.level,
+      // })),
+      // bankHierarchyNameDTO: inputFieldHierarchy.map((item) => ({
+      //   name: item.level,
+      //   hierarchyValues: [item.data.level2, item.data.level3, item.data.level4, item.data.level5].filter(Boolean),
+      // })),
+      bankHierarchyNameDTO
+        // ... (other parts of the request body)
+      };
   
-    //   // Call the addBankMastersApi with the prepared request body
-    //   const response = await addBankMastersApi(bankData);
+      // Call the addBankMastersApi with the prepared request body
+      const response = await addBankMastersApi(bankData);
   
-    //   // Handle the API response here
-    //   console.log('API response:', response);
-    //   // You can extract the status and data from the response object
-    //   const { status, data } = response;
-    //   // Do further processing based on the status and data
+      // Handle the API response here
+      console.log('API response:', response);
+      // You can extract the status and data from the response object
+      const { status, data } = response;
+      // Do further processing based on the status and data
   
-    //   // If the API call is successful, you can navigate or perform other actions
-    //   if (status === 201) {
-    //     router.push('/Organizations/Banks'); // Redirect to a success page or another route
-    //   }
-    // } catch (error) {
-    //   console.error('API error:', error);
-    // }
+      // If the API call is successful, you can navigate or perform other actions
+      if (status === 201) {
+        router.push('/Organizations/Banks'); // Redirect to a success page or another route
+      }
+    } catch (error) {
+      console.error('API error:', error);
+    }
   };
   
   // Function to handle form cancellation
@@ -275,7 +287,7 @@ const Index = () => {
         const updatedInputFields = [...inputFields];
         updatedInputFields[BankFieldIndex].options = data.response.map(bank => ({
           label: bank.name,
-          value: bank.name
+          value: bank.id
         }));
         setinputFields(updatedInputFields);
       }
@@ -292,7 +304,7 @@ const Index = () => {
         const updatedInputFields = [...inputFields];
         updatedInputFields[BankFieldIndex].options = data.response.map(bank => ({
           label: bank.name,
-          value: bank.name
+          value: bank.id
         }));
         setinputFields(updatedInputFields);
       }
@@ -394,20 +406,18 @@ const Index = () => {
 
 
   const handleFormChange = (updatedData) => {
+  // console.log("updatedData" , updatedData);
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    ...updatedData,
+    inputFieldHierarchy: inputFieldHierarchy.map((item) => ({
+      level: item.level,
+    })),
+  }));
     setFormData(updatedData);
-      // Get selected bank type id
-      const selectedBankType = bankType.find(item => item.name === updatedData.BankType);
-      if (selectedBankType) {
-        setSelectedBankTypeId(selectedBankType.id);
-      }
-  
-      // Get selected bank name id
-      const selectedBank = bankName.find(item => item.name === updatedData.BankName);
-      if (selectedBank) {
-        setSelectedBankNameId(selectedBank.id);
-      }
   };
-
+  
+  
   return (
     <div>
       {/* {console.log(formData)} */}

@@ -1,7 +1,8 @@
 // Constants for URLs used in the application
 export const UrlConstants = {
     // Base URL for API requests
-    BASE_URL: 'http://115.166.142.18:8084/nabnext/api',
+    // BASE_URL: 'http://115.166.142.18:8084/nabnext/api',
+    BASE_URL: 'http://192.168.29.132:8084/nabnext/api',
   
     // API endpoint to check if an email exists in the system
     // Params: email (string) - The email to check for existence
