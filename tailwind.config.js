@@ -6,11 +6,11 @@ module.exports = {
       container: {
           center: true,
       },
-      extend: {
+      extend: { 
           colors: {
               primary: {
-                  DEFAULT: '#4361ee',
-                  light: '#eaf1ff',
+                  DEFAULT: '#006600',
+                  light: '#03B72B',
                   'dark-light': 'rgba(67,97,238,.15)',
               },
               secondary: {
@@ -35,12 +35,12 @@ module.exports = {
               },
               info: {
                   DEFAULT: '#2196f3',
-                  light: '#e7f7ff',
+                  light: '#BAE7FF',
                   'dark-light': 'rgba(33,150,243,.15)',
               },
               dark: {
                   DEFAULT: '#3b3f5c',
-                  light: '#eaeaec',
+                  light: '#888EA8',
                   'dark-light': 'rgba(59,63,92,.15)',
               },
               black: {
@@ -53,6 +53,12 @@ module.exports = {
                   light: '#e0e6ed',
                   dark: '#888ea8',
               },
+              gray: {
+                  DEFAULT: '#ffffff',
+                  light: '#EEEEEE',
+                  dark: '#888ea8',
+              }
+            
           },
           fontFamily: {
               nunito: ['Nunito', 'sans-serif'],

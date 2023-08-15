@@ -9,8 +9,11 @@ import Sidebar from './Sidebar';
 import Setting from './Setting';
 import { useRouter } from 'next/router';
 import Portals from './Portals';
+import { useAuthToken } from 'src/hooks/Auth/useAuthToken';
+import Cookies from 'js-cookie';
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
+    const { token } = useAuthToken();
     const router = useRouter();
     const [showLoader, setShowLoader] = useState(true);
     const [showTopButton, setShowTopButton] = useState(false);
@@ -59,8 +62,26 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         }, 1100);
     }, [router.asPath]);
 
+
+    useEffect(() => {
+        // Check if token is not present and redirect to "/".
+        const getData = async () => {
+            const authToken = await Cookies.get('authToken');
+            if (!authToken) {
+                await router.replace('/');
+            }
+        }
+        getData()
+    }, [token, router]);
+
+
+    if (!token) {
+        return null;
+    }
+
     return (
         <App>
+
             {/* BEGIN MAIN CONTAINER */}
             <div className="relative">
                 {/* screen loader  */}
@@ -77,7 +98,11 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
                     </div>
                 )}
                 {/* sidebar menu overlay */}
-                <div className={`${(!themeConfig.sidebar && 'hidden') || ''} fixed inset-0 z-50 bg-[black]/60 lg:hidden`} onClick={() => dispatch(toggleSidebar())}></div>
+                <div className={`${(!themeConfig.sidebar && 'hidden') || ''} fixed inset-0 z-50 bg-[black]/60 lg:hidden`} onKeyDown={event => {
+                    if (event.key === 'Enter') {
+                        dispatch(toggleSidebar())
+                    }
+                }} onClick={() => dispatch(toggleSidebar())}></div>
                 <div className="fixed bottom-6 z-50 ltr:right-6 rtl:left-6">
                     {showTopButton && (
                         <button type="button" className="btn btn-outline-primary animate-pulse rounded-full bg-[#fafafa] p-2 dark:bg-[#060818] dark:hover:bg-primary" onClick={goToTop}>

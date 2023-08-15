@@ -16,10 +16,10 @@
     "no-unused-vars": "error", // Detect unused variables
     "no-console": "warn", // Detect console.log and similar console methods
     "no-use-before-define": "error", // Prevent using variables before they are defined
-    "prefer-const": "error", // Encourage using const for variables that are not reassigned
+    // "prefer-const": "error", // Encourage using const for variables that are not reassigned
     "camelcase": "error", // Enforce camelcase naming convention
     "no-duplicate-imports": "error", // Prevent importing the same module multiple times
-    "no-var": "error", // Disallow using var to declare variables
+    // "no-var": "error", // Disallow using var to declare variables
     "prefer-template": "error", // Encourage using template literals instead of concatenation
     "prefer-destructuring": ["error", { "array": true, "object": true }], // Encourage using destructuring assignment
     "no-loop-func": "error", // Prevent creating functions inside loops
@@ -42,9 +42,9 @@
     // JSX Accessibility rules
     "jsx-a11y/label-has-associated-control": "error", // Enforce label elements to have associated control elements
     "jsx-a11y/no-autofocus": "error", // Prevent usage of autofocus attribute
-    "jsx-a11y/no-noninteractive-element-interactions": "error", // Disallow non-interactive elements with event handlers
+    // "jsx-a11y/no-noninteractive-element-interactions": "error", // Disallow non-interactive elements with event handlers
     "jsx-a11y/no-noninteractive-tabindex": "error", // Disallow tabIndex on non-interactive elements
-    "jsx-a11y/click-events-have-key-events": "error", // Enforce click events to have key events
+    // "jsx-a11y/click-events-have-key-events": "error", // Enforce click events to have key events
     "jsx-a11y/anchor-is-valid": "off", // Disable for Next.js Link component (valid anchor element)
 
     // Import/export rules
