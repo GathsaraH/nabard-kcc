@@ -8,7 +8,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { BsArrowRight } from "react-icons/bs";
@@ -240,10 +240,19 @@ const DefaultForm = ({
           [nextLevel]: "",
         },
       };
-
+       
       return updatedHierarchy;
     });
   };
+
+  useEffect(() => {
+    onChange((prevData) => ({
+      ...prevData,
+      ['inputFieldHierarchy']: inputFieldHierarchy.data,
+    }));
+
+  }, [inputFieldHierarchy])
+  
 
   const handleRemoveInputFieldsHierarchy = () => {
     setInputFieldHierarchy((prevHierarchy) => {
@@ -273,6 +282,7 @@ const DefaultForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
+    {/* {console.log(inputFieldHierarchy)} */}
       {headings.map((heading) => (
         <div key={heading.name}>
           <div className="grid lg:grid-cols-2 mt-2 ml-3 p-3">
@@ -496,7 +506,7 @@ const DefaultForm = ({
               {hierarchyType !== "Stakeholder" && (
                 <>
                   {inputFieldHierarchy.data.hasOwnProperty("level5") && (
-                    <div className="col-start-4 col-end-9 xl:w-auto">
+                    <div className="col-start-5 col-end-10 xl:w-auto">
                       <TextField
                         id="outlined-basic"
                         label="Level 5"

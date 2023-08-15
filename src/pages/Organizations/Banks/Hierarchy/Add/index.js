@@ -5,7 +5,8 @@ import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import DefaultForm from 'src/components/Forms/DefaultForm';
 import { getAllDistrictApi, getAllStateApi, getAllSubDistrictApi, getAllVillageApi } from 'src/services/Attributes/AttributeService';
-import { getAllBankTypeApi , getAllBankNameApi , addBankMastersApi } from 'src/services/Banks/BankService';
+import { getAllBankTypeApi, getAllBankNameApi, addBankMastersApi } from 'src/services/Banks/BankService';
+import { ShowErrorAlert, ShowSuccessAlert } from 'src/Alerts/AlertComponent';
 const noOptions = [{
   label: 'No Data Available',
   value: '',
@@ -16,13 +17,13 @@ const DefaultInputFields = [
     name: 'BankType',
     label: 'Type of Bank',
     type: 'select',
-    required:false,
+    required: false,
     heading: 'Bank Details', // Heading for the first new field
     // options: [
     //   { label: 'Public Sector', value: 'Public Sector' },
     //   { label: 'Local Area Banks', value: 'Local Area Banks' },
     // ],
-    options:noOptions
+    options: noOptions
   },
   {
     name: 'BankName',
@@ -30,7 +31,7 @@ const DefaultInputFields = [
     type: 'select',
     required: false,
     heading: 'Bank Details', // Heading for the second new field
-    options:noOptions
+    options: noOptions
     // options: [
     //   { label: '1', value: '1' },
     //   { label: '2', value: '2' },
@@ -137,13 +138,13 @@ const Index = () => {
   const [inputFields, setinputFields] = useState([...DefaultInputFields])
   const [stateList, setStateList] = useState([]);
   const [bankType, setBankType] = useState([]);
-  const[bankName ,setBankName] = useState([]);
+  const [bankName, setBankName] = useState([]);
   // const [selectedBankTypeId, setSelectedBankTypeId] = useState('');
   // const [selectedBankNameId, setSelectedBankNameId] = useState('');
   // const [districtList, setdistrictList] = useState([]);
   // const [subDistrictList, setsubDistrictList] = useState([]);
   // const [villageList, setvillageList] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ inputFieldHierarchy: { name: 'Head Office' } });
   // Define form section headings
   const formHeadings = [
     'Bank Details',
@@ -160,8 +161,8 @@ const Index = () => {
   const [inputFieldHierarchy, setInputFieldHierarchy] = useState([
     {
       level: 'Head Office',
-      data: { level2: '', level3: '', level4: '' , level5:'' },
-      inputErrors: { level2: '', level3: '', level4: '' , level5:"" },
+      data: { level2: '', level3: '', level4: '', level5: '' },
+      inputErrors: { level2: '', level3: '', level4: '', level5: "" },
     },
   ]);
   // Function to handle form submission
@@ -170,78 +171,71 @@ const Index = () => {
   //   console.log("formdata" , formData);
   // };
   const handleSubmit = async () => {
-    console.log("formdata" , formData)
     try {
       // Prepare the request body using the formData
       const bankHierarchyNameDTO = inputFieldHierarchy.map(item => ({
         name: item.level,
-        level2: item.data.level2 || '', // Use the values if available, otherwise ''
-        level3: item.data.level3 || '', // Use the values if available, otherwise ''
-        level4: item.data.level4 || '', // Use the values if available, otherwise ''
+        name: item.data.level2 || '', // Use the values if available, otherwise ''
+        name: item.data.level3 || '', // Use the values if available, otherwise ''
+        name: item.data.level4 || '', // Use the values if available, otherwise ''
       }));
+      const transformedObject = {
+        "inputFieldHierarchy": []
+      };
+      for (const key in formData.inputFieldHierarchy) {
+        transformedObject.inputFieldHierarchy.push({
+          "name": formData.inputFieldHierarchy[key]
+        });
+      }
       const bankData = {
         nabUserDTO: {
           firstName: formData.EmployeeName,
-          middleName:"",
-          lastName:"",
-          email:formData.EmailID,
-          mobileNo:formData.ContactNumber,
-          nabRoleID:formData.Designation,
+          middleName: "",
+          lastName: "",
+          email: formData.EmailID,
+          mobileNo: formData.ContactNumber,
+          nabRoleID: formData.Designation,
           // ... (other user details)
         },
         bankMasterDTO: {
           email: "",
-          mobileNo:"",
-          shortName:formData.ShortName,
-          fileName:"",
-          bankTypeMasterId:formData.BankType,
-          bankNameMasterId:formData.BankName
+          mobileNo: "",
+          shortName: formData.ShortName,
+          fileName: "",
+          bankTypeMasterId: formData.BankType,
+          bankNameMasterId: formData.BankName
         },
-        addressDTO:{
-          address:formData.Address,
-          pincode:formData.Pincode,
-          villageMasterId:formData.Village
+        addressDTO: {
+          address: formData.Address,
+          pincode: formData.Pincode,
+          villageMasterId: formData.Village
         },
-      //   bankHierarchyNameDTO:[{
-      //     name:inputFieldHierarchy.level 
-      // },{
-      //  name:""
-      //  },{
-      //       name:""  
-      //  },{
-      //  name:""  
-      //  },{
-      //  name:""  
-      //  }]
-      // bankHierarchyNameDTO: inputFieldHierarchy.map(item => ({
-      //   name: item.level,
-      // })),
-      // bankHierarchyNameDTO: inputFieldHierarchy.map((item) => ({
-      //   name: item.level,
-      //   hierarchyValues: [item.data.level2, item.data.level3, item.data.level4, item.data.level5].filter(Boolean),
-      // })),
-      bankHierarchyNameDTO
-        // ... (other parts of the request body)
+        bankHierarchyNameDTO: transformedObject.inputFieldHierarchy,
       };
-  
+
       // Call the addBankMastersApi with the prepared request body
+      console.log('API request:', bankData);
       const response = await addBankMastersApi(bankData);
-  
+
       // Handle the API response here
       console.log('API response:', response);
       // You can extract the status and data from the response object
       const { status, data } = response;
       // Do further processing based on the status and data
-  
+
       // If the API call is successful, you can navigate or perform other actions
+      if (data.status === 417) {
+        ShowErrorAlert(data.message)
+      }
       if (status === 201) {
+        ShowSuccessAlert("Bank Created Successfully")
         router.push('/Organizations/Banks'); // Redirect to a success page or another route
       }
     } catch (error) {
       console.error('API error:', error);
     }
   };
-  
+
   // Function to handle form cancellation
   const handleCancel = () => {
     router.push('/Organizations/Banks');
@@ -275,9 +269,9 @@ const Index = () => {
     }
   };
 
-  
 
-  
+
+
   const getAllBankType = async () => {
     try {
       const data = await getAllBankTypeApi();
@@ -312,7 +306,7 @@ const Index = () => {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     getAllState();
     getAllBankType();
@@ -406,22 +400,20 @@ const Index = () => {
 
 
   const handleFormChange = (updatedData) => {
-  // console.log("updatedData" , updatedData);
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    ...updatedData,
-    inputFieldHierarchy: inputFieldHierarchy.map((item) => ({
-      level: item.level,
-    })),
-  }));
+    // console.log("updatedData" , updatedData);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ...updatedData,
+    }));
     setFormData(updatedData);
   };
-  
-  
+
+
+
+
   return (
     <div>
-      {/* {console.log(formData)} */}
-      {/* {console.log(inputFields)} */}
+      {console.log(formData )}
       <main className="flex flex-col w-full bg-gray-100 overflow-x-hidden overflow-y-auto mb-14">
         <div className="flex w-full mx-auto ">
           <div className="flex flex-col w-full h-full text-gray-900 text-xl ">
@@ -449,7 +441,7 @@ const Index = () => {
                   </div>
                   <DefaultForm fields={inputFields}
                     onSubmit={handleSubmit}
-                    onChange = {handleFormChange}
+                    onChange={handleFormChange}
                     onClick={handleCancel}
                     title="Create"
                     headings={formHeadings}

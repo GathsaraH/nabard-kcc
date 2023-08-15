@@ -76,3 +76,81 @@ export async function getAllBankTypeApi() {
       // Rethrow any error that occurs during API request
     }
   }
+
+/**
+ * gets all bank hierarchy using the provided data.
+ * @param {Object} bankData - The data for creating the bank hierarchy.
+ * @returns {Promise<{ status: number, data: any }>} A structured response object with the API status and data.
+ * @throws {Error} If an error occurs during the API request.
+ */
+  export async function getAllBankListApi(page,size) {
+    try{
+        // make a POST request to add or create bank hierarchy 
+        const response = await get(`${UrlConstants.GET_ALL_BANK_LIST(page,size)}`)
+         // Return a structured response object containing the API status and data
+    return { status: response.status, data: response };
+    }
+    catch (error){
+      throw error ;
+      // Rethrow any error that occurs during API request
+    }
+  }
+
+/**
+ * gets all bank levels using the provided data.
+ * @param {Object} bankData - The data for creating the bank hierarchy.
+ * @returns {Promise<{ status: number, data: any }>} A structured response object with the API status and data.
+ * @throws {Error} If an error occurs during the API request.
+ */
+  export async function getAllLevelsByBankIdApi(id) {
+    try{
+        // make a POST request to add or create bank hierarchy 
+        const response = await get(`${UrlConstants.GET_ALL_LEVEL_BY_BANK_ID(id)}`)
+         // Return a structured response object containing the API status and data
+    return { status: response.status, data: response };
+    }
+    catch (error){
+      throw error ;
+      // Rethrow any error that occurs during API request
+    }
+  }
+
+
+/**
+ * gets bank ho data by bank id using the provided data.
+ * @param {Object} bankData - The data for creating the bank hierarchy.
+ * @returns {Promise<{ status: number, data: any }>} A structured response object with the API status and data.
+ * @throws {Error} If an error occurs during the API request.
+ */
+  export async function GetBankHoDetailsApi(id) {
+    try{
+        // make a POST request to add or create bank hierarchy 
+        const response = await get(`${UrlConstants.GET_BANK_HO_DETAILS_BY_BANK_ID(id)}`)
+         // Return a structured response object containing the API status and data
+    return { status: response.status, data: response };
+    }
+    catch (error){
+      throw error ;
+      // Rethrow any error that occurs during API request
+    }
+  }
+
+
+/**
+ * gets bank list by bank id and level id 
+ * @param {Object} bankId - Bank id 
+ * @param {Object} levelId - Level id
+ * @throws {Error} If an error occurs during the API request.
+ */
+  export async function getBankListByLevelApi(bankId, levelId) {
+    try{
+        // make a POST request to add or create bank hierarchy 
+        const response = await get(`${UrlConstants.GET_LIST_BY_BANK_ID_AND_LEVEL_ID(bankId, levelId)}`)
+         // Return a structured response object containing the API status and data
+    return { status: response.status, data: response };
+    }
+    catch (error){
+      throw error ;
+      // Rethrow any error that occurs during API request
+    }
+  }

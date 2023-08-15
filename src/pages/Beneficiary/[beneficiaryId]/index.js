@@ -60,10 +60,6 @@ const Index = () => {
                       <div className="w-full block rounded-lg shadow-lg bg-white">
                         <div className="text-left p-2">
                           <div className="grid grid-cols-12 m-1">
-                            <div className="col-start-10 col-end-13 flex justify-end items-center">
-                              <BsChevronDoubleLeft />
-                              <IconButton className={'p-2 bg-primary text-white ml-3'} icon={<BsChevronDoubleRight />} />
-                            </div>
                             <div className="col-start-1 col-end-13 flex justify-center items-center">
                               {PageTitle()}
                             </div>

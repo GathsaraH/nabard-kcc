@@ -1,8 +1,8 @@
 // Constants for URLs used in the application
 export const UrlConstants = {
     // Base URL for API requests
-    // BASE_URL: 'http://115.166.142.18:8084/nabnext/api',
-    BASE_URL: 'http://192.168.29.132:8084/nabnext/api',
+    BASE_URL: 'http://115.166.142.18:8084/nabnext/api',
+    // BASE_URL: 'http://192.168.29.132:8084/nabnext/api',
   
     // API endpoint to check if an email exists in the system
     // Params: email (string) - The email to check for existence
@@ -41,8 +41,22 @@ export const UrlConstants = {
     // API endpoint to get all bank types 
     GET_ALL_BANK_TYPE : "/bank-type-masters",
 
-       // API endpoint to get all bank names 
-       GET_ALL_BANK_NAME : "/bank-name-masters",
+    // API endpoint to get all bank names 
+    GET_ALL_BANK_NAME : "/bank-name-masters",
+
+    //GET all banks
+    GET_ALL_BANK_LIST: (page, size) => `/bank-masters/getAll?page=${page}&size=${size}&sort=createdDate,desc`,
+
+
+    //GET all level by bank id
+    GET_ALL_LEVEL_BY_BANK_ID: (bankId) => `/bank-master/bank-hierarchy-name?bankId=${bankId}`,
+
+    //Get Bank Ho Details by bank id
+    GET_BANK_HO_DETAILS_BY_BANK_ID: (bankId) => `/bank-masters/${bankId}`,
+
+
+    //Get  list by bank id and level id
+    GET_LIST_BY_BANK_ID_AND_LEVEL_ID: (bankId, levelId) => `/bank-master/bank-hierarchy/type?bankId=${bankId}&nameId=${levelId}`,
 
        
   };

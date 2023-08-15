@@ -97,7 +97,7 @@ const Index = () => {
 
   return (
     <div className='bg-white p-4'>
-      <CommonFilters value={filterData} hideIconButton onChange={handleInputChange}  addButtonLabel="Add Scheme" icon={<AiOutlinePlus />} />
+      <CommonFilters value={filterData} hideIconButton onChange={handleInputChange} addButtonLabel="Add Scheme" icon={<AiOutlinePlus />} />
 
       <div className='mt-5' >
         <MUIDataTable options={options} data={data} columns={columns} />
