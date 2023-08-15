@@ -6,14 +6,15 @@ import { setPageTitle } from "../../store/themeConfigSlice";
 import BlankLayout from "src/layouts/BlankLayout";
 import DefaultInput from "src/components/Input/TextField/DefaultInput";
 import Image from "next/image";
-import loginBG from "../assets/images/b3.svg";
 import nextCircle from "../assets/images/nextCircle.svg";
 import loadingSvg from "../assets/images/Loading.svg";
-import { AiOutlineMail, AiOutlineLock ,AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
+import {AiOutlineMail, AiOutlineLock, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Loader from "src/components/Loader/Loader";
 import { CheckIfEmailExists, loginApi } from "src/services/Auth/AuthApi";
 import { useAuthToken } from "src/hooks/Auth/useAuthToken";
 import { TokenConstants } from "src/constants/TokenConstants";
+import LeftVector from "src/assets/svg/LeftVector";
+import RightVector from "src/assets/svg/RightVector";
 
 const Index = () => {
   const { token, setAuthToken } = useAuthToken();
@@ -22,7 +23,7 @@ const Index = () => {
   const [loading, setloading] = useState(false);
   const [errors, setErrors] = useState({});
   const [passwordNotGenerated, setPasswordNotGenerated] = useState(false);
-  const [ PasswordVisible, setPasswordVisible] = useState(false);
+  const [PasswordVisible, setPasswordVisible] = useState(false);
 
   const passwordVisible = () => {
     setPasswordVisible(!PasswordVisible);
@@ -187,115 +188,124 @@ const Index = () => {
   }, [token, router]);
 
   return (
-    <div
-      className="flex flex-col min-h-screen items-center justify-center bg-white bg-cover md:bg-white md:bg-cover md:bg-no-repeat md:bg-center"
-      style={{ backgroundImage: `url(${loginBG.src})` }}
-    >
-    {console.log(passwordVisible)}
-      {loading && <Loader />}
-      <div className="logo-container">
-        {/* <Image src={circle} alt="logo" width={250} height={150} /> */}
-        <Image
-          src="/assets/images/NABNextLogo.svg"
-          alt="logo"
-          width={250}
-          height={250}
-        />
-      </div>
-      {/* <div className="loginBox-Container panel m-6 w-full max-w-lg sm:w-[550px] shadow-2xl min-h-[200px]  rounded-2xl"> */}
-      <div className="loginBox-Container panel m-6 w-full max-w-lg w-[258px] sm:w-[550px] shadow-xl min-h-[200px] h-[25rem]  rounded-2xl">
-        <div className="flex flex-col justify-between h-full">
-          {" "}
-          {/* Use flex column with justify-between to push content to bottom */}
-          <div>
-            <div className="flex justify-center">
-              <h2 className="signText mb-3 font-bold mt-5">
-                Sign With Nabnext
-              </h2>
-            </div>
-            <form
-              data-testid="login-form"
-              className="space-y-5 mt-5 p-2"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div>
-                <DefaultInput
-                  value={authData.email}
-                  label="Email ID"
-                  id="email"
-                  placeholder="Enter Email"
-                  onChange={handleInputChange}
-                  showPassword={showPassword}
-                  onClick={checkIfAccountIsCreated}
-                  error={errors.email}
-                  icon={
-                    <AiOutlineMail size={24} className="mb-2 text-gray-500" />
-                  }
-                />
-              </div>
-              {showPassword && (
-                <div>
-                  <DefaultInput
-                    value={authData.password}
-                    label="Password"
-                    data-testid="Password"
-                    id="password"
-                    type={PasswordVisible ? "text" : "password"}
-                    placeholder="Enter Password"
-                    onChange={handleInputChange}
-                    onClick={submitForm}
-                    error={errors.password}
-                    icon={
-                      <AiOutlineLock size={24} className="mb-2 text-gray-500" />
-                    }
-                    secondIcon = {
-                      PasswordVisible ? <AiFillEye size={24} className="mb-2 text-gray-500" /> : <AiFillEyeInvisible size={24} className="mb-2 text-gray-500" />
-                    }
-                    onClickSecondIcon = {passwordVisible}
-                  />
-                </div>
-              )}
-            </form>
-            {passwordNotGenerated && (
-              <p className=" passwordNotGeneratedText mt-5 ">
-                The password has not been generated,{" "}
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigateToGeneratePasswordPage()}
-                  className="text-primary-light"
-                >
-                  click here
-                </span>{" "}
-                to create it
-              </p>
-            )}
-          </div>{" "}
-          {/* authData.email */}
-          <div className={`flex items-center justify-end `}>
-            {" "}
-            {/* Flex container to position the image at the bottom */}
-            <button
-              onClick={(e) => {
-                authData.email.length !== 0 && !loading
-                  ? checkIfAccountIsCreated()
-                  : e.preventDefault();
-              }}
-              className={`${
-                authData.email.length === 0 && `cursor-not-allowed`
-              } mt-5`}
-            >
-              <Image
-                src={loading ? loadingSvg.src : nextCircle.src}
-                alt="logo"
-                width={40}
-                height={40}
-              />
-            </button>
+    <>
+      <div className="containerFull">
+        {loading && <Loader />}
+        <div className="logo-container">
+          <Image
+            src="/assets/images/nabardLogo.png"
+            alt="logo"
+            width={250}
+            height={250}
+          />
+        </div>
+
+        <div className="green-half">
+          <div className="vectorLeft">
+            <LeftVector />
+          </div>
+          <div className="vectorRight">
+            <RightVector />
           </div>
         </div>
+
+        <div className="white-box">
+          <div className=" panel m-6 w-full max-w-lg w-[258px] sm:w-[550px] shadow-xl min-h-[200px] h-[25rem]  rounded-2xl">
+            <div className="flex flex-col justify-between h-full">
+              {" "}
+              <div>
+                <div className="flex justify-center">
+                  <h2 className="signText mb-3 font-bold mt-5">
+                    Sign With Nabnext
+                  </h2>
+                </div>
+                <form
+                  data-testid="login-form"
+                  className="space-y-5 mt-5 p-2"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <div>
+                    <DefaultInput
+                      value={authData.email}
+                      label="Email ID"
+                      id="email"
+                      placeholder="Enter Email"
+                      onChange={handleInputChange}
+                      showPassword={showPassword}
+                      onClick={checkIfAccountIsCreated}
+                      error={errors.email}
+                      icon={
+                        <AiOutlineMail size={24} className="mb-2 text-gray-500" />
+                      }
+                    />
+                  </div>
+                  {showPassword && (
+                    <div>
+                      <DefaultInput
+                        value={authData.password}
+                        label="Password"
+                        data-testid="Password"
+                        id="password"
+                        type={PasswordVisible ? "text" : "password"}
+                        placeholder="Enter Password"
+                        onChange={handleInputChange}
+                        onClick={submitForm}
+                        error={errors.password}
+                        icon={
+                          <AiOutlineLock size={24} className="mb-2 text-gray-500" />
+                        }
+                        secondIcon={
+                          PasswordVisible ? <AiFillEye size={24} className="mb-2 text-gray-500" /> : <AiFillEyeInvisible size={24} className="mb-2 text-gray-500" />
+                        }
+                        onClickSecondIcon={passwordVisible}
+                      />
+                    </div>
+                  )}
+                </form>
+                {passwordNotGenerated && (
+                  <p className=" passwordNotGeneratedText mt-5 ">
+                    The password has not been generated,{" "}
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigateToGeneratePasswordPage()}
+                      className="text-primary-light"
+                    >
+                      click here
+                    </span>{" "}
+                    to create it
+                  </p>
+                )}
+              </div>{" "}
+              {/* authData.email */}
+              <div className={`flex items-center justify-end `}>
+                {" "}
+                {/* Flex container to position the image at the bottom */}
+                <button
+                  onClick={(e) => {
+                    authData.email.length !== 0 && !loading
+                      ? checkIfAccountIsCreated()
+                      : e.preventDefault();
+                  }}
+                  className={`${authData.email.length === 0 && `cursor-not-allowed`
+                    } mt-5`}
+                >
+                  <Image
+                    src={loading ? loadingSvg.src : nextCircle.src}
+                    alt="logo"
+                    width={40}
+                    height={40}
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="white-half"></div>
       </div>
-    </div>
+    </>
+
   );
 };
 
