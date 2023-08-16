@@ -910,3 +910,15 @@ pre.hljs {
     transform: translate(-50%, -50%);
     z-index: 1; /* Ensure the white box appears above the green and white divs */
   }
+
+
+
+  .ImgOneContainer {
+    position: relative;
+    width: 50rem;
+    height: 100%;
+  }
+  
+
+ 
+

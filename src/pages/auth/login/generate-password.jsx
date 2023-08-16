@@ -14,8 +14,6 @@ import PasswordInput from "src/components/Input/TextField/PasswordInput";
 import ModalContainer from "src/components/Modal/ModalContainer";
 import { GiEarthAmerica } from "react-icons/gi";
 import Image from "next/image";
-
-import CardContainer from "src/components/Card/CardContainer";
 import {AiOutlineMail, AiOutlineRight, AiOutlineLock } from "react-icons/ai";
 import StarCheckSvg from "src/assets/svg/StarCheckSvg";
 
@@ -36,7 +34,7 @@ import DefaultInput from "src/components/Input/TextField/DefaultInput";
  * It allows users to select a verification method, enter an OTP, and generate a new password.
  */
 const GeneratePassword = () => {
-  const [preferredOtpMethod, setPreferredOtpMethod] = useState("");
+  const [preferredOtpMethod, setPreferredOtpMethod] = useState("email");
   const [activeTab, setActiveTab] = useState(1);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
