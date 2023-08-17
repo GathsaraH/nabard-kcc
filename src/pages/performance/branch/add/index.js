@@ -318,7 +318,7 @@ const Index = () => {
                                 backgroundColor: ColorConstants.lightBlue
                               }}>
                                 <tr>
-                                  <th colSpan={4} className="text-center">
+                                  <th colSpan={4} style={{textAlign:"center"}}>
                                     {section.label}
                                   </th>
                                 </tr>
