@@ -1,26 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HrTag from 'src/components/Hr/HrTag';
 import { Grid } from '@mui/material';
 import { useRouter } from "next/router";
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 
-const stakeholderDetail = [
-    { property: "Organization Name", value: "Ranjeet Gautam" },
-    { property: "Name of the official", value: "Andrew Marcel" },
-    { property: "Designation", value: "Manager" },
-    { property: "Mobile", value: "9563345698" },
-    { property: "Office Address", value: "A 407 mahal Society BH Complex templte,Vadodara,Gujarat" },
+const campaignDetail = [
+    { property: "Name of the Campaign", value: "Awareness" },
+    { property: "Organization Institution", value: "Details of the Awareness & Outreach Camp" },
     { property: "State", value: "Gujarat" },
     { property: "District", value: "Vadodara" },
-    { property: "Area Of Operation", value: "Vadodara,Anand,Ahmedabad" },
+    { property: "Block", value: "D Block" },
+    { property: "Village", value: "Ved Road" },
+    { property: "Start Date", value: "10 Aug 2023" },
+    { property: "End Date", value: "15 Aug 2023" },
 ]
 const Index = () => {
     const router = useRouter();
+    const data = [
+        {
+            values: [10, 100, 10, 100, 10]
+        },
+    ];
+    const [tableData, setTableData] = useState(data);
+
     function PageTitle() {
         return <div>
             <span className="text-xl font-semibold">
-                Ranjeet Gautam
+                Details of the Awareness & Outreach Camp
             </span>
         </div>
     }
@@ -87,11 +94,42 @@ const Index = () => {
                                                     </div>
                                                     <HrTag />
                                                     <div className="w-full">
-                                                        {tableFields(stakeholderDetail)}
+                                                        {tableFields(campaignDetail)}
                                                     </div>
+
+                                                </div>
+
+
+                                                <div className="table-container p-4">
+                                                    <table className="data-table">
+                                                        <thead style={{ backgroundColor: '#D2ECFA' }}>
+                                                            <tr>
+                                                                <th>Farmers Reached</th>
+                                                                <th>Applications Received</th>
+                                                                <th>Applications Sanctioned</th>
+                                                                <th>Applications Rejected</th>
+                                                                <th>Total Credit Disbursed (in Rs)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {tableData.map((item, sectionIndex) => (
+                                                                <tr key={sectionIndex}>
+                                                                    {item.values.map((value, valueIndex) => (
+                                                                        <td key={valueIndex}>
+                                                                            {value}
+                                                                        </td>
+                                                                    ))}
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
+
+
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

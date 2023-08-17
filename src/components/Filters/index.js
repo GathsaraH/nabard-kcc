@@ -3,7 +3,7 @@ import IconButton from '../Button/IconButtonComponent'
 import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,onChange}) => {
+const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton,addSecondButtonLabel, onClickSecond, iconSecond,hideSecondIconButton, value ,onChange}) => {
     const { t } = useTranslation();
 
     return (
@@ -56,7 +56,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                         style={{ width: '100%', maxWidth: '140px' }} // Set maximum width for small screens
                     />
                 </div>
-                <div className="ml-auto" >
+                <div className="flex ml-auto" >
                     {!hideIconButton && (
                         <div className="px-2">
                             <IconButton
@@ -64,6 +64,16 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, value ,o
                                 className="btn-outline-primary w-[200px]"
                                 icon={icon}
                                 onClick={onClick}
+                            />
+                        </div>
+                    )}
+                    {!hideSecondIconButton && (
+                        <div className="px-2">
+                            <IconButton
+                                label={addSecondButtonLabel}
+                                className="btn-outline-primary w-[200px]"
+                                icon={iconSecond}
+                                onClick={onClickSecond}
                             />
                         </div>
                     )}

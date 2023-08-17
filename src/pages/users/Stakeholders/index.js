@@ -1,21 +1,27 @@
 import { useRouter } from 'next/router';
 import React from 'react'
-import { AiOutlineArrowDown } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import CommonFilters from 'src/components/Filters'
 import MenuItemComponent from 'src/components/Input/Others/MenuItemComponent';
-import StatusRenderer from 'src/components/StatusRenderer';
-// import TableWithCheckBox from 'src/pages/datatables/TableWithCheckBox'
+
 import MUIDataTable from "mui-datatables";
 
 const Index = () => {
       const router = useRouter();
-    const handleRowClicked = (rowData) => {
+      //Add New User Function is call
+      const AddUser = () => {
+        //go to New stackeholder user creation page
+        router.push('/users/stakeholders/add');
+      }
+
+      const handleRowClicked = (rowData) => {
         // Assuming the row data contains an "id" property
         if(rowData.id){
-            router.push(`/users/Stakeholders/View/${rowData.id}/`)
+            router.push(`/users/stakeholders/view/${rowData.id}/`)
         }
       };
       const options = {
+        selectableRows: 'none', // set checkbox for each row
         print: false,
         onChangePage(currentPage) {
           console.log({ currentPage });
@@ -26,37 +32,24 @@ const Index = () => {
       };
       
       const data = [
-        { id: 1, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
-        { id: 2, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
-        { id: 3, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
-        { id: 4, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
-        { id: 5, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
-        { id: 6, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
-        { id: 7, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
-        { id: 8, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Inactive' },
-        { id: 9, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
-        { id: 10, BankType: 'Public Sector', OrganizationName: 'RB Enterprise', EmailId: 'xyz@gmail.com', MobileNo: '9999999999', Status: 'Active' },
+        { id: 1, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 2, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 3, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 4, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 5, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 6, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 7, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 8, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 9, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
+        { id: 10, StakeholderName: 'Ministries', EmployeeName: 'Abhishek Shah', Office: 'DDM', AreaOfOperation: 'Vadodara', MobileNo: '9999999999' },
       ];
         const columns = [
           { label: 'Sr No.', name: 'id'},
-          { label: 'Bank Type', name: 'BankType' },
-          { label: 'Organization Name', name: 'OrganizationName' },
-          { label: 'Email Id', name: 'EmailId' },
+          { label: 'Stakeholder Name', name: 'StakeholderName'},
+          { label: 'Employee Name', name: 'EmployeeName'},
+          { label: 'Office', name: 'Office' },
+          { label: 'Area of Operation', name: 'AreaOfOperation' },
           { label: 'Mobile No', name: 'MobileNo' },
-          {
-            label: 'Status', name: 'Status',
-            // cellRenderer: (Status) => (
-            //   <StatusRenderer value={Status.value} />
-            // ),
-            options: {
-              filter: true,
-              customBodyRender: (value) => {
-                return (
-                  <StatusRenderer value={value} />
-                );
-              }
-            }
-          },
           {
             label: 'Actions',
             name: 'actions',
@@ -105,14 +98,12 @@ const Index = () => {
                     link.click();
                 } 
         };
-  return (
-    <div>
-            <CommonFilters onClick={() => exportTable('print')} addButtonLabel="Export" icon={<AiOutlineArrowDown/>}/>
-      <MUIDataTable options={options} data={data} columns={columns} />
-           
-            {/* <TableWithCheckBox rowData={rowData} columnDefs={columnDefs} pagination={true} onRowClick={handleRowClicked}/> */}
-    </div>
-  )
+        return (
+          <div>
+            <CommonFilters onClick={AddUser} addButtonLabel="Add User" icon={<AiOutlinePlus />} hideSecondIconButton="true"/>
+            <MUIDataTable options={options} data={data} columns={columns} />
+          </div>
+        )
 }
 
 export default Index

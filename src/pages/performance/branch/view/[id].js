@@ -1,26 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HrTag from 'src/components/Hr/HrTag';
 import { Grid } from '@mui/material';
 import { useRouter } from "next/router";
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 
-const stakeholderDetail = [
-    { property: "Organization Name", value: "Ranjeet Gautam" },
-    { property: "Name of the official", value: "Andrew Marcel" },
-    { property: "Designation", value: "Manager" },
-    { property: "Mobile", value: "9563345698" },
-    { property: "Office Address", value: "A 407 mahal Society BH Complex templte,Vadodara,Gujarat" },
-    { property: "State", value: "Gujarat" },
-    { property: "District", value: "Vadodara" },
-    { property: "Area Of Operation", value: "Vadodara,Anand,Ahmedabad" },
+const branchPerformanceDetail = [
+    { property: "Bank Type", value: "PSB" },
+    { property: "Bank Name", value: "Bank Of Baroda" },
+    { property: "Branch Name", value: "Ved Road" },
+    { property: "Branch Type", value: "Rural" },
+    { property: "Reporting Period From", value: "11 Aug 2023" },
+    { property: "Reporting Period To", value: "18 Aug 2023" },
+    { property: "KCC Type", value: "KCC-Crop" },
 ]
 const Index = () => {
     const router = useRouter();
+    const data = [
+        {
+            label: 'Received', values:
+                [10, 100, 10, 100, 10, 100, 30, 300]
+        },
+        {
+            label: 'Sanctioned', values:
+                [10, 100, 10, 100, 10, 100, 30, 300]
+        },
+        {
+            label: 'Rejected', values:
+                [10, 100, 10, 100, 10, 100, 30, 300]
+        },
+        {
+            label: 'Disbursed', values:
+                [10, 100, 10, 100, 10, 100, 30, 300]
+        },
+    ];
+    const [tableData, setTableData] = useState(data);
+
     function PageTitle() {
         return <div>
             <span className="text-xl font-semibold">
-                Ranjeet Gautam
+                Details of the Performance Data Entery
             </span>
         </div>
     }
@@ -44,7 +63,7 @@ const Index = () => {
                             <Grid item xs={12} sm={1} sx={{ display: { xs: 'none', sm: 'block' } }}>
                                 :
                             </Grid>
-                            <Grid item xs={12} sm={9}>
+                            <Grid item xs={12} sm={3}>
                                 <span className='text-lg'>{item.value}</span>
                             </Grid>
                         </>
@@ -68,7 +87,7 @@ const Index = () => {
                                             <div className="w-full block rounded-lg shadow-lg bg-white">
                                                 <div className="text-left p-5">
                                                     <div className="grid grid-cols-12 m-1">
-                                                        <div className="col-start-1 col-end-2 flex justify-center items-center">
+                                                    <div className="col-start-1 col-end-2 flex justify-center items-center">
                                                             <button
                                                                 onClick={() => router.back()}
                                                                 type="button"
@@ -87,11 +106,53 @@ const Index = () => {
                                                     </div>
                                                     <HrTag />
                                                     <div className="w-full">
-                                                        {tableFields(stakeholderDetail)}
+                                                        {tableFields(branchPerformanceDetail)}
                                                     </div>
+
+                                                </div>
+
+
+                                                <div className="table-container p-4">
+                                                    <table className="data-table">
+                                                        <thead style={{ backgroundColor: '#D2ECFA' }}>
+                                                            <tr>
+                                                                <th rowSpan={2}>Application</th>
+                                                                <th colSpan={2}>Small Farmer</th>
+                                                                <th colSpan={2}>Marginal Farmer</th>
+                                                                <th colSpan={2}>Other</th>
+                                                                <th colSpan={2}>Total</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>A/cs</th>
+                                                                <th>Amount</th>
+                                                                <th>A/cs</th>
+                                                                <th>Amount</th>
+                                                                <th>A/cs</th>
+                                                                <th>Amount</th>
+                                                                <th>A/cs</th>
+                                                                <th>Amount</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {tableData.map((item, sectionIndex) => (
+                                                                <tr key={sectionIndex}>
+                                                                    <td>{item.label}</td>
+                                                                    {item.values.map((value, valueIndex) => (
+                                                                        <td key={valueIndex}>
+                                                                            {value}
+                                                                        </td>
+                                                                    ))}
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
+
+
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

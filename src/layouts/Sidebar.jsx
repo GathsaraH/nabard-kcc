@@ -7,14 +7,15 @@ import AnimateHeight from "react-animate-height";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { RiHome5Line } from "react-icons/ri";
-import { BiHelpCircle, BiSolidDashboard } from "react-icons/bi";
+import { BiSolidDashboard } from "react-icons/bi";
 import { GoOrganization } from "react-icons/go";
 import { FiUsers } from "react-icons/fi";
-import { BsFileEarmarkRichtextFill } from "react-icons/bs";
-import { FaHandHoldingUsd, FaUserLock, FaFileSignature } from "react-icons/fa";
+import { AiTwotoneBank } from "react-icons/ai";
+import { FaCodeBranch} from "react-icons/fa";
+import {GrPerformance} from "react-icons/gr";
+import  {BsArrowLeftRight} from "react-icons/bs"
 import leftSidebarToggle from "../assets/icons/toggleSidebarLeft.svg";
 import Image from "next/image";
-import { LuSettings } from "react-icons/lu";
 
 const sidebarMenuOptions = [
   {
@@ -28,81 +29,59 @@ const sidebarMenuOptions = [
     icon: <BiSolidDashboard size={25} />,
   },
   {
-    title: "Beneficiaries",
-    link: "/Beneficiary",
-    icon: <FaHandHoldingUsd size={25} />,
-  },
-  {
-    title: "Claim Management",
-    icon: <FaFileSignature size={25} />,
-    subMenu: [
-      {
-        title: "Claim",
-        link: "/Claim/Regular",
-      },
-      {
-        title: "Consolidated Claim",
-        link: "/Claim/Consolidated-Claim-Regular",
-      },
-    ],
-  },
-  {
     title: "Organizations",
     icon: <GoOrganization size={25} />,
     subMenu: [
       {
         title: "Banks",
-        link: "/Organizations/Banks",
-      },
-      {
-        title: "Stakeholders",
-        link: "/Organizations/Stakeholders",
+        link: "/organizations/banks",
       },
     ],
   },
   {
-    title: "Users",
+    title: "Nabard Employee",
     icon: <FiUsers size={25} />,
     subMenu: [
       {
-        title: "Banks",
-        link: "/users/Banks",
+        title: "Employee",
+        link: "/users/employee",
       },
       {
         title: "Stakeholders",
-        link: "/users/Stakeholders",
+        link: "/users/stakeholders",
       },
     ],
   },
   {
-    title: "Schemes",
-    icon: <BsFileEarmarkRichtextFill size={25} />,
-    link: "/schemes/list",
+    title: "Reporting Banks",
+    link: "/reporting/banks",
+    icon: <AiTwotoneBank size={25} />,
   },
   {
-    title: "Roles & Permissions",
-    icon: <FaUserLock size={25} />,
+    title: "Reporting Branches",
+    link: "/reporting/branches",
+    icon: <FaCodeBranch size={25} />,
+  },
+  {
+    title: "Performance Data ",
+    icon: <GrPerformance size={25} />,
     subMenu: [
       {
-        title: "Roles",
-        link: "/admin/administrative-tools/roles-and-permissions/role",
+        title: "Bank Wise",
+        link: "/performance/bank",
       },
       {
-        title: "Permissions",
-        link: "/admin/administrative-tools/roles-and-permissions/permissions",
+        title: "Branch Wise",
+        link: "/performance/branch",
       },
     ],
   },
   {
-    title: "Settings",
-    link: "/Settings/admin",
-    icon: <LuSettings size={25} />,
+    title: "Campaign",
+    link: "/campaign",
+    icon: <BsArrowLeftRight size={25} />,
   },
-  {
-    title: "Help Desk",
-    link: "/HelpDesk",
-    icon: <BiHelpCircle size={25} />,
-  },
+  
 ];
 
 const Sidebar = () => {
