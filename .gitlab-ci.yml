@@ -1,0 +1,24 @@
+image: node:latest
+
+cache:
+  key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+  paths:
+    - node_modules/
+    - build/
+
+stages:
+  - build
+  - deploy
+
+build:
+ stage: build
+ script:
+  - rm -rf node_modules
+  - rm -rf package-lock.json
+  - npm install
+  - npm run build
+  - unset CI
+  - ng build --prod
+  - cp -r /home/gitlab-runner/builds/JTV5LKNi/0/rajeshv/mahavikreta-frontend/dist/* /home/gitlab-runner/mahavikreta/
+ only:
+  - dev_akash

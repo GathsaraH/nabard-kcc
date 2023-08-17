@@ -6,10 +6,11 @@ import { ni18nConfig } from 'ni18n.config.ts';
 
 // Perfect Scrollbar
 import 'react-perfect-scrollbar/dist/css/styles.css';
-
+import 'tippy.js/dist/tippy.css';
 import '../styles/tailwind.css';
-import { NextPage } from 'next';
+
 import DefaultLayout from 'src/layouts/DefaultLayout';
+
 
 export const NextPageWithLayout = (Component) => {
     return Component;
@@ -21,7 +22,7 @@ const App = ({ Component, pageProps }) => {
     return (
         <Provider store={store}>
             <Head>
-                <title>VRISTO - Multipurpose Tailwind Dashboard Template</title>
+                <title>NabNext</title>
                 <meta charSet="UTF-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

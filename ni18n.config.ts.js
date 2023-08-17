@@ -7,6 +7,6 @@ export const ni18nConfig = {
     ns: ['translation'],
     react: { useSuspense: false },
     backend: {
-        loadPath: path.resolve(`/locales/{{lng}}.json`),
+        // loadPath: path.resolve(`/locales/{{lng}}.json`),
     },
 };
