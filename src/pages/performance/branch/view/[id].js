@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 import { useRouter } from "next/router";
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
+import { ColorConstants } from 'src/constants/ColorConstants';
 
 const branchPerformanceDetail = [
     { property: "Bank Type", value: "PSB" },
@@ -18,28 +19,48 @@ const Index = () => {
     const router = useRouter();
     const data = [
         {
-            label: 'Received', values:
-                [10, 100, 10, 100, 10, 100, 30, 300]
+            "label": "Small Farmers",
+            "data": [
+                { "label": "Received", "values": [10, 100000] },
+                { "label": "Sanctioned", "values": [10, 100000] },
+                { "label": "Rejected", "values": [10, 100000] },
+                { "label": "Disbursed", "values": [10, 100000] }
+            ]
         },
         {
-            label: 'Sanctioned', values:
-                [10, 100, 10, 100, 10, 100, 30, 300]
+            "label": "Marginal Farmers",
+            "data": [
+                { "label": "Received", "values": [10, 100000] },
+                { "label": "Sanctioned", "values": [10, 100000] },
+                { "label": "Rejected", "values": [10, 100000] },
+                { "label": "Disbursed", "values": [10, 100000] }
+            ]
         },
         {
-            label: 'Rejected', values:
-                [10, 100, 10, 100, 10, 100, 30, 300]
+            "label": "Others",
+            "data": [
+                { "label": "Received", "values": [10, 100000] },
+                { "label": "Sanctioned", "values": [10, 100000] },
+                { "label": "Rejected", "values": [10, 100000] },
+                { "label": "Disbursed", "values": [10, 100000] }
+            ]
         },
         {
-            label: 'Disbursed', values:
-                [10, 100, 10, 100, 10, 100, 30, 300]
+            "label": "Total",
+            "data": [
+                { "label": "Received", "values": [10, 100000] },
+                { "label": "Sanctioned", "values": [10, 100000] },
+                { "label": "Rejected", "values": [10, 100000] },
+                { "label": "Disbursed", "values": [10, 100000] }
+            ]
         },
-    ];
+    ]
     const [tableData, setTableData] = useState(data);
 
     function PageTitle() {
         return <div>
             <span className="text-xl font-semibold">
-                Details of the Performance Data Entery
+                Details of the Performance Data Entry
             </span>
         </div>
     }
@@ -57,14 +78,14 @@ const Index = () => {
                 {data.map((item) => {
                     return (
                         <>
-                            <Grid item xs={12} sm={2}>
-                                <span className='font-bold text-lg'>{item.property}</span>
+                            <Grid item xs={6} sm={2}>
+                                <span className='font-bold text-sm md:text-lg'>{item.property}</span>
                             </Grid>
-                            <Grid item xs={12} sm={1} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <Grid item xs={1} sm={1} >
                                 :
                             </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <span className='text-lg'>{item.value}</span>
+                            <Grid item xs={5} sm={3}>
+                                <span className='text-sm md:text-lg'>{item.value}</span>
                             </Grid>
                         </>
                     );
@@ -87,7 +108,7 @@ const Index = () => {
                                             <div className="w-full block rounded-lg shadow-lg bg-white">
                                                 <div className="text-left p-5">
                                                     <div className="grid grid-cols-12 m-1">
-                                                    <div className="col-start-1 col-end-2 flex justify-center items-center">
+                                                        <div className="col-start-1 col-end-2 flex justify-center items-center">
                                                             <button
                                                                 onClick={() => router.back()}
                                                                 type="button"
@@ -108,51 +129,41 @@ const Index = () => {
                                                     <div className="w-full">
                                                         {tableFields(branchPerformanceDetail)}
                                                     </div>
-
                                                 </div>
-
-
-                                                <div className="table-container p-4">
-                                                    <table className="data-table">
-                                                        <thead style={{ backgroundColor: '#D2ECFA' }}>
-                                                            <tr>
-                                                                <th rowSpan={2}>Application</th>
-                                                                <th colSpan={2}>Small Farmer</th>
-                                                                <th colSpan={2}>Marginal Farmer</th>
-                                                                <th colSpan={2}>Other</th>
-                                                                <th colSpan={2}>Total</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>A/cs</th>
-                                                                <th>Amount</th>
-                                                                <th>A/cs</th>
-                                                                <th>Amount</th>
-                                                                <th>A/cs</th>
-                                                                <th>Amount</th>
-                                                                <th>A/cs</th>
-                                                                <th>Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {tableData.map((item, sectionIndex) => (
-                                                                <tr key={sectionIndex}>
-                                                                    <td>{item.label}</td>
-                                                                    {item.values.map((value, valueIndex) => (
-                                                                        <td key={valueIndex}>
-                                                                            {value}
-                                                                        </td>
-                                                                    ))}
+                                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                                                    {tableData.map((section, sectionIndex) => (
+                                                        <table key={sectionIndex}>
+                                                            <thead style={{
+                                                                backgroundColor: ColorConstants.lightBlue
+                                                            }}>
+                                                                <tr>
+                                                                    <th colSpan={4} style={{ textAlign: 'center' }}>
+                                                                        {section.label}
+                                                                    </th>
                                                                 </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </table>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>A/cs</th>
+                                                                    <th>Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {section.data.map((item, itemIndex) => (
+                                                                    <tr key={itemIndex}>
+                                                                        <td className={`visible ${section?.label == "Small Farmers" ? "md:visible" : "md:invisible"}`}>
+                                                                            {item.label}
+                                                                        </td>
+                                                                        {item.values.map((value, valueIndex) => (
+                                                                            <td key={valueIndex}>{value}</td>
+                                                                        ))}
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    ))}
                                                 </div>
                                             </div>
-
-
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
