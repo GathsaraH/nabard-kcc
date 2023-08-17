@@ -3,15 +3,11 @@ import BlankLayout from "src/layouts/BlankLayout";
 import shapeUp from "src/assets/images/Shapes/shapeUp.png";
 import shapeDown from "src/assets/images/Shapes/shapeDown.png";
 import Image from "next/image";
-import HeroSection from "src/pages/landing-page/Sections/HeroSection";
-import IntroSection from "src/pages/landing-page/Sections/IntroSection";
-import ServiceSection from "src/pages/landing-page/Sections/ServiceSection";
-import FaqSection from "src/pages/landing-page/Sections/FaqSection";
-import BannerSection from "src/pages/landing-page/Sections/BannerSection";
-import SupportSection from "src/pages/landing-page/Sections/SupportSection";
 import QuickLinkSection from "src/pages/landing-page/Sections/QuickLinkSection";
 import { ColorConstants } from "src/constants/ColorConstants";
 import NavbarLandingPage from "src/components/Navbar/NavbarLandingPage";
+import AboutSchemeSection from "./Sections/AboutSchemeSection";
+import KisanCreditCardSection from "./Sections/KisanCreditCardSection";
 
 function showShapeUp() {
   return (
@@ -37,17 +33,11 @@ const Index = () => {
   return (
     <>
     <NavbarLandingPage/>
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <AboutSchemeSection/>
+
       {showShapeUp()}
-      <IntroSection />
-      {showShapeDown()}
-      <ServiceSection />
-      {showShapeUp()}
-      <FaqSection />
-      {showShapeDown()}
-      <BannerSection/>
-      {showShapeUp()}
-      <SupportSection/>
+      <KisanCreditCardSection/>
       {showShapeDown(ColorConstants.primaryColor)}
       <QuickLinkSection/>
     </>
