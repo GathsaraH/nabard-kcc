@@ -4,8 +4,10 @@ import leftVector from 'src/assets/svg/LeftLeaf.svg';
 import RightVector from 'src/assets/svg/RightLeaf.svg';
 
 
-
 const AboutSchemeSection = () => {
+
+
+
     return (
         <div className="bg-[#EEF2F0] flex">
             <Image src={leftVector} alt="leftVector" className="hidden lg:block" />
@@ -13,7 +15,7 @@ const AboutSchemeSection = () => {
                 <div className="w-full mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
                     <div className="grid items-center gap-12 lg:grid-cols-1">
                         <div className="text-center mt-12">
-                            <h1 className="mt-0 mb-16 text-3xl font-bold tracking-tight md:text-6xl xl:text-2xl text-primary">
+                            <h1 className="mt-0 mb-16 text-2xl font-bold tracking-tight md:text-6xl xl:text-2xl text-primary">
                             About The Scheme
                             </h1>
                             <span className="mt-0 mb-16 text-3xl tracking-tight md:text-6xl xl:text-base text-black">
