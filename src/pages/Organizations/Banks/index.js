@@ -74,6 +74,7 @@ const Index = () => {
       },
     },
   ];
+  
 
   const getAllBank = async () => {
     const page = 0;

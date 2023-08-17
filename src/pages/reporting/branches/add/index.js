@@ -9,97 +9,91 @@ const Index = () => {
    // Define InputFields with form field details
   const InputFields = [
     {
-      name: 'PostingPlace',
-      label: 'Posting Place',
+      name: 'BankType',
+      label: 'Bank Type',
       type: 'select',
       required: false,
-      heading: 'Place of Posting Details', // Heading for the first new field
+      heading: 'Branch Detail', // Heading for the first new field
       options: [
-        { label: '', value: '' },
-        { label: 'P1', value: 'P1' },
-        { label: 'P2', value: 'P2' },
+        { label: 'PSB', value: 'PSB' },
       ],
     },
     {
-      name: 'EmployeeName',
-      label: 'Employee Name',
-      type: 'text',
-      required: true,
-      heading: 'Employee Detail',
+      name: 'BankName',
+      label: 'Bank Name',
+      type: 'select',
+      required: false,
+      heading: 'Branch Detail', // Heading for the first new field
+      options: [
+        { label: 'Bank Of Baroda', value: 'Bank Of Baroda' },
+      ],
     },
     {
-      name: 'UserID',
-      label: 'User ID',
+      name: 'BranchName',
+      label: 'Branch Name',
       type: 'text',
-      required: true,
-      heading: 'Employee Detail',
+      required: false,
+      heading: 'Branch Detail', // Heading for the first new field
     },
     {
-      name: 'Designation',
-      label: 'Designation',
+      name: 'IFSCCode',
+      label: 'IFSC Code',
+      type: 'text',
+      required: true,
+      heading: 'Branch Detail',
+    },
+    {
+      name: 'BranchCategory',
+      label: 'Branch Category',
+      type: 'select',
+      required: false,
+      heading: 'Branch Detail', // Heading for the first new field
+      options: [
+        { label: 'Rural', value: 'Rural' },
+      ],
+    },
+    {
+      name: 'KCCTarget',
+      label: 'KCC Target',
+      type: 'text', // This indicates it's a select input
+      required: true,
+      heading: 'Branch Detail'
+    },
+    {
+      name: 'State',
+      label: 'State',
       type: 'select', // This indicates it's a select input
       required: true,
-      heading: 'Employee Detail',
+      heading: 'Branch Loacation',
       options: [
-        { label: 'D1', value: 'D1' },
-        { label: 'D2', value: 'D2' },
+        { label: 'Gujarat', value: 'Gujarat' },
       ],
     },
     {
-      name: 'EmailID',
-      label: 'Email ID',
-      type: 'email',
+      name: 'Block',
+      label: 'Block',
+      type: 'select', // This indicates it's a select input
       required: true,
-      heading: 'Employee Detail',
+      heading: 'Branch Loacation',
+      options: [
+        { label: 'Block1', value: 'Block2' },
+      ],
     },
     {
-      name: 'ContactNumber',
-      label: 'Contact Number',
-      type: 'text',
+      name: 'District',
+      label: 'District',
+      type: 'select', // This indicates it's a select input
       required: true,
-      heading: 'Employee Detail',
+      heading: 'Branch Loacation',
+      options: [
+        { label: 'Vadodara', value: 'Vadodara' },
+      ],
     },
-    {
-      name: 'Assignment',
-      label: 'Assignment',
-      type: 'checkbox',
-      required: true,
-      heading: 'Admin Actitivity Role',
-    },
-    {
-      name: 'ChangeofRole',
-      label: 'Change of Role',
-      type: 'checkbox',
-      required: true,
-      heading: 'Admin Actitivity Role',
-    },
-    {
-        name: 'AddEmployee',
-        label: 'Add Employee',
-        type: 'checkbox',
-        required: true,
-        heading: 'Admin Actitivity Role',
-      },
-      {
-        name: 'DeleteEmployee',
-        label: 'Delete Employee',
-        type: 'checkbox',
-        required: true,
-        heading: 'Admin Actitivity Role',
-      },
-      {
-        name: 'Monitoring',
-        label: 'Monitoring',
-        type: 'checkbox',
-        required: true,
-        heading: 'Admin Actitivity Role',
-      },
   ]
   // Define form section headings
   const formHeadings = [
-    'Place of Posting Details',
-    'Employee Detail',
-    'Admin Actitivity Role'
+    'Branch Detail',
+    'Branch Loacation',
     // Add more headings as needed
   ];
 
@@ -113,7 +107,7 @@ const Index = () => {
   };
    // Function to handle form cancellation
   const handleCancel = () => {
-    router.push('/users/Banks');
+    router.push('/reporting/branches');
   };
   const handleFormChange = (updatedData) => {
     setFormData(updatedData);
@@ -145,20 +139,12 @@ const Index = () => {
                         </button>
                         <div className="col-start-5 col-end-8">
                           <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
-                            {t("Add Bank User")}
+                            {t("Create Reporting Bank & Branch")}
                           </span>
                         </div>
 
                       </div>
-                      {/* // */}
-                      <div className="grid lg:grid-cols-10 text-center items-center bg-black-light mb-4">
-                        <div className="col-start-4 col-end-8">
-                          <span className="heading-Font-Family text-primary" style={{ fontWeight: '700' }}>
-                            {t("Bank Name : State Bank of India")}
-                          </span>
-                        </div>
-
-                      </div>
+                      <hr></hr>
                     <DefaultForm
                       fields={InputFields}
                       onSubmit={handleSubmit}

@@ -1,13 +1,13 @@
 import React from 'react'
-import HrTag from 'src/components/Hr/HrTag';
-import { Grid } from '@mui/material';
-import { useRouter } from "next/router";
+import HrTag from 'src/components/Hr/HrTag'
+import { useRouter } from 'next/router'
+import { Grid } from '@mui/material';;
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 
-const stakeholderDetail = [
-    { property: "Organization Name", value: "Ranjeet Gautam" },
-    { property: "Name of the official", value: "Andrew Marcel" },
+const organizationUser = [
+    { property: "Name of the RO", value: "Gujarat RO" },
+    { property: "Name of the DDM", value: "Vadodara" },
     { property: "Designation", value: "Manager" },
     { property: "Mobile", value: "9563345698" },
     { property: "Office Address", value: "A 407 mahal Society BH Complex templte,Vadodara,Gujarat" },
@@ -87,7 +87,7 @@ const Index = () => {
                                                     </div>
                                                     <HrTag />
                                                     <div className="w-full">
-                                                        {tableFields(stakeholderDetail)}
+                                                        {tableFields(organizationUser)}
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,6 +101,13 @@ const Index = () => {
             </div>
         </div>
     )
+
+
+
+
+
+
+
 }
 
 export default Index
