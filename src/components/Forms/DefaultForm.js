@@ -22,13 +22,13 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   textField: {
-    width: '240px',
+    width: '360px',
     '& .MuiInputBase-input': {
       // height: '1rem', 
     },
   },
   select: {
-    width: '250px',
+    width: '360px',
     // height: '3rem', 
   },
 });
@@ -42,7 +42,7 @@ const textFieldSize = {
 const labelSize = {
   style: {
     fontSize: 14,
-    margin: `-4px 0 0 10px`,
+    margin: `-4px 0 0 0px`,
     marginRight: 2
     // marginBottom: '10px'
   },
@@ -84,12 +84,6 @@ const DefaultForm = ({
   });
   const [file, setFile] = useState("");
   // const classes = useStyles();
-
-
-
-
-
-
 
   function uploadSingleFile(e) {
     const { name } = e.target;
@@ -288,7 +282,7 @@ const DefaultForm = ({
           <div className="grid lg:grid-cols-2 mt-2 ml-3 p-3">
             <span className="mr-5 text-primary font-bold">{heading}</span>
           </div>
-          <HrTag />
+          {heading && <HrTag />}
           <Grid container px={4} py={4} columns={12} spacing={5}>
             {groupedFields[heading].map((field) =>
               field.type === "file" ? (
@@ -325,7 +319,7 @@ const DefaultForm = ({
                       <FormControl
                         fullWidth
                         variant="outlined"
-                        className="from-input"
+                        className="from-input w-full"
                       >
                         <InputLabel sx={labelSize.style} htmlFor={field.name} className="input">
                           {field.label}
@@ -340,7 +334,7 @@ const DefaultForm = ({
                           sx={{
                             fontSize: 12,
                             height: 40,
-                            width: 200,
+                            width: 360,
 
                           }}
                           IconComponent={AiOutlineDown}

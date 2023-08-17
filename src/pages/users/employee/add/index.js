@@ -9,11 +9,40 @@ const Index = () => {
    // Define InputFields with form field details
   const InputFields = [
     {
-      name: 'NameOfTheOrganization',
-      label: 'Name of the Organization  ',
-      type: 'text',
-      required: true,
-      heading: '',
+      name: 'PostingPlace',
+      label: 'Posting Place',
+      type: 'select',
+      required: false,
+      heading: 'Place of Posting Details', // Heading for the first new field
+      options: [
+        { label: 'Ho', value: 'HO' },
+        { label: 'RO', value: 'RO' },
+        { label: 'DDM', value: 'DDM' },
+      ],
+    },
+    {
+      name: 'Level2',
+      label: 'RO',
+      type: 'select',
+      required: false,
+      heading: 'Place of Posting Details', // Heading for the first new field
+      options: [
+        { label: 'Ho', value: 'HO' },
+        { label: 'RO', value: 'RO' },
+        { label: 'DDM', value: 'DDM' },
+      ],
+    },
+    {
+      name: 'Level3',
+      label: 'DDM',
+      type: 'select',
+      required: false,
+      heading: 'Place of Posting Details', // Heading for the first new field
+      options: [
+        { label: 'Ho', value: 'HO' },
+        { label: 'RO', value: 'RO' },
+        { label: 'DDM', value: 'DDM' },
+      ],
     },
     {
       name: 'EmployeeName',
@@ -65,21 +94,10 @@ const Index = () => {
         { label: 'D2', value: 'D2' },
       ],
     },
-    {
-      name: 'District',
-      label: 'District',
-      type: 'select', // This indicates it's a select input
-      required: true,
-      heading: 'Area Of Operation',
-      options: [
-        { label: 'D1', value: 'D1' },
-        { label: 'D2', value: 'D2' },
-      ],
-    },
   ]
   // Define form section headings
   const formHeadings = [
-    '',
+    'Place of Posting Details',
     'Employee Detail',
     'Area Of Operation'
     // Add more headings as needed
@@ -95,7 +113,7 @@ const Index = () => {
   };
    // Function to handle form cancellation
   const handleCancel = () => {
-    router.push('/users/stakeholders');
+    router.push('/users/employee');
   };
   const handleFormChange = (updatedData) => {
     setFormData(updatedData);
@@ -127,7 +145,7 @@ const Index = () => {
                         </button>
                         <div className="col-start-5 col-end-8">
                           <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
-                            {t("Add Stockholder User")}
+                            {t("Add Organization User")}
                           </span>
                         </div>
 

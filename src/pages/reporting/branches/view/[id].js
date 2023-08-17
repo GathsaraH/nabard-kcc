@@ -5,22 +5,25 @@ import { useRouter } from "next/router";
 import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 
-const stakeholderDetail = [
-    { property: "Organization Name", value: "Ranjeet Gautam" },
-    { property: "Name of the official", value: "Andrew Marcel" },
-    { property: "Designation", value: "Manager" },
-    { property: "Mobile", value: "9563345698" },
-    { property: "Office Address", value: "A 407 mahal Society BH Complex templte,Vadodara,Gujarat" },
-    { property: "State", value: "Gujarat" },
+const bankAndBranchDetail = [
+    { property: "Bank Type", value: "PSB" },
+    { property: "Bank Name ", value: "Bank Of Baroda" },
+    { property: "Branch Name", value: "Ved Road" },
+    { property: "IFSC Code", value: "BARBUYTR054" },
+    { property: "Branch Category", value: "Rural" },
+    { property: "Targeted Application", value: "Taregt" },
+    { property: "KCC Target", value: "Gujarat" },
+    { property: "State", value: "Vadodara" },
+    { property: "Block", value: "D L Block" },
     { property: "District", value: "Vadodara" },
-    { property: "Area Of Operation", value: "Vadodara,Anand,Ahmedabad" },
+    { property: "Targeted Application", value: "5000" },
 ]
 const Index = () => {
     const router = useRouter();
     function PageTitle() {
         return <div>
             <span className="text-xl font-semibold">
-                Ranjeet Gautam
+                Details of the Reporting Bank & Branch
             </span>
         </div>
     }
@@ -87,7 +90,7 @@ const Index = () => {
                                                     </div>
                                                     <HrTag />
                                                     <div className="w-full">
-                                                        {tableFields(stakeholderDetail)}
+                                                        {tableFields(bankAndBranchDetail)}
                                                     </div>
                                                 </div>
                                             </div>
