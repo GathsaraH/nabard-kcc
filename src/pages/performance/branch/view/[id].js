@@ -24,7 +24,6 @@ const Index = () => {
                 { "label": "Received", "values": [10, 100000] },
                 { "label": "Sanctioned", "values": [10, 100000] },
                 { "label": "Rejected", "values": [10, 100000] },
-                { "label": "Disbursed", "values": [10, 100000] }
             ]
         },
         {
@@ -33,7 +32,6 @@ const Index = () => {
                 { "label": "Received", "values": [10, 100000] },
                 { "label": "Sanctioned", "values": [10, 100000] },
                 { "label": "Rejected", "values": [10, 100000] },
-                { "label": "Disbursed", "values": [10, 100000] }
             ]
         },
         {
@@ -42,7 +40,6 @@ const Index = () => {
                 { "label": "Received", "values": [10, 100000] },
                 { "label": "Sanctioned", "values": [10, 100000] },
                 { "label": "Rejected", "values": [10, 100000] },
-                { "label": "Disbursed", "values": [10, 100000] }
             ]
         },
         {
@@ -51,7 +48,6 @@ const Index = () => {
                 { "label": "Received", "values": [10, 100000] },
                 { "label": "Sanctioned", "values": [10, 100000] },
                 { "label": "Rejected", "values": [10, 100000] },
-                { "label": "Disbursed", "values": [10, 100000] }
             ]
         },
     ]
@@ -59,7 +55,7 @@ const Index = () => {
 
     function PageTitle() {
         return <div>
-            <span className="text-xl font-semibold">
+            <span className="text-sm md:text-xl font-bold whitespace-nowrap">
                 Details of the Performance Data Entry
             </span>
         </div>

@@ -39,7 +39,7 @@ const sidebarMenuOptions = [
     ],
   },
   {
-    title: "Nabard Employee",
+    title: "User Employee",
     icon: <FiUsers size={25} />,
     subMenu: [
       {
