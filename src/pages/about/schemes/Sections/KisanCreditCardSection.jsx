@@ -1,9 +1,10 @@
 /* eslint-disable react/no-array-index-key */
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import kccImg from "src/assets/images/Landing-page/kccImg.png";
-import MissImg from "src/assets/images/Landing-page/MissImg.png";
+// import MissImg from "src/assets/images/Landing-page/MissImg.png";
 import PmKisanImg from "src/assets/images/Landing-page/PmKisanImg.png";
+import { useIsVisible } from "src/hooks/ViewPort/useIsVisible";
 
 const sectionsData = [
   {
@@ -26,8 +27,21 @@ const sectionsData = [
 ];
 
 const KisanCreditCardSection = () => {
+
+  const [isAnimated, setisAnimated] = useState(false)
+
+  const ref = useRef();
+  const isVisible = useIsVisible(ref);
+
+useEffect(() => {
+  if (isVisible === true && isAnimated === false) {
+    setisAnimated(isVisible)
+  }
+}, [isVisible])
+
+
   return (
-    <div className="bg-white">
+    <div ref={ref} className={`bg-white`}>
       <div className="lg:text-left mb-20">
         <div className="bg-white">
           {sectionsData.map((item, index) => {
@@ -37,7 +51,7 @@ const KisanCreditCardSection = () => {
             const mobileClassName = `sm:flex sm:flex-col sm:justify-between py-28 sm:mx-0 mx-4`;
 
             return (
-              <div key={index} className={`${desktopClassName} ${mobileClassName}`}>
+              <div key={index} className={`${desktopClassName} ${mobileClassName} ${ isAnimated && `animate__animated animate__fadeInLeft animate__delay-${index + 1}s`}`}>
                 <div className="lg:w-2/5">
                   <h1 className="mt-0 mb-16 text-3xl font-bold tracking-tight md:text-6xl xl:text-2xl text-black">
                     {item.title}
