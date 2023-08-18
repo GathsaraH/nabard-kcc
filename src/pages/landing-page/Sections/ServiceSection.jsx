@@ -56,8 +56,8 @@ const ServiceSection = () => {
                                             <div className="bg-white mb-2 inline-block rounded-full border p-5 text-primary shadow-sm">
                                                 {feature.icon}
                                             </div>
-                                            <h5 className="mb-4 text-lg font-bold text-primary">{feature.title}</h5>
-                                            <p className="text-base text-black font-light">{feature.description}</p>
+                                            <h5 className="mb-4 text-lg font-bold text-primary ">{feature.title}</h5>
+                                            <p className="text-base text-black font-light ">{feature.description}</p>
                                         </div>
                                     ))}
 

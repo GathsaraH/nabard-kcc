@@ -1,5 +1,4 @@
 import React from "react";
-import BlankLayout from "src/layouts/BlankLayout";
 import HeroSection from "./Sections/HeroSection";
 import IntroSection from "./Sections/IntroSection";
 import shapeUp from "src/assets/images/Shapes/shapeUp.png";
@@ -11,7 +10,8 @@ import BannerSection from "./Sections/BannerSection";
 import SupportSection from "./Sections/SupportSection";
 import QuickLinkSection from "./Sections/QuickLinkSection";
 import { ColorConstants } from "src/constants/ColorConstants";
-import NavbarLandingPage from "src/components/Navbar/NavbarLandingPage";
+import LandingPageLayout from "src/layouts/LandingPageLayout";
+
 
 function showShapeUp() {
   return (
@@ -34,9 +34,12 @@ function showShapeDown(color) {
 }
 
 const Index = () => {
+
+
+
   return (
     <>
-    <NavbarLandingPage/>
+
       <HeroSection />
       {showShapeUp()}
       <IntroSection />
@@ -55,7 +58,7 @@ const Index = () => {
 };
 
 Index.getLayout = (page) => {
-  return <BlankLayout>{page}</BlankLayout>;
+  return <LandingPageLayout>{page}</LandingPageLayout>;
 };
 
 export default Index;

@@ -1,17 +1,18 @@
 import React from "react";
-import BlankLayout from "src/layouts/BlankLayout";
+
 import shapeUp from "src/assets/images/Shapes/shapeUp.png";
 import shapeDown from "src/assets/images/Shapes/shapeDown.png";
 import Image from "next/image";
 import QuickLinkSection from "src/pages/landing-page/Sections/QuickLinkSection";
 import { ColorConstants } from "src/constants/ColorConstants";
-import NavbarLandingPage from "src/components/Navbar/NavbarLandingPage";
+
 import AboutSchemeSection from "./Sections/AboutSchemeSection";
 import KisanCreditCardSection from "./Sections/KisanCreditCardSection";
+import LandingPageLayout from "src/layouts/LandingPageLayout";
 
 function showShapeUp() {
   return (
-    <div className="absolute flex -mt-4 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28">
+    <div className="absolute flex -mt-10 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28">
       <div className="text-center">
         <Image src={shapeUp} alt="" />
       </div>
@@ -32,7 +33,6 @@ function showShapeDown(color) {
 const Index = () => {
   return (
     <>
-    <NavbarLandingPage/>
       {/* <HeroSection /> */}
       <AboutSchemeSection/>
 
@@ -45,7 +45,7 @@ const Index = () => {
 };
 
 Index.getLayout = (page) => {
-  return <BlankLayout>{page}</BlankLayout>;
+  return <LandingPageLayout>{page}</LandingPageLayout>;
 };
 
 export default Index;

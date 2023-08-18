@@ -1,12 +1,27 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
 import leftVector from 'src/assets/svg/LeftLeaf.svg';
 import RightVector from 'src/assets/svg/RightLeaf.svg';
 import DefaultButtonComponent from 'src/components/Button/DefaultButtonComponent';
+import { useAuthToken } from 'src/hooks/Auth/useAuthToken';
 
 
 
 const BannerSection = () => {
+    const router = useRouter()
+    const { token } = useAuthToken();
+
+    const navigateToLoginPage = () => {
+        if (token?.length > 0) {
+            router.push('/dashboard')
+
+        } else {
+            router.push('/auth/login')
+
+        }
+    }
+
     return (
         <div className="bg-[#EEF2F0] flex">
             <Image src={leftVector} alt="leftVector" className="hidden lg:block" />
@@ -21,8 +36,7 @@ const BannerSection = () => {
                                 Step into a world of empowerment for farmers across the nation through the GharGhar KCC Abhiyan. Our mission is simple yet impactful: to ensure that every household gains access to credit through the Kisan Credit Card (KCC), revolutionizing the financial landscape for farmers.
                             </span>
                             <div className='flex justify-center py-12' >
-                                <DefaultButtonComponent className={'w-1/5'} roundedOff title="Login" />
-
+                                <DefaultButtonComponent onClick={navigateToLoginPage} className={'w-1/5'} roundedOff title={token?.length > 0 ? "Dashboard" : "Login"} />
                             </div>
                         </div>
                     </div>
