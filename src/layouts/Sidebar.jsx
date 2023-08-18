@@ -48,7 +48,7 @@ const sidebarMenuOptions = [
       },
       {
         title: "Stakeholders",
-        link: "/users/stakeholders",
+        link: "/users/Stakeholders",
       },
     ],
   },

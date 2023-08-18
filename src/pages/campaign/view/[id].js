@@ -26,7 +26,7 @@ const Index = () => {
 
     function PageTitle() {
         return <div>
-            <span className="text-xl font-semibold">
+            <span className="text-xl font-semibold whitespace-nowrap">
                 Details of the Awareness & Outreach Camp
             </span>
         </div>
@@ -96,10 +96,7 @@ const Index = () => {
                                                     <div className="w-full">
                                                         {tableFields(campaignDetail)}
                                                     </div>
-
                                                 </div>
-
-
                                                 <div className="table-container p-4">
                                                     <table className="data-table">
                                                         <thead style={{ backgroundColor: '#D2ECFA' }}>
@@ -125,11 +122,7 @@ const Index = () => {
                                                     </table>
                                                 </div>
                                             </div>
-
-
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
