@@ -12,8 +12,10 @@ const campaignDetail = [
     { property: "District", value: "Vadodara" },
     { property: "Block", value: "D Block" },
     { property: "Village", value: "Ved Road" },
-    { property: "Start Date", value: "10 Aug 2023" },
-    { property: "End Date", value: "15 Aug 2023" },
+    { property: "Camp Date", value: "10 Aug 2023" },
+    { property: "Participated-Farmers", value: "10" },
+    { property: "Participated-Others", value: "10" },
+
 ]
 const Index = () => {
     const router = useRouter();
@@ -26,7 +28,7 @@ const Index = () => {
 
     function PageTitle() {
         return <div>
-            <span className="text-xl font-semibold whitespace-nowrap">
+            <span className="text-sm md:text-xl font-bold whitespace-nowrap">
                 Details of the Awareness & Outreach Camp
             </span>
         </div>
@@ -45,14 +47,14 @@ const Index = () => {
                 {data.map((item) => {
                     return (
                         <>
-                            <Grid item xs={12} sm={2}>
-                                <span className='font-bold text-lg'>{item.property}</span>
+                            <Grid item xs={6} sm={2}>
+                                <span className='font-bold text-sm md:text-lg'>{item.property}</span>
                             </Grid>
-                            <Grid item xs={12} sm={1} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <Grid item xs={1} sm={1}>
                                 :
                             </Grid>
-                            <Grid item xs={12} sm={9}>
-                                <span className='text-lg'>{item.value}</span>
+                            <Grid item xs={5} sm={9}>
+                                <span className='text-sm md:text-lg'>{item.value}</span>
                             </Grid>
                         </>
                     );
@@ -97,7 +99,7 @@ const Index = () => {
                                                         {tableFields(campaignDetail)}
                                                     </div>
                                                 </div>
-                                                <div className="table-container p-4">
+                                              {/*  <div className="table-container p-4">
                                                     <table className="data-table">
                                                         <thead style={{ backgroundColor: '#D2ECFA' }}>
                                                             <tr>
@@ -120,7 +122,7 @@ const Index = () => {
                                                             ))}
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                                    </div>*/}
                                             </div>
                                         </div>
                                     </div>

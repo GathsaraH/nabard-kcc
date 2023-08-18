@@ -47,16 +47,8 @@ const Index = () => {
             { name: 'A/cs', value: '' },
             { name: 'Amount', value: '' },
           ],
-        },
-        {
-          label: 'Disbursed',
-          values: [
-            { name: 'A/cs', value: '' },
-            { name: 'Amount', value: '' },
-          ],
-        },
+        },       
       ],
-
     },
     {
       label: 'Marginal Farmers',
@@ -81,14 +73,7 @@ const Index = () => {
             { name: 'A/cs', value: '' },
             { name: 'Amount', value: '' },
           ],
-        },
-        {
-          label: 'Disbursed',
-          values: [
-            { name: 'A/cs', value: '' },
-            { name: 'Amount', value: '' },
-          ],
-        },
+        },      
       ],
 
     },
@@ -115,16 +100,8 @@ const Index = () => {
             { name: 'A/cs', value: '' },
             { name: 'Amount', value: '' },
           ],
-        },
-        {
-          label: 'Disbursed',
-          values: [
-            { name: 'A/cs', value: '' },
-            { name: 'Amount', value: '' },
-          ],
-        },
+        },       
       ],
-
     },
     {
       label: 'Total',
@@ -149,17 +126,8 @@ const Index = () => {
             { name: 'A/cs', value: 0 },
             { name: 'Amount', value: 0 },
           ],
-        },
-        {
-          label: 'Disbursed',
-          values: [
-            { name: 'A/cs', value: 0 },
-            { name: 'Amount', value: 0 },
-          ],
-        },
-      ],
-      // totalAccount: 0,
-      // totalAmount: 0,
+        },        
+      ],     
     },
   ];
 
@@ -284,7 +252,7 @@ const Index = () => {
                     <button
                       onClick={() => router.back()}
                       type="button"
-                      className="flex items-center  p-3 rounded text-sm w-24"
+                      className="flex items-center  p-3 rounded text-sm w-1"
                     >
                       <span className="common-Font-Family ml-4">
                         <Tippy content="back">
@@ -308,8 +276,7 @@ const Index = () => {
                     title="Create"
                     headings={formHeadings}
                   >
-                    <div className="w-full p-2">
-
+                    <div className="w-full">
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                         {tableData.map((section, sectionIndex) => (
                           <div key={sectionIndex} className="table-container">
@@ -318,7 +285,7 @@ const Index = () => {
                                 backgroundColor: ColorConstants.lightBlue
                               }}>
                                 <tr>
-                                  <th colSpan={4} style={{textAlign:"center"}}>
+                                  <th colSpan={4} style={{ textAlign: "center" }}>
                                     {section.label}
                                   </th>
                                 </tr>
@@ -346,7 +313,7 @@ const Index = () => {
                                       {item.values.map((value, valueIndex) => (
                                         <td key={valueIndex}>
                                           <TextField
-                                          fullWidth
+                                            fullWidth
                                             id={`data-${sectionIndex}-${itemIndex}-${valueIndex}`}
                                             name={value.name}
                                             value={value.value}
@@ -358,6 +325,7 @@ const Index = () => {
                                             variant="outlined"
                                             InputProps={textFieldSize}
                                             InputLabelProps={labelSize}
+                                            sx={{width:{xs:"100px",md:"130px"}}}
                                           />
                                         </td>
                                       ))}

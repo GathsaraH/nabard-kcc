@@ -43,13 +43,8 @@ const Index = () => {
     {
       label: 'Applications Rejected',
       name: 'Applications Rejected', value: 10
-    }
-    ,
-    {
-      label: 'Total Credit Disbursed (in Rs)',
-      name: 'Total Credit Disbursed (in Rs)', value: 100000
-    }
-    ,
+    }  
+    
   ];
   const [tableData, setTableData] = useState(data);
 
@@ -115,24 +110,39 @@ const Index = () => {
 
     },
     {
-      name: 'StartDate',
-      label: 'Start Date',
+      name: 'Date',
+      label: 'Camp Date',
       type: 'text',
       required: true,
       heading: 'Location',
-    },
+    },   
     {
-      name: 'EndDate',
-      label: 'End Date',
+      name: 'Participatedfarmers',
+      label: 'Participated-Farmers',
       type: 'text',
       required: true,
       heading: 'Location',
+    },   
+    {
+      name: 'ParticipatedOthers',
+      label: 'Participated-Others',
+      type: 'text',
+      required: true,
+      heading: 'Location',
+    },   
+    {
+      name: 'fileField',
+      label: 'Upload Image',
+      type: 'file',
+      required: false,
+      heading: 'Photo Upload'
     },
   ]
   // Define form section headings
   const formHeadings = [
     '',
-    "Location"
+    "Location",
+    'Photo Upload'
     // Add more headings as needed
   ];
 
@@ -169,7 +179,7 @@ const Index = () => {
                     <button
                       onClick={() => router.back()}
                       type="button"
-                      className="flex items-center  p-3 rounded text-sm w-24"
+                      className="flex items-center  p-3 rounded text-sm w-1"
                     >
                       <span className="common-Font-Family ml-4">
                         <Tippy content="back">
@@ -178,7 +188,7 @@ const Index = () => {
                       </span>
                     </button>
                     <div className="col-start-5 col-end-8">
-                      <span className="heading-Font-Family whitespace-nowrap" style={{ fontWeight: '700' }}>
+                      <span className="heading-Font-Family text-sm md:text-xl font-bold whitespace-nowr1" style={{ fontWeight: '700' }}>
                         {t("Details of the Awareness & Outreach Camp")}
                       </span>
                     </div>
@@ -193,8 +203,8 @@ const Index = () => {
                     title="Create"
                     headings={formHeadings}
                   >
-                    <div className="w-full p-2">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-0">
+                   {/* <div className="w-full p-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
                         {tableData.map((item, itemIndex) => (
                           <table key={itemIndex}>
                             <thead style={{
@@ -221,7 +231,7 @@ const Index = () => {
                           </table>
                         ))}
                       </div>
-                    </div>
+                          </div>*/}
                   </DefaultForm>
                 </div>
               </div>

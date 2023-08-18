@@ -39,16 +39,16 @@ const sidebarMenuOptions = [
     ],
   },
   {
-    title: "Nabard Employee",
+    title: "User Employee",
     icon: <FiUsers size={25} />,
     subMenu: [
       {
         title: "Employee",
         link: "/users/employee",
       },
-      {
+      { 
         title: "Stakeholders",
-        link: "/users/Stakeholders",
+        link: "/users/stakeholders",
       },
     ],
   },
