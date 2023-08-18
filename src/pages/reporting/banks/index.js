@@ -62,7 +62,10 @@ const Index = () => {
         return (
           <div>
             <CommonFilters onClick={uploadData} addButtonLabel="Import" icon={<AiOutlineArrowUp />} hideSecondIconButton="true" />
-            <MUIDataTable options={options} data={data} columns={columns} />
+            <MUIDataTable options={options} data={data} columns={columns} options={{
+              selectableRows: false,
+              responsive: "scroll",
+            }}/>
           </div>
         )
 }

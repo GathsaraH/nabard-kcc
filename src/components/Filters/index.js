@@ -14,7 +14,7 @@ const CommonFilters = ({ addButtonLabel, onClick, icon, hideIconButton, addSecon
                         <div className="px-2">
                             <IconButton
                                 label={addButtonLabel}
-                                className="btn-outline-primary w-[200px]"
+                                className="btn-outline-primary w-[140px]"
                                 icon={icon}
                                 onClick={onClick}
                             />
