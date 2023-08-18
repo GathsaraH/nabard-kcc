@@ -5,6 +5,7 @@ import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import { TextField } from '@mui/material';
 import DefaultForm from 'src/components/Forms/DefaultForm';
+import { ColorConstants } from 'src/constants/ColorConstants';
 
 const textFieldSize = {
   style: {
@@ -23,13 +24,33 @@ const labelSize = {
 const Index = () => {
   const [selectAllChecked, setSelectAllChecked] = useState(false);
 
-  const data = [{ label: 'Received', values: [
-    {name: 'No of Farmer Reached', value: ''},
-    {name: 'No of Application Received', value: ''},
-    {name: 'No of Application Sanctioned', value: ''},
-    {name: 'No of Application Rejected', value: ''},
-    {name: 'Total Credit Discbursed', value: ''}
-  ]}];
+  const data = [
+    {
+      label: 'Farmer Reached',
+      name: 'Farmer Reached', value: 10
+    }
+    ,
+    {
+      label: 'Applications Received',
+      name: 'Applications Received', value: 10
+    }
+    ,
+    {
+      label: 'Applications Sanctioned',
+      name: 'Applications Sanctioned', value: 10
+    }
+    ,
+    {
+      label: 'Applications Rejected',
+      name: 'Applications Rejected', value: 10
+    }
+    ,
+    {
+      label: 'Total Credit Disbursed (in Rs)',
+      name: 'Total Credit Disbursed (in Rs)', value: 100000
+    }
+    ,
+  ];
   const [tableData, setTableData] = useState(data);
 
   const handleInputChange = (sectionIndex, valueIndex, newValue) => {
@@ -91,7 +112,7 @@ const Index = () => {
       type: 'text', // This indicates it's a select input
       required: true,
       heading: 'Location',
-      
+
     },
     {
       name: 'StartDate',
@@ -157,7 +178,7 @@ const Index = () => {
                       </span>
                     </button>
                     <div className="col-start-5 col-end-8">
-                      <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
+                      <span className="heading-Font-Family whitespace-nowrap" style={{ fontWeight: '700' }}>
                         {t("Details of the Awareness & Outreach Camp")}
                       </span>
                     </div>
@@ -173,41 +194,32 @@ const Index = () => {
                     headings={formHeadings}
                   >
                     <div className="w-full p-2">
-                      <div className="table-container">
-                        <table className="data-table">
-                          <thead style={{ backgroundColor: '#D2ECFA' }}>
-                            <tr>
-                              <th>Farmers Reached</th>
-                              <th>Applications Received</th>
-                              <th>Applications Sanctioned</th>
-                              <th>Applications Rejected</th>
-                              <th>Total Credit Disbursed (in Rs)</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          {tableData.map((item, sectionIndex) => (
-                              <tr key={sectionIndex}>
-                                {item.values.map((input, valueIndex) => (
-                                  <td key={valueIndex}>
-                                    <TextField
-                                    id="data"
-                                    name={input.name}
-                                    value={input.value}
-                                    label={input.name}
-                                    placeholder={input.name}
-                                    onChange={(e) =>
-                                      handleInputChange(sectionIndex, valueIndex, e.target.value)
-                                    }
-                                    variant="outlined"
-                                    InputProps={textFieldSize}
-                                    InputLabelProps={labelSize}
-                                  />
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-0">
+                        {tableData.map((item, itemIndex) => (
+                          <table key={itemIndex}>
+                            <thead style={{
+                              backgroundColor: ColorConstants.lightBlue
+                            }}><tr><th>{item.label}</th></tr>
+                            </thead>
+                            <br />
+                            <tbody><tr><td>
+                              <TextField
+                                fullWidth
+                                id="data"
+                                name={item.name}
+                                value={item.value}
+                                label={item.name}
+                                placeholder={item.name}
+                                // onChange={(e) =>
+                                //   handleInputChange(itemIndex, e.target.value)
+                                // }
+                                variant="outlined"
+                                InputProps={textFieldSize}
+                                InputLabelProps={labelSize}
+                              />
+                            </td></tr></tbody>
+                          </table>
+                        ))}
                       </div>
                     </div>
                   </DefaultForm>

@@ -5,6 +5,7 @@ import Tippy from '@tippyjs/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import { TextField } from '@mui/material';
 import DefaultForm from 'src/components/Forms/DefaultForm';
+import { ColorConstants } from 'src/constants/ColorConstants';
 
 const textFieldSize = {
   style: {
@@ -22,41 +23,146 @@ const labelSize = {
 
 const Index = () => {
   const [selectAllChecked, setSelectAllChecked] = useState(false);
-
   const data = [
-    { label: 'Received', values: 
-      [{ name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: ''}],
-      totalAccount:0,totalAmount:0 },
-    { label: 'Sanctioned', values: 
-      [{ name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: ''}],
-      totalAccount:0,totalAmount:0 },
-    { label: 'Rejected', values: 
-      [{ name: 'A/cs', value: '' },
-      { name: 'Amounts', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: ''}],
-      totalAccount:0,totalAmount:0 },
-    { label: 'Disbursed', values: 
-      [{ name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: '' },
-      { name: 'A/cs', value: '' },
-      { name: 'Amount', value: ''}],
-      totalAccount:0,totalAmount:0 },
+    {
+      label: 'Small Farmers',
+      values: [
+        {
+          label: 'Received',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Sanctioned',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Rejected',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Disbursed',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+      ],
+
+    },
+    {
+      label: 'Marginal Farmers',
+      values: [
+        {
+          label: 'Received',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Sanctioned',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Rejected',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Disbursed',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+      ],
+
+    },
+    {
+      label: 'Others',
+      values: [
+        {
+          label: 'Received',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Sanctioned',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Rejected',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+        {
+          label: 'Disbursed',
+          values: [
+            { name: 'A/cs', value: '' },
+            { name: 'Amount', value: '' },
+          ],
+        },
+      ],
+
+    },
+    {
+      label: 'Total',
+      values: [
+        {
+          label: 'Received',
+          values: [
+            { name: 'A/cs', value: 0 },
+            { name: 'Amount', value: 0 },
+          ],
+        },
+        {
+          label: 'Sanctioned',
+          values: [
+            { name: 'A/cs', value: 0 },
+            { name: 'Amount', value: 0 },
+          ],
+        },
+        {
+          label: 'Rejected',
+          values: [
+            { name: 'A/cs', value: 0 },
+            { name: 'Amount', value: 0 },
+          ],
+        },
+        {
+          label: 'Disbursed',
+          values: [
+            { name: 'A/cs', value: 0 },
+            { name: 'Amount', value: 0 },
+          ],
+        },
+      ],
+      // totalAccount: 0,
+      // totalAmount: 0,
+    },
   ];
+
   const [tableData, setTableData] = useState(data);
 
   const handleInputChange = (sectionIndex, valueIndex, newValue) => {
@@ -203,54 +309,65 @@ const Index = () => {
                     headings={formHeadings}
                   >
                     <div className="w-full p-2">
-                      <div className="table-container">
-                        <table className="data-table">
-                          <thead style={{ backgroundColor: '#D2ECFA' }}>
-                            <tr>
-                              <th rowSpan={2}>Application</th>
-                              <th colSpan={2}>Small Farmer</th>
-                              <th colSpan={2}>Marginal Farmer</th>
-                              <th colSpan={2}>Other</th>
-                              <th colSpan={2}>Total</th>
-                            </tr>
-                            <tr>
-                              <th>A/cs</th>
-                              <th>Amount</th>
-                              <th>A/cs</th>
-                              <th>Amount</th>
-                              <th>A/cs</th>
-                              <th>Amount</th>
-                              <th>A/cs</th>
-                              <th>Amount</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {tableData.map((item, sectionIndex) => (
-                              <tr key={sectionIndex}>
-                                <td>{item.label}</td>
-                                {item.values.map((input, valueIndex) => (
-                                  <td key={valueIndex}>
-                                    <TextField
-                                    id="data"
-                                    name={input.name}
-                                    value={input.value}
-                                    label={input.name}
-                                    placeholder={input.name}
-                                    onChange={(e) =>
-                                      handleInputChange(sectionIndex, valueIndex, e.target.value)
-                                    }
-                                    variant="outlined"
-                                    InputProps={textFieldSize}
-                                    InputLabelProps={labelSize}
-                                  />
-                                  </td>
-                                ))}
-                                <td>{item.totalAccount}</td>
-                                <td>{item.totalAmount}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                        {tableData.map((section, sectionIndex) => (
+                          <div key={sectionIndex} className="table-container">
+                            <table className="data-table">
+                              <thead style={{
+                                backgroundColor: ColorConstants.lightBlue
+                              }}>
+                                <tr>
+                                  <th colSpan={4} style={{textAlign:"center"}}>
+                                    {section.label}
+                                  </th>
+                                </tr>
+                                <tr>
+                                  <th></th>
+                                  <th>A/cs</th>
+                                  <th>Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {section.label === 'Total' ?
+                                  section.values.map((item, itemIndex) => (
+                                    <tr key={itemIndex}>
+                                      <td className={`visible ${section?.label == "Small Farmers" ? "md:visible" : "md:invisible"}`}>{item.label}</td>
+                                      {item.values.map((value, valueIndex) => (
+                                        <td key={valueIndex} style={{ height: "64px" }}>
+                                          {value.value}
+                                        </td>
+                                      ))}
+                                    </tr>
+                                  )) :
+                                  section.values.map((item, itemIndex) => (
+                                    <tr key={itemIndex}>
+                                      <td className={`visible ${section?.label == "Small Farmers" ? "md:visible" : "md:invisible"}`}>{item.label}</td>
+                                      {item.values.map((value, valueIndex) => (
+                                        <td key={valueIndex}>
+                                          <TextField
+                                          fullWidth
+                                            id={`data-${sectionIndex}-${itemIndex}-${valueIndex}`}
+                                            name={value.name}
+                                            value={value.value}
+                                            label={value.name}
+                                            placeholder={value.name}
+                                            onChange={(e) =>
+                                              handleInputChange(sectionIndex, itemIndex, valueIndex, e.target.value)
+                                            }
+                                            variant="outlined"
+                                            InputProps={textFieldSize}
+                                            InputLabelProps={labelSize}
+                                          />
+                                        </td>
+                                      ))}
+                                    </tr>
+                                  ))}
+
+                              </tbody>
+                            </table>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </DefaultForm>

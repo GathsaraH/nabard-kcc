@@ -127,7 +127,9 @@ const Header = () => {
 
     const handleLogout = () => {
         removeAuthToken()
+      setTimeout(() => {
         router.push('/');
+      }, 1200);
     }
 
     return (

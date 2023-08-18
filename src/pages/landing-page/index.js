@@ -1,5 +1,4 @@
 import React from "react";
-import BlankLayout from "src/layouts/BlankLayout";
 import HeroSection from "./Sections/HeroSection";
 import IntroSection from "./Sections/IntroSection";
 import shapeUp from "src/assets/images/Shapes/shapeUp.png";
@@ -11,11 +10,11 @@ import BannerSection from "./Sections/BannerSection";
 import SupportSection from "./Sections/SupportSection";
 import QuickLinkSection from "./Sections/QuickLinkSection";
 import { ColorConstants } from "src/constants/ColorConstants";
-import NavbarLandingPage from "src/components/Navbar/NavbarLandingPage";
+import LandingPageLayout from "src/layouts/LandingPageLayout";
 
 function showShapeUp() {
   return (
-    <div className="absolute flex -mt-4 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28">
+    <div className="absolute flex -mt-6 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28 animate__animated animate__slideInDown">
       <div className="text-center">
         <Image src={shapeUp} alt="" />
       </div>
@@ -27,7 +26,11 @@ function showShapeDown(color) {
   return (
     <div className="absolute flex -mt-0 sm:-mt-0 md:-mt-0 lg:-mt-0 xl:-mt-40">
       <div className="text-center">
-        <Image style={{ backgroundColor: color ? color : "#EEF2F0" }} src={shapeDown} alt="" />
+        <Image
+          style={{ backgroundColor: color ? color : "#EEF2F0" }}
+          src={shapeDown}
+          alt=""
+        />
       </div>
     </div>
   );
@@ -36,7 +39,6 @@ function showShapeDown(color) {
 const Index = () => {
   return (
     <>
-    <NavbarLandingPage/>
       <HeroSection />
       {showShapeUp()}
       <IntroSection />
@@ -45,17 +47,17 @@ const Index = () => {
       {showShapeUp()}
       <FaqSection />
       {showShapeDown()}
-      <BannerSection/>
+      <BannerSection />
       {showShapeUp()}
-      <SupportSection/>
+      <SupportSection />
       {showShapeDown(ColorConstants.primaryColor)}
-      <QuickLinkSection/>
+      <QuickLinkSection />
     </>
   );
 };
 
 Index.getLayout = (page) => {
-  return <BlankLayout>{page}</BlankLayout>;
+  return <LandingPageLayout>{page}</LandingPageLayout>;
 };
 
 export default Index;
