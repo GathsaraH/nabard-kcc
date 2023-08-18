@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import nabardLogo from "public/assets/images/nabardLogo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useIsVisible } from "src/hooks/ViewPort/useIsVisible";
 
 const iconClassName = "w-8 h-8";
 
@@ -76,8 +77,22 @@ const iconData = [
 ];
 
 const QuickLinkSection = () => {
+const [isAnimated, setisAnimated] = useState(false)
+
+  const ref = useRef();
+  const isVisible = useIsVisible(ref);
+
+useEffect(() => {
+  if (isVisible === true && isAnimated === false) {
+    setisAnimated(isVisible)
+  }
+}, [isVisible])
+
+
+
   return (
     <>
+    {console.log("isVisible",isVisible)}
       <div className="bg-primary">
         <div className="md:flex md:justify-between lg:col-span-2   p-14">
           <div className="md:w-3/4 md:mr-4 lg:col-span-2">
@@ -89,7 +104,7 @@ const QuickLinkSection = () => {
             >
               <Image src={nabardLogo} alt="logo" width={200} height={50} />
             </Link>
-            <div className="mt-4 ">
+            <div ref={ref} className={`${ isAnimated && 'animate__animated animate__fadeInLeft'} mt-4 `}>
               <p className="text-sm text-white">
                 eKisanCredit.com - We are India&apos;s first online loan
                 marketplace for various financial needs of agriculturists
@@ -105,7 +120,7 @@ const QuickLinkSection = () => {
               </p>
             </div>
           </div>
-          <div className="md:w-40 md:mt-8 md:ml-4 lg:ml-0 mt-10">
+          <div className={`md:w-40 md:mt-8 md:ml-4 lg:ml-0 mt-10 ${ isAnimated && 'animate__animated animate__fadeInRight'}`}>
             <div>
               <p className="font-semibold tracking-wide text-white text-2xl">
                 {quickLinksData.title}
