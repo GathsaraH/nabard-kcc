@@ -16,22 +16,9 @@ import { HrTag } from "src/constants/ResponsiveClassName";
 import CardContainer from "../Card/CardContainer";
 import ImageUploader from "../Input/ImageUploader/ImageUploader";
 import { AiOutlineDown } from "react-icons/ai";
-import { makeStyles } from "@mui/styles";
 
 
 
-const useStyles = makeStyles({
-  textField: {
-    width: '360px',
-    '& .MuiInputBase-input': {
-      // height: '1rem', 
-    },
-  },
-  select: {
-    width: '360px',
-    // height: '3rem', 
-  },
-});
 
 const textFieldSize = {
   style: {
@@ -70,7 +57,6 @@ const DefaultForm = ({
   onClick,
   hierarchyType,
 }) => {
-  const classes = useStyles();
   const initialFormData = {};
   const initialErrors = {};
   const [formData, setFormData] = useState(initialFormData);
@@ -184,7 +170,7 @@ const DefaultForm = ({
     //   // setFormData(initialFormData);
     //   setErrors(initialErrors);
     // }
-     if (validateForm()) {
+    if (validateForm()) {
       const formDataWithHierarchy = {
         ...formData,
         inputFieldHierarchy: inputFieldHierarchy.data,
@@ -234,7 +220,7 @@ const DefaultForm = ({
           [nextLevel]: "",
         },
       };
-       
+
       return updatedHierarchy;
     });
   };
@@ -246,7 +232,7 @@ const DefaultForm = ({
     }));
 
   }, [inputFieldHierarchy])
-  
+
 
   const handleRemoveInputFieldsHierarchy = () => {
     setInputFieldHierarchy((prevHierarchy) => {
@@ -276,7 +262,7 @@ const DefaultForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-    {/* {console.log(inputFieldHierarchy)} */}
+      {/* {console.log(inputFieldHierarchy)} */}
       {headings.map((heading) => (
         <div key={heading.name}>
           <div className="grid lg:grid-cols-2 mt-2 ml-3 p-3">
@@ -325,7 +311,6 @@ const DefaultForm = ({
                           {field.label}
                         </InputLabel>
                         <Select
-                          className={classes.select}
                           id={field.name}
                           name={field.name}
                           value={formData[field.name]}
@@ -334,8 +319,6 @@ const DefaultForm = ({
                           sx={{
                             fontSize: 12,
                             height: 40,
-                            width: 360,
-
                           }}
                           IconComponent={AiOutlineDown}
                         >
@@ -349,6 +332,7 @@ const DefaultForm = ({
                     </>
                   ) : field.type === "textarea" ? (
                     <TextField
+                      fullWidth
                       id={field.name}
                       multiline
                       rows={5}
@@ -358,9 +342,11 @@ const DefaultForm = ({
                       placeholder={field.placeholder}
                       onChange={handleChange}
                       variant="outlined"
+
                     />
                   ) : (
                     <TextField
+                      fullWidth
                       type={field.type}
                       id={field.name}
                       label={field.label}
@@ -369,9 +355,9 @@ const DefaultForm = ({
                       value={formData[field.name]}
                       onChange={handleChange}
                       variant="outlined"
-                      className={classes.textField}
                       InputProps={textFieldSize}
                       InputLabelProps={labelSize}
+
                     />
                   )}
                   {errors[field.name] && (
@@ -457,7 +443,7 @@ const DefaultForm = ({
                     label="Level 3"
                     name="level3"
                     onChange={(evnt) =>
-                      handleInputChange( "level3", evnt.target.value)
+                      handleInputChange("level3", evnt.target.value)
                     }
                     value={inputFieldHierarchy.data.level3}
                     required
@@ -481,7 +467,7 @@ const DefaultForm = ({
                     label="Level 4"
                     name="level4"
                     onChange={(evnt) =>
-                      handleInputChange( "level4", evnt.target.value)
+                      handleInputChange("level4", evnt.target.value)
                     }
                     value={inputFieldHierarchy.data.level4}
                     required
@@ -506,7 +492,7 @@ const DefaultForm = ({
                         label="Level 5"
                         name="level5"
                         onChange={(evnt) =>
-                          handleInputChange( "level5", evnt.target.value)
+                          handleInputChange("level5", evnt.target.value)
                         }
                         value={inputFieldHierarchy.data.level5}
                         required

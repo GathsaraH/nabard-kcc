@@ -28,19 +28,21 @@ const DefaultInput = ({
   icon,
   secondIcon,
   onClickSecondIcon,
-  name
+  name,
+  firstIconClassName,
+  isDisabled
 }) => {
 
   return (
     <div className="relative">
       {/* Label for the input field */}
-      {label && <label htmlFor={id} className="text-lg">{label}</label>}
+      {label && <label htmlFor={id} className="text-md">{label}</label>}
       {/* Input field */}
       {
         icon && (
           !loading && ( // Added condition to check if loading is false
             <div
-              className={`absolute inset-y-0 left-2 flex items-center pr-3 ${error ? 'pt-4' : 'pt-10'
+              className={` ${firstIconClassName} absolute inset-y-0 left-2 flex items-center pr-3 ${error ? 'pt-4' : 'pt-10'
                 } `}
             >
               {icon}
@@ -60,6 +62,7 @@ const DefaultInput = ({
       }
       <input
         id={id}
+        disabled={isDisabled}
         name={name}
         value={value}
         type={type === 'password' ? 'password' : type === 'email' ? 'email' : 'text'}
