@@ -15,7 +15,7 @@ const SupportSection = () => {
                         </h1>
          <div className="bg-white flex">
             <div className="lg:text-left mb-20">
-                <div className="w-full mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
+                <div className="w-full mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl px-5">
                     <div className="grid items-center gap-12 lg:grid-cols-1">
                         <div className="text-center mt-4">
                       

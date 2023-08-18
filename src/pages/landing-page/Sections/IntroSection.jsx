@@ -7,8 +7,8 @@ const IntroSection = () => (
     <section className="bg-white mb-40">
       <div className="px-6 text-center md:px-12 lg:text-left">
         <div className="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="lg:mb-0">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:flex-col">
+          <div className="hidden sm:block lg:mb-0">
               <Image
                 height={300}
                 width={300}
@@ -37,7 +37,14 @@ const IntroSection = () => (
                 </span>
               </h1>
             </div>
-
+            <div className=" lg:hidden lg:mb-0"> 
+              <Image
+                height={300}
+                width={300}
+                src={ImgOne}
+                className="w-full"
+                alt="" />
+            </div>
           </div>
         </div>
       </div>

@@ -56,8 +56,8 @@ const ServiceSection = () => {
                                             <div className="bg-white mb-2 inline-block rounded-full border p-5 text-primary shadow-sm">
                                                 {feature.icon}
                                             </div>
-                                            <h5 className="mb-4 text-lg font-bold text-primary ">{feature.title}</h5>
-                                            <p className="text-base text-black font-light ">{feature.description}</p>
+                                            <h5 className="mb-4 text-2xl sm:text-xl font-bold text-primary ">{feature.title}</h5>
+                                            <p className="text-black font-light text-xl  sm:text-base">{feature.description}</p>
                                         </div>
                                     ))}
 
@@ -70,7 +70,7 @@ const ServiceSection = () => {
                                                 {feature.icon}
                                             </div>
                                             <h5 className="mb-4 text-lg font-bold text-primary">{feature.title}</h5>
-                                            <p className="text-base text-black font-light">{feature.description}</p>
+                                            <p className="text-xl sm:text-base text-black font-light">{feature.description}</p>
                                         </div>
                                     ))}
 

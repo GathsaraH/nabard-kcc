@@ -46,9 +46,9 @@ const sidebarMenuOptions = [
         title: "Employee",
         link: "/users/employee",
       },
-      {
+      { 
         title: "Stakeholders",
-        link: "/users/Stakeholders",
+        link: "/users/stakeholders",
       },
     ],
   },

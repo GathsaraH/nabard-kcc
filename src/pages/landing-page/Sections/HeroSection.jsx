@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import VectorSvg from "src/assets/svg/VectorSvg";
+import VectorSvg from "src/assets/svg/VectorSvg.svg";
 import DefaultButtonComponent from "src/components/Button/DefaultButtonComponent";
 import ImgOne from "../../../assets/images/firstImg.png";
 import { useRouter } from "next/router";
@@ -22,7 +22,7 @@ const HeroSection = () => {
     <div>
       {" "}
       <div className="bg-[#EEF2F0]  flex flex-col sm:flex-row">
-        <VectorSvg />
+      <Image className="hidden sm:block lg:mb-0" src={VectorSvg} alt="leftVector" />
         <div className="px-6 py-12 text-center md:px-12 lg:text-left">
           <div className="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
             <div className="grid items-center gap-12 lg:grid-cols-1">
@@ -45,11 +45,13 @@ const HeroSection = () => {
                   </span>
                 </div>
 
-                <DefaultButtonComponent
+               <div className="mb-10" >
+               <DefaultButtonComponent
                   onClick={navigateToLoginPage}
                   roundedOff
                   title={token?.length > 0 ? "Dashboard" : "Login"}
                 />
+               </div>
               </div>
             </div>
           </div>

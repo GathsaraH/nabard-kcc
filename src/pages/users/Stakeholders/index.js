@@ -11,7 +11,7 @@ const Index = () => {
       //Add New User Function is call
       const AddUser = () => {
         //go to New stackeholder user creation page
-        router.push('/users/stakeholders/add');
+        router.push('/users/stakeholders/Add');
       }
 
       const handleRowClicked = (rowData) => {

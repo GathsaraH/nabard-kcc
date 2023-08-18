@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import nabardLogo from 'src/assets/images/nabardGreenLogo.png'
+import { useAuthToken } from 'src/hooks/Auth/useAuthToken'
 
 const navLinks = [
     {
@@ -10,7 +11,7 @@ const navLinks = [
     },
     {
         title: 'Dashboard',
-        link: '#',
+        link: '/Main-Dashboard',
     },
     {
         title: 'Documents',
@@ -24,9 +25,15 @@ const navLinks = [
         title: 'Support',
         link: '#',
     },
+    {
+        title: 'Login',
+        link: '/auth/login',
+    },
 ]
 
 const NavbarLandingPage = () => {
+  const { token } = useAuthToken();
+
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -39,7 +46,7 @@ const NavbarLandingPage = () => {
     return (
         <>
 
-            <nav className="bg-white border-gray-200 ">
+            <nav className="bg-white border-gray-200 shadow-md">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href="https://flowbite.com/" className="flex items-center">
                         <Image width={150} height={100} src={nabardLogo} className="h-10 mr-3 " alt="Flowbite Logo" />
@@ -62,7 +69,7 @@ const NavbarLandingPage = () => {
                                 navLinks.map((link, index) => (
                                     // eslint-disable-next-line react/no-array-index-key
                                     <li key={index}>
-                                        <a href={link.link} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">{link.title}</a>
+                                        <a href={link.link} className={`${token?.length > 0 && link.title === 'Login' ? 'hidden' : ''} block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent `}>{link.title}</a>
 
                                     </li>
                                 ))

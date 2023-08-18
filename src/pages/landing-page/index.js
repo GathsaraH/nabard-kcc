@@ -15,7 +15,7 @@ import LandingPageLayout from "src/layouts/LandingPageLayout";
 
 function showShapeUp() {
   return (
-    <div className="absolute flex -mt-4 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28">
+    <div className="absolute flex -mt-6 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28">
       <div className="text-center">
         <Image src={shapeUp} alt="" />
       </div>

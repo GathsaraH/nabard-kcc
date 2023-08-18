@@ -35,13 +35,19 @@ const FaqSection = () => {
     <section className="bg-white mb-40">
       <div className="px-6 text-center md:px-12 lg:text-left">
         <div className="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
+          <h1 className="text-3xl font-bold tracking-tight md:text-6xl xl:text-2xl text-black text-center mt-8">
+            Technical Support
+          </h1>
           <div className="grid gap-12 lg:grid-cols-2">
             <div className="mt-12 lg:mt-0">
               {faqItems.map((item, index) => (
                 <div
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
-                  className={`max-w-screen-xl mx-auto px-5 bg-white min-h-sceen  shadow-md ${openIndex === index && 'border-l-4 rounded-l-md border-primary'}`}
+                  className={`max-w-screen-xl mx-auto px-5 bg-white min-h-sceen  shadow-md ${
+                    openIndex === index &&
+                    "border-l-4 rounded-l-md border-primary"
+                  }`}
                 >
                   <div
                     className={` grid divide-y divide-neutral-200 max-w-xl mx-auto ${
@@ -56,7 +62,13 @@ const FaqSection = () => {
                             setOpenIndex(openIndex === index ? null : index)
                           }
                         >
-                          <span className={`font-bold ${openIndex === index && 'text-primary '}`} >{item.question}</span>
+                          <span
+                            className={`font-bold ${
+                              openIndex === index && "text-primary "
+                            }`}
+                          >
+                            {item.question}
+                          </span>
                           <span
                             className={`transition ${
                               openIndex === index ? "group-open:rotate-180" : ""
@@ -91,11 +103,11 @@ const FaqSection = () => {
                   </div>
                 </div>
               ))}
-             <div className="mt-10" >
-             <DefaultButtonComponent roundedOff title="View more" />
-             </div>
+              <div className="mt-10">
+                <DefaultButtonComponent roundedOff title="View more" />
+              </div>
             </div>
-          
+
             <div className="lg:mb-0">
               <Image
                 height={300}

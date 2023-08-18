@@ -11,12 +11,12 @@ const sectionsData = [
     desc: "Introduced by the Government of India (GoI) in 1998, the Kisan Credit Card (KCC) is a specialized credit product designed for farmers. It serves as a crucial avenue for farmers to secure affordable credit, catering to their diverse needs such as short-term cultivation, post-harvest expenses, and household consumption. Executed through commercial banks, cooperative banks, and rural regional banks, the KCC initiative strives to provide timely and sufficient credit assistance to farmers",
     image: kccImg,
   },
-  {
-    title: "Modified Interest Subvention Scheme (MISS)",
-    desc: "Our GharGhar KCC Abhiyan is an integral part of the Modified Interest Subvention Scheme (MISS), a fully funded central sector scheme by the GoI. This scheme extends KCC loans to farmers at a subsidized interest rate of 7%, with added incentives for prompt repayment, effectively bringing down the interest rate to 4%. This initiative serves as a shield for small and marginal farmers against distress scenarios, empowering them and propelling growth in the agricultural sector.",
-    image: MissImg,
+  // {
+  //   title: "Modified Interest Subvention Scheme (MISS)",
+  //   desc: "Our GharGhar KCC Abhiyan is an integral part of the Modified Interest Subvention Scheme (MISS), a fully funded central sector scheme by the GoI. This scheme extends KCC loans to farmers at a subsidized interest rate of 7%, with added incentives for prompt repayment, effectively bringing down the interest rate to 4%. This initiative serves as a shield for small and marginal farmers against distress scenarios, empowering them and propelling growth in the agricultural sector.",
+  //   image: MissImg,
 
-  },
+  // },
   {
     title: "Pradhan MantriKisanSammanNidhi (PM Kisan)",
     desc: "Aligned with the Pradhan MantriKisanSammanNidhi (PM KISAN) scheme, our GharGhar KCC Abhiyan reinforces the livelihoods of small and marginal farmers. Launched in December 2018, the PM-KISAN scheme offers direct financial support to farmers, enhancing crop health and securing their farming endeavors. Eligible landholding families receive annual payments of Rs. 6000 to bolster their agricultural activities.",
