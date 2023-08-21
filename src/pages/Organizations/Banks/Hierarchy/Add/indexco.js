@@ -233,7 +233,7 @@ const Index = () => {
                               <button
                                 onClick={() => router.back()}
                                 type="button"
-                                className="flex items-center  p-3 rounded text-sm w-24"
+                                className="flex items-center  p-3 rounded text-sm w-1"
                               >
                                 <span className="common-Font-Family ml-4">
                                   <Tippy content="back">
@@ -242,7 +242,7 @@ const Index = () => {
                                 </span>
                               </button>
                               <div className="col-start-5 col-end-8">
-                                <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
+                                <span className="heading-Font-Family text-lg md:text-xl font-bold whitespace-prewrap flex text-center" style={{ fontWeight: '700' }}>
                                   {t("Add Bank Hierarchy")}
                                 </span>
                               </div>

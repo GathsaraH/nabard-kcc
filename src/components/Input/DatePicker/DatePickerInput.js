@@ -21,29 +21,32 @@ const DatePickerInput = ({
   value,
   onChange,
   className,
-  width = "100%",
-  height = '20px', 
 
 }) => {
   return (
-    <div className={className} style={{ width, height }}>
+    <div className={className}>
       <Box sx={{ minWidth: 120 }}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          label={label}
-          value={value}
-        
-          onChange={onChange}
-          renderInput={(params) => (
-            <TextField
-              variant="outlined"
-              size="small"
-              {...params}
-              inputProps={{ style: { height: '10px' } }}
+        <LocalizationProvider dateAdapter={AdapterDateFns}
+        >
+          <div className="date-pick">
+            <DatePicker
+              label={label}
+              value={value}
+              onChange={onChange}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  {...params}  
+                  InputLabelProps={{
+                    style: { fontSize: 12 }, // Adjust the font size as needed
+                  }}             
+                
+                />
+              )}
             />
-          )}
-        />
-      </LocalizationProvider>
+          </div>
+        </LocalizationProvider>
       </Box>
     </div>
   );

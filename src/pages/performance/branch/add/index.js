@@ -190,15 +190,15 @@ const Index = () => {
     },
     {
       name: 'ReportingPeriodFrom',
-      label: 'Reporting Periof From',
-      type: 'text',
+      label: 'Reporting Period From',
+      type: 'datepicker',
       required: true,
       heading: '',
     },
     {
       name: 'ReportingPeriodTo',
-      label: 'Reporting Periof To',
-      type: 'text',
+      label: 'Reporting Period To',
+      type: 'datepicker',
       required: true,
       heading: '',
     },
@@ -260,8 +260,8 @@ const Index = () => {
                         </Tippy>
                       </span>
                     </button>
-                    <div className="col-start-5 col-end-8">
-                      <span className="heading-Font-Family" style={{ fontWeight: '700' }}>
+                    <div className="col-start-2 md:col-start-5 col-end-8">
+                      <span className="heading-Font-Family text-lg md:text-xl font-bold whitespace-prewrap flex text-center" style={{ fontWeight: '700' }}>
                         {t("Performance Data Entry")}
                       </span>
                     </div>

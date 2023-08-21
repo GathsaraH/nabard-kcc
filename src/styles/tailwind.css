@@ -954,3 +954,12 @@ pre.hljs {
   background-size: 100% 3px;
   background-position: 0 100%
 }
+
+
+/* class to increase width of datepicker */
+.date-pick .MuiFormControl-root{
+  width: 100%;
+}
+.date-pick .MuiInputBase-root{
+  height: 41px;
+}
