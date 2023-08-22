@@ -1,16 +1,19 @@
 import { Card, CardContent, TextField } from "@mui/material";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 import CardContainer from "src/components/Card/CardContainer";
+import SelectInput from "src/components/Input/Select/SelectInput";
 import { formatIndianNumber } from "src/hooks/NumberSystem/useIndianFormatHook";
 
 const isDark = false;
 
 const mappingSelectOptions = [
-  
+  { value: "1", label: "KCC - Crop - Small Farmer" },
+  { value: "2", label: "KCC - Crop - Medium Farmer" },
+  { value: "3", label: "KCC - Crop - Large Farmer" }
 ]
 
 const data = [
@@ -33,8 +36,32 @@ const data = [
     amount: formatIndianNumber("100000"),
   },
 ];
+const dataSelectMapping = [
+  {
+    id: 1,
+    Title: "No Of Application",
+    amount: formatIndianNumber("100000"),
+  },
+  {
+    id: 2,
+    Title: "Application Amount",
+    amount: formatIndianNumber("100000"),
+  },
+  {
+    id: 3,
+    Title: "No Of Bank In Disctrict",
+    amount: formatIndianNumber("100000"),
+  },
+];
 
 const FirstSection = () => {
+  const [applicationMapping, setapplicationMapping] = useState("")
+
+
+  const handleApplicationMapping = (e) => {
+    setapplicationMapping(e.target.value)
+  }
+
   const revenueChart = {
     series: [
       {
@@ -308,20 +335,51 @@ const FirstSection = () => {
             </div>
           </div>
         </div>
-        <div className="w-full grid grid-cols-3 gap-4 bg-red-100 p-4">
-         <Card>
-          <CardContent>
-            <div className="flex  " >
+        <div className="w-full grid gap-4 p-4 sm:grid-cols-1 md:grid-cols-3">
+          <Card>
+            <CardContent>
+              <div className="flex flex-col " >
+                <span className="font-bold text-lg" >Application Mapping</span>
+                <div className="py-4 mr-4" >
+                  <SelectInput onChange={handleApplicationMapping} value={applicationMapping} wdith={"100%"} label="Select Mapping" options={mappingSelectOptions} />
+                  {/* <div className="flex flex-col " >
+                    <span className="font-bold text-lg" >Application Mapping</span>
+                    <span className="font-bold text-lg" >Application Mapping</span>
+
+                  </div> */}
+                  <div className="py-4">
+                    {
+                      dataSelectMapping.map((item) => {
+                        return (
+                          <div key={item.id} className={`p-2 mt-4`}>
+                            <div className="flex flex-col ">
+                              <h5 className="text-lg font-semibold ">{item.Title}</h5>
+                              <div>
+                                {" "}
+                                <h5 className="text-xl font-bold ">{item.amount}</h5>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+            <div className="flex flex-col " >
             <span className="font-bold text-lg" >Application Mapping</span>
+                    
             </div>
-          </CardContent>
-         </Card>
-         <Card>
-          <CardContent>1</CardContent>
-         </Card>
-         <Card>
-          <CardContent>1</CardContent>
-         </Card>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>1</CardContent>
+          </Card>
         </div>
       </CardContainer>
     </div>
