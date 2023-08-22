@@ -112,7 +112,7 @@ const Index = () => {
     {
       name: 'Date',
       label: 'Camp Date',
-      type: 'text',
+      type: 'datepicker',
       required: true,
       heading: 'Location',
     },   
@@ -130,6 +130,13 @@ const Index = () => {
       required: true,
       heading: 'Location',
     },   
+    {
+      name: 'fileField',
+      label: 'Upload Image',
+      type: 'file',
+      required: false,
+      heading: 'Photo Upload'
+    },
     {
       name: 'fileField',
       label: 'Upload Image',
@@ -181,14 +188,14 @@ const Index = () => {
                       type="button"
                       className="flex items-center  p-3 rounded text-sm w-1"
                     >
-                      <span className="common-Font-Family ml-4">
+                      <span className="common-Font-Family ml-0">
                         <Tippy content="back">
                           <MdArrowBackIos size={20} />
                         </Tippy>
                       </span>
                     </button>
                     <div className="col-start-5 col-end-8">
-                      <span className="heading-Font-Family text-sm md:text-xl font-bold whitespace-nowr1" style={{ fontWeight: '700' }}>
+                      <span className="heading-Font-Family text-lg md:text-xl font-bold whitespace-prewrap flex text-center">
                         {t("Details of the Awareness & Outreach Camp")}
                       </span>
                     </div>
