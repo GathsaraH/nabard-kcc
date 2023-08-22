@@ -134,7 +134,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
                         {/* BEGIN TOP NAVBAR */}
                         <Header />
                         {/* END TOP NAVBAR */}
-                        <div className={`${animation} animate__animated p-6`}>
+                        <div className={`${animation} animate__animated py-6 px-1 md:px-6`}>
                             {children}
                             {/* BEGIN FOOTER */}
                             <Footer />

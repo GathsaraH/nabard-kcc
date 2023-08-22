@@ -16,6 +16,8 @@ import { HrTag } from "src/constants/ResponsiveClassName";
 import CardContainer from "../Card/CardContainer";
 import ImageUploader from "../Input/ImageUploader/ImageUploader";
 import { AiOutlineDown } from "react-icons/ai";
+import DatePickerInput from "../Input/DatePicker/DatePickerInput";
+import { validateField } from "./FormValidation";
 
 
 
@@ -89,6 +91,35 @@ const DefaultForm = ({
     initialFormData[field.name] = "";
     initialErrors[field.name] = "";
   });
+  const handleDateChange = (name, date) => {
+    // Set the form data for the changed field
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: date,
+    }));
+
+    // Clear the error message for the field
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+
+    // If "Reporting Period To" field is changing, perform validation
+    if (name === "ReportingPeriodTo") {
+      const fromValue = formData.ReportingPeriodFrom;
+      if (fromValue && date && date < fromValue) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          ReportingPeriodTo: "Reporting Period To cannot be before Reporting Period From.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          ReportingPeriodTo: "",
+        }));
+      }
+    }
+  };
 
   const handleChange = (e) => {
     // const { name, value } = e.target;
@@ -115,43 +146,14 @@ const DefaultForm = ({
     }));
 
     // onChange && onChange(name, newValue);
-  };
-
-  const validateField = (name, value) => {
-    const field = fields.find((f) => f.name === name);
-
-    if (
-      field?.required &&
-      (!value || (typeof value === "string" && value.trim() === ""))
-    ) {
-      return `${field.label} is required.`;
-    }
-
-    if (
-      field?.minLength &&
-      typeof value === "string" &&
-      value.length < field.minLength
-    ) {
-      return `${field.label} must be at least ${field.minLength} characters long.`;
-    }
-
-    if (
-      field?.maxLength &&
-      typeof value === "string" &&
-      value.length > field.maxLength
-    ) {
-      return `${field.label} must not exceed ${field.maxLength} characters.`;
-    }
-
-    return "";
-  };
+  };  
 
   const validateForm = () => {
     let formIsValid = true;
     const newErrors = {};
 
     fields.forEach((field) => {
-      const error = validateField(field.name, formData[field.name]);
+      const error = validateField(field.name, formData[field.name],fields);
       newErrors[field.name] = error;
       if (error) {
         formIsValid = false;
@@ -343,6 +345,12 @@ const DefaultForm = ({
                       onChange={handleChange}
                       variant="outlined"
 
+                    />
+                  ) : field.type === "datepicker" ? (
+                    <DatePickerInput
+                      value={formData[field.name] || null}
+                      label={field.label}
+                      onChange={(date) => handleDateChange(field.name, date)}
                     />
                   ) : (
                     <TextField

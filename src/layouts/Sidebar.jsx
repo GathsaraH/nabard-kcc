@@ -177,7 +177,7 @@ const Sidebar = () => {
 
 
       return (
-        <li className={`mb-1 flex items-center py-3 px-7 font-extrabold ${isActive}  hover:text-white ${isActive ? "hover:bg-primary" : "hover:bg-svg-background"}`}>
+        <li onClick={goToPage} className={`mb-1 flex items-center py-3 px-7 font-extrabold cursor-pointer ${isActive}  hover:text-white ${isActive ? "hover:bg-primary" : "hover:bg-svg-background"}`}>
           <svg
             className="hidden h-5 w-4 flex-none"
             viewBox="0 0 24 24"
@@ -192,11 +192,12 @@ const Sidebar = () => {
           <div className="flex items-center">
             {menuOption.icon}
             <span className="ml-5" >
-            <button onClick={goToPage} >  {menuOption.title}</button>
+              {menuOption.title}
             </span>{" "}
             {/* main */}
           </div>
         </li>
+
       );
     }
 
