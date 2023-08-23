@@ -12,7 +12,7 @@ import QuickLinkSection from "./Sections/QuickLinkSection";
 import { ColorConstants } from "src/constants/ColorConstants";
 import LandingPageLayout from "src/layouts/LandingPageLayout";
 
-function showShapeUp() {
+export function showShapeUp() {
   return (
     <div className="absolute flex -mt-6 sm:-mt-16 md:-mt-16 lg:-mt-20 xl:-mt-28 animate__animated animate__slideInDown">
       <div className="text-center">
@@ -22,7 +22,7 @@ function showShapeUp() {
   );
 }
 
-function showShapeDown(color) {
+export function showShapeDown(color) {
   return (
     <div className="absolute flex -mt-0 sm:-mt-0 md:-mt-0 lg:-mt-0 xl:-mt-40">
       <div className="text-center">

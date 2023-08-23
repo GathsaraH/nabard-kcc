@@ -4,6 +4,9 @@ import { formatIndianNumber } from 'src/hooks/NumberSystem/useIndianFormatHook';
 
 import LandingPageLayout from 'src/layouts/LandingPageLayout';
 import FirstSection from './Sections/FirstSection';
+import {showShapeDown} from "../landing-page";
+import {ColorConstants} from "../../constants/ColorConstants";
+import QuickLinkSection from "../landing-page/Sections/QuickLinkSection";
 
 const selectOptions = [
     { value: '1', label: 'KCC - Crop - Small Farmer' },
@@ -23,7 +26,7 @@ const Index = () => {
 
 
     function statusBox(item) {
-        
+
         return (
             <div className={`panel h-4/5 w-full sm:w-3/4 border border-solid border-2 p-4 border-[#EEF2F0]`}>
                 <div className="mb-5 flex flex-col justify-between dark:text-white-light">
@@ -42,38 +45,42 @@ const Index = () => {
 
 
     return (
-        <div className='py-5 px-5' >
-            <div className='w-full p-5' >
-                <div className="flex space-x-2 rtl:space-x-reverse">
-                    <span className='font-bold text-xl ' >Dashboard</span>
+        <>
+            <div className='py-5 px-5' >
+                <div className='w-full p-5' >
+                    <div className="flex space-x-2 rtl:space-x-reverse">
+                        <span className='font-bold text-xl ' >Dashboard</span>
 
-                </div>
-                <div className="pt-5">
-                    <div className=" grid sm:grid-cols-2 lg:grid-cols-4">
-                        {
-                            statusData.map((item) => {
-                                return (
-                                    <div key={item.id}>
-                                        {statusBox(item)}
-                                    </div>
-                                )
-                            })
-                        }
                     </div>
-                </div>
-                <div className="pt-5">
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-6">
-                    <span className='font-bold text-lg mt-1' >Select Performance View </span>
-                        <div className='mt-5 sm:mt-0' >
-                            <SelectInput onChange={handlePerformanceView} value={performanceView} wdith={"100%"} label="KCC - Crop - Small Farmer" options={selectOptions} /> 
+                    <div className="pt-5">
+                        <div className=" grid sm:grid-cols-2 lg:grid-cols-4">
+                            {
+                                statusData.map((item) => {
+                                    return (
+                                        <div key={item.id}>
+                                            {statusBox(item)}
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
-                </div>
-                <div className="pt-5">
-                   <FirstSection/>
+                    <div className="pt-5">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-6">
+                            <span className='font-bold text-lg mt-1' >Select Performance View </span>
+                            <div className='mt-5 sm:mt-0' >
+                                <SelectInput onChange={handlePerformanceView} value={performanceView} wdith={"100%"} label="KCC - Crop - Small Farmer" options={selectOptions} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="pt-5">
+                        <FirstSection/>
+                    </div>
                 </div>
             </div>
-        </div>
+            {showShapeDown(ColorConstants.primaryColor)}
+            <QuickLinkSection />
+        </>
     )
 }
 
